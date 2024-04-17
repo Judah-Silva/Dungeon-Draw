@@ -7,24 +7,25 @@ using UnityEngine.EventSystems;
 public class DeckController : MonoBehaviour
 {
 	private Renderer rend;
+	private MeshRenderer meshRend;
 
 	public Color hoverColor;
 
 	public Color startColor;
 
 	public HandController hand;
-	//public GameObject[] Deck;
 	public Stack<GameObject> deck;
-	//public List<GameObject> lDeck;
 	public GameObject card;
 	public float cardSize = .2f;
+	public int startingCardAmountInDeck = 12;
 	
     // Start is called before the first frame update
     void Start()
     {
 	    rend = GetComponent<Renderer>();
+	    meshRend = GetComponent<MeshRenderer>();
 	    deck = new Stack<GameObject>();
-	    for (int i = 0; i < 12; i++)
+	    for (int i = 0; i < startingCardAmountInDeck; i++)
 	    {
 		    
 		    deck.Push((GameObject)Instantiate(card, transform.position, transform.rotation));
@@ -38,12 +39,13 @@ public class DeckController : MonoBehaviour
     {
 	    if (deck.Count == 0)
 	    {
-		    
+		    meshRend.enabled = false;
 	    }
 	    else
 	    {
-		    
+		    //meshRend.enabled = true;
 	    }
+	    
     }
     
     void OnMouseDown ()

@@ -70,6 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3372844598844058755, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
+    - {fileID: 928339432267963412, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -94,3 +95,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b7e8545d44c4da994a1844b65964eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverColor: {r: 0, g: 0, b: 0, a: 0}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  hand: {fileID: 0}
+  card: {fileID: 0}
+  cardSize: 0.2
+  startingCardAmountInDeck: 12
