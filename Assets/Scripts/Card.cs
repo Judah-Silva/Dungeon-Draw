@@ -7,16 +7,12 @@ public class Card : MonoBehaviour
 {
     public Color c;
     private Renderer rend;
-    private Animator anim;
     public float moveAmount = 1;
-    public bool selected = false;
-    public bool played = false;
     
     // Start is called before the first frame update
     void Start()
     {
         rend = GetComponent<Renderer>();
-        anim = GetComponent<Animator>();
         RandomColor();
         //Debug.Log("Activating");
     }
@@ -37,12 +33,8 @@ public class Card : MonoBehaviour
     }
     void OnMouseDown ()
         	{
-		        if (!selected)
-			        anim.SetBool("Selected", true);
-		        else
-			        anim.SetBool("Selected", false);
-		        selected = !selected;
-	        }
+		        
+    	    }
         
         void OnMouseEnter ()
         {
@@ -50,16 +42,12 @@ public class Card : MonoBehaviour
 	        c.g -= .1f;
 	        c.b -= .1f;
     		    rend.material.color = c;
-		        
-		        //My weird attempt at a card hover animation
-		       if (!selected) 
-			        for (float i = moveAmount; i > 0; i -= .01f)
-			        {
-				        //transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
-				        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
-					        transform.localPosition.z - i);
-			        }
-		        
+		        for (float i = moveAmount; i > 0; i-=.01f)
+		        {
+			        //transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
+			        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
+				        transform.localPosition.z);
+		        }
         }
         
         	void OnMouseExit ()
@@ -68,15 +56,24 @@ public class Card : MonoBehaviour
 				c.g += .1f;
 				c.b += .1f;
     		    rend.material.color = c;
-		        
-		        //moves the card back into the hand
-		        if (!selected)
+		        for (float i = moveAmount; i > 0; i-=.01f)
 		        {
-			        for (float i = moveAmount; i > 0; i -= .01f)
-			        {
-				        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i,
-					        transform.localPosition.z + i);
-			        }
+			        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i,
+                    				        transform.localPosition.z);
 		        }
-	        }
+            }
+    public static void PlayCard(GameObject card)
+    {
+        Discard.currentSize++;
+        Hand.currentSize--;
+        
+        // do card effect
+        
+        Destroy(card);
+
+        if (Hand.currentSize == 0)
+        {
+            Draw.DrawFromPile();
+        }
+    }
 }
