@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     
     void Start()
     {
-        targetingManager = Targeting.instance;
+        targetingManager = Targeting.Instance;
     }
 
     private void OnMouseDown()

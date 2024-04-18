@@ -6,7 +6,7 @@ using UnityEngine;
 public class Targeting : MonoBehaviour
 {
     // Define one instance for other scripts to use
-    public static Targeting instance;
+    public static Targeting Instance { get; private set; }
     
     private Card _card;
     
@@ -15,7 +15,14 @@ public class Targeting : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     public void SetCard(Card card)

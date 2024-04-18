@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator EnemyTurn()
     {
-        yield return new WaitForSeconds(1f); //TODO: Replace with enemy turn logic
+        yield return new WaitForSeconds(2.5f); //TODO: Replace with enemy turn logic
         EndTurn();
     }
 }

@@ -9,7 +9,7 @@ public class Card : MonoBehaviour
 
     void Start()
     {
-        targetingManager = Targeting.instance;
+        targetingManager = Targeting.Instance;
     }
     
     public void SetCard()
