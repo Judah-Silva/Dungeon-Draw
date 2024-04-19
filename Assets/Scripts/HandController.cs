@@ -1,37 +1,32 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-    public List<GameObject> CurrentHand; 
-    public Transform RightBound;
-    public Transform LeftBound;
-    public int cardAmount;
-    private static float cardWidth = .5f;
+    public Transform startPos;
+    public Transform endPos;
+    public int posNum = 5;
 
+    public static List<GameObject> positionsList = new List<GameObject>();
+    
+    // Start is called before the first frame update
     void Start()
     {
-        CurrentHand = new List<GameObject>();
-    }
+        float stepSize = 1.0f / (posNum + 1); // create spacing
 
-    private void Update()
-    {
-        
-    }
-
-    public void UpdateHand()
-    {
-        cardAmount = CurrentHand.Count;
-        float offset = (RightBound.position.x - LeftBound.position.x) / cardAmount;
-        float bounds = (RightBound.position.x - LeftBound.position.x) /(cardAmount+1);
-        for (int i = 0; i < cardAmount; i++) 
+        for (int i = 0; i <= posNum; i++)
         {
-            // CurrentHand[i].transform.position = new Vector3(LeftBound.position.x+(offset*i)+cardWidth, LeftBound.position.y, LeftBound.position.z); 
-           CurrentHand[i].transform.position = new Vector3(LeftBound.position.x+(bounds*i)+cardWidth, LeftBound.position.y, LeftBound.position.z);  
-            CurrentHand[i].transform.eulerAngles = new Vector3(LeftBound.eulerAngles.x, LeftBound.eulerAngles.y - 3, LeftBound.eulerAngles.z);
-        
+            float t = i * stepSize;
+            Vector3 interpolatedPos = Vector3.Lerp(startPos.position, endPos.position, t);
+            Quaternion interpolatedRot = Quaternion.Slerp(startPos.rotation, endPos.rotation, t);
+
+            // Create a new GameObject at the interpolated position
+            GameObject newObj = new GameObject("spawnPoint" + i);
+            newObj.transform.position = interpolatedPos;
+            newObj.transform.rotation = interpolatedRot;
+
+            positionsList.Add(newObj);
         }
     }
 }

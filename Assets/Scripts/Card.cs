@@ -10,7 +10,31 @@ public class Card : MonoBehaviour
     private Animator anim;
     public float moveAmount = 1;
     public bool selected = false;
-    public bool played = false;
+
+    public GameObject card;
+
+
+    public int cardID;
+    
+    
+    // Constructor to initialize card properties
+    public Card(int id)
+    {
+	    cardID = id;
+    }
+    
+    // Method to set card properties
+    public void SetCardProperties(int id)
+    {
+	    cardID = id;
+    }
+
+    public int getCardID()
+    {
+	    return cardID;
+    }
+
+    
     
     // Start is called before the first frame update
     void Start()
@@ -21,12 +45,6 @@ public class Card : MonoBehaviour
         //Debug.Log("Activating");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void RandomColor()
     {
         c.r = Random.Range(0f, 1f);
@@ -35,62 +53,57 @@ public class Card : MonoBehaviour
         //Debug.Log(c.r + " " + c.g +  " "+ c.b);
         rend.material.color = c;
     }
-    void OnMouseDown ()
-        	{
-		        if (!selected)
-			        anim.SetBool("Selected", true);
-		        else
-			        anim.SetBool("Selected", false);
-		        selected = !selected;
-	        }
+
+    void OnMouseDown()
+    {	
+	    PlayCard(card);
+	}
         
-        void OnMouseEnter ()
-        {
-	        c.r -= .1f;
-	        c.g -= .1f;
-	        c.b -= .1f;
-    		    rend.material.color = c;
+	void OnMouseEnter ()
+	{
+		c.r -= .1f;
+		c.g -= .1f;
+		c.b -= .1f;
+		rend.material.color = c;
 		        
-		        //My weird attempt at a card hover animation
-		       if (!selected) 
-			        for (float i = moveAmount; i > 0; i -= .01f)
-			        {
-				        //transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
-				        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
-					        transform.localPosition.z - i);
-			        }
+		//My weird attempt at a card hover animation
+		if (!selected) 
+			for (float i = moveAmount; i > 0; i -= .01f)
+			{
+				//transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
+				transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
+					transform.localPosition.z - i);
+			}
 		        
-        }
+	}
         
-        	void OnMouseExit ()
-        	{
-		        c.r += .1f;
-				c.g += .1f;
-				c.b += .1f;
-    		    rend.material.color = c;
+	void OnMouseExit ()
+	{
+		c.r += .1f;
+		c.g += .1f;
+		c.b += .1f;
+		rend.material.color = c;
 		        
-		        //moves the card back into the hand
-		        if (!selected)
-		        {
-			        for (float i = moveAmount; i > 0; i -= .01f)
-			        {
-				        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i,
-					        transform.localPosition.z + i);
-			        }
-		        }
-	        }
-	        public static void PlayCard(GameObject card)
-                {
-                    Discard.currentSize++;
-                    Hand.currentSize--;
-                    
-                    // do card effect
-                    
-                    Destroy(card);
-            
-                    if (Hand.currentSize == 0)
-                    {
-                        Draw.DrawFromPile();
-                    }
-                }
+		//moves the card back into the hand
+		if (!selected)
+		{
+			for (float i = moveAmount; i > 0; i -= .01f)
+			{
+				transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i, 
+					transform.localPosition.z + i);
+			}
+		}
+	}
+	
+	public void PlayCard(GameObject card)
+	{
+		Debug.Log(cardID);
+		
+		// do card effect here
+		
+		Discard.DiscardPile.Add(cardID);
+		// Debug.Log("discard = " + Discard.DiscardPile[0]);
+		
+		Destroy(card);
+	}
 }
