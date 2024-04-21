@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5196017720289934400
+--- !u!1001 &2274477776584788494
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,23 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_Name
-      value: Deck Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0973072
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.7400001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5486536
+      value: Discard
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: 6.05
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -64,38 +52,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3372844598844058755, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-    - {fileID: 928339432267963412, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
     - {fileID: -644211229620769882, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 634847788993848375}
+      addedObject: {fileID: 8159143973707448395}
   m_SourcePrefab: {fileID: 100100000, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
---- !u!1 &216091514894562250 stripped
+--- !u!1 &6157777472698664324 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-  m_PrefabInstance: {fileID: 5196017720289934400}
+  m_PrefabInstance: {fileID: 2274477776584788494}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &634847788993848375
+--- !u!114 &8159143973707448395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216091514894562250}
+  m_GameObject: {fileID: 6157777472698664324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1dd73df1f910c4d8742364b4302e78, type: 3}
+  m_Script: {fileID: 11500000, guid: 010b462749ff5164bb0e8defc4e2d211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckSize: 0
-  cardPrefab: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-  spawnPoint: {fileID: 0}
