@@ -1,24 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class Discard : MonoBehaviour
 {
-    public static int currentSize;
-    public int startSize = 0;
-
-    public TextMeshProUGUI sizeText;
+    public static List<int> DiscardPile;
     
     // Start is called before the first frame update
     void Start()
     {
-        currentSize = startSize;
+        DiscardPile = new List<int>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        sizeText.text = currentSize.ToString();
+        int size = DiscardPile.Count;
+        for (int i = 0; i < size; i++)
+        {
+            Debug.Log("Discard at i = " + DiscardPile[i]);
+        }
     }
 }
