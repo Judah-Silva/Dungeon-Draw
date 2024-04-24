@@ -6,11 +6,10 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    public static List<int> DeckPile;
+    private static List<int> DeckPile;
     public int deckSize = 0;
 
     public GameObject cardPrefab;
-    public Transform spawnPoint;
     
     // Start is called before the first frame update
     void Start()
