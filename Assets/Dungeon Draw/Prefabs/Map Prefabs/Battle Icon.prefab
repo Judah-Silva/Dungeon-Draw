@@ -120,8 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e5d0d9a1665f4498a3967e7a98f3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleScene: BattleScene
+  battleScene: test event
   shopScene: ShopScene
   restScene: RestSpotScene
   eventScene: EventScene
   mapManager: {fileID: 2158966770164983228, guid: 9520fda63b5b3f2438747ee179007fb5, type: 3}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

@@ -8,6 +8,7 @@ TagManager:
   - shop
   - rest
   - event
+  - boss
   layers:
   - Default
   - TransparentFX

@@ -126,3 +126,6 @@ MonoBehaviour:
   shopIcon: {fileID: 8111152860720398002, guid: 551735ba1691df247b720af35ef8abbe, type: 3}
   restIcon: {fileID: 5362798339639954827, guid: 0074bc1d71d24c3419fd1f5506e0e4db, type: 3}
   eventIcon: {fileID: 5503282126716121162, guid: 7b45e03d366e82145bb9c37714108a22, type: 3}
+  bossIcon: {fileID: 5645111069454805375, guid: 3a8e61ae8473bd94e9abc9e85145afc5, type: 3}
+  disabledIcon: {fileID: 8446352288383443004, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
+  columns: 7

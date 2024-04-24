@@ -12,16 +12,10 @@ EditorBuildSettings:
     path: Assets/Dungeon Draw/Scenes/MapSelect.unity
     guid: e33f7afbc02cb5241a202935a8fb31c9
   - enabled: 1
-    path: Assets/Dungeon Draw/Scenes/BattleScene.unity
-    guid: d1298abe59bb1e441ac934ea6e4ca10c
+    path: Assets/Dungeon Draw/Scenes/Credits.unity
+    guid: 4e974e7933663ec4e8574f932ba0fbf5
   - enabled: 1
-    path: Assets/Dungeon Draw/Scenes/EventScene.unity
-    guid: 9642e09f7573d56458c5b14525fe94b7
-  - enabled: 1
-    path: Assets/Dungeon Draw/Scenes/RestSpotScene.unity
-    guid: bb4025f4b4dbee748b0bc8a8a5b4cc56
-  - enabled: 1
-    path: Assets/Dungeon Draw/Scenes/ShopScene.unity
-    guid: 4dc438853c72d3c48b31974cfb93c3d4
+    path: Assets/Dungeon Draw/Scenes/test event.unity
+    guid: 689e825e01ae1914f95408204759eea9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

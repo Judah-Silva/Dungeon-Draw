@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,15 @@ public class IconManager : MonoBehaviour
 
     public MapManager mapManager;
 
+    public Color disabledColor = Color.gray;
     private bool wasClicked = false;
-    
+    private Renderer rend;
+
+    private void Start()
+    {
+        rend = GetComponent<Renderer>();
+    }
+
     private void OnMouseDown()
     {
         if (wasClicked)
@@ -25,38 +33,46 @@ public class IconManager : MonoBehaviour
         if (gameObject.CompareTag("battle"))
         {
             Debug.Log("battle engaged");
-            mapManager.SpawnIcons(gameObject.transform.position);
-            // SceneManager.LoadScene(battleScene);
+            // LevelTracker.levelsVisited++;
+            SceneManager.LoadScene(battleScene);
         }
         else if (gameObject.CompareTag("shop"))
         {
             Debug.Log("shop entered");
-            mapManager.SpawnIcons(gameObject.transform.position);
-            // SceneManager.LoadScene(shopScene);
+            // LevelTracker.levelsVisited++;
+            SceneManager.LoadScene(shopScene);
         }
         else if (gameObject.CompareTag("rest"))
         {
             Debug.Log("resting");
-            mapManager.SpawnIcons(gameObject.transform.position);
-            // SceneManager.LoadScene(restScene);
+            // LevelTracker.levelsVisited++;
+            SceneManager.LoadScene(restScene);
         }
         else if (gameObject.CompareTag("event"))
         {
             Debug.Log("event triggered");
-            mapManager.SpawnIcons(gameObject.transform.position);
-            // SceneManager.LoadScene(eventScene);
+            // LevelTracker.levelsVisited++;
+            SceneManager.LoadScene(eventScene);
+        } 
+        else if (gameObject.CompareTag("boss"))
+        {
+            Debug.Log("loading boss...");
+            return; // to prevent boss icon from being disabled (probably temporary)
         }
         else
         {
             Debug.Log("this icon doesn't exist");
         }
 
-        DisableIcons();
+        LevelTracker.IncrementLevelsVisited();
+        DisableIcons(); // probably not necessary anymore but idk
     }
 
     private void DisableIcons()
     {
         wasClicked = true;
+        rend.material.color = disabledColor;
+        
         float checkDist = 5f;
 
         // check for icons above
