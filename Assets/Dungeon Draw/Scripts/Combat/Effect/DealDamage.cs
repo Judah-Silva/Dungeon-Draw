@@ -1,12 +1,19 @@
-public class DealDamage
+public class DealDamage : Effect
 {
-    public int damage;
-    public DealDamage(int damage)
+    private readonly int _damage;
+    
+    public DealDamage(int nbTurns, int damage) : base(nbTurns)
     {
-        this.damage = damage;
+        _damage = damage;
     }
-    public void ApplyEffect(Entity entity)
+    
+    public DealDamage(int nbTurns, Entity entity, int damage) : base(nbTurns, entity)
     {
-        entity.TakeDamage(damage);
+        _damage = damage;
+    }
+
+    protected override void PlayEffect()
+    {
+        Entity.TakeDamage(_damage);
     }
 }

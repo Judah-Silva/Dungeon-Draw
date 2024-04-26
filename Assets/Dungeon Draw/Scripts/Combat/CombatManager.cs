@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public List<Entity> entities = new List<Entity>();
+    public List<Entity> enemies = new List<Entity>();
     
-
     /*
     Use StartFight() to start the fight
     It waits for the player to play first if PlayerPlayFirst is true
@@ -50,10 +49,24 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Fight started");
         IsPlayerTurn = PlayerPlayFirst;
+        
+        //TODO: Remove (for testing purposes only)
+        CardStats[] cards =
+        {
+            new CardStats("Attack", CardType.Attack, CardRarity.Common, 1, new List<Effect> {new DealDamage(1, 5)}),
+            
+        };
+        enemies.Add(new Entity(10));
+        enemies[0].ApplyCard(cards[0]);
     }
 
     public void EndTurn()
     {
+        foreach (Entity enemy in enemies)
+        {
+            enemy.UpdateEffects();
+            Debug.Log("Enemy [" + enemy + "] health: " + enemy.Health);
+        }
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
