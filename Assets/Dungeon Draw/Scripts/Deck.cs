@@ -14,36 +14,32 @@ public class Deck : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DeckPile = new List<int>();
+        ResetDeck();
+    }
+
+    public void ResetDeck()
+    {
         DeckPile = PlayerStats.PlayerDeck;
         deckSize = DeckPile.Count;
-
         Shuffle(DeckPile);
-
-        for (int i = 0; i < deckSize; i++)
-        {
-            Debug.Log(DeckPile[i]);
-        }
     }
 
-    private void OnMouseDown()
+    public GameObject DrawCard()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject spawn = HandController.positionsList[i];
-            DrawCard(spawn);
-        }
-    }
-
-    void DrawCard(GameObject location)
-    {
-        GameObject newCard = Instantiate(cardPrefab, location.transform.position, Quaternion.identity);
+        GameObject newCard = Instantiate(cardPrefab);
+        newCard.SetActive(false);
+        
         Card cardComponent = newCard.GetComponent<Card>();
         cardComponent.SetCardProperties(DeckPile[0]);
 
         DeckPile.RemoveAt(0);
+        deckSize--;
         // Debug.Log("pile count = " + DeckPile.Count);
         // Debug.Log(DeckPile[0]);
         // int index = i++;
+
+        return newCard;
     }
 
     void Shuffle<T>(List<T> list)
