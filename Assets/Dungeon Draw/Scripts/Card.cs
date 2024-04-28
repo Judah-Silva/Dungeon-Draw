@@ -82,26 +82,26 @@ public class Card : MonoBehaviour
     }
     void Start()
     {
-        rend = GetComponent<Renderer>();
-         anim = GetComponent<Animator>();
-         RandomColor();
-         //Debug.Log("Activating");
+		rend = GetComponent<Renderer>();
+		anim = GetComponent<Animator>();
+		RandomColor();
+	    //Debug.Log("Activating");
         targetingManager = Targeting.Instance;
     }
     
-    public void SetCard()
+    public void OnMouseDown()
     {
         targetingManager.SetCard(this);
-        // Debug.Log("event triggered");
     }
 
     // Need PlayCard to not be static
     // PlayCard should take the targets in as a parameter
-    public void PlayCard(GameObject card)
+    public void PlayCard()
     {
         // Discard.currentSize++;
         Discard.DiscardPile.Add(cardID);
         // Hand.currentSize--;
+        HandController.RemoveCard(this);
         
         // do card effect
         
@@ -109,6 +109,5 @@ public class Card : MonoBehaviour
         
         // Should destroy this.gameObject, so that card does not need to be passed in
         Destroy(card);
-
     }
 }

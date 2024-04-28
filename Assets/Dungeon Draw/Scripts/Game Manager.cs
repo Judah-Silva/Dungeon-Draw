@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
             Debug.Log(_isPlayerTurn ? "Player turn" : "Enemy turn"); 
         }
     }
-    
+
+    private HandController _handController;
+    private Deck _deck;
     private void Awake()
     {
         if (Instance == null)
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _handController = GetComponent<HandController>();
+        _deck = GetComponent<Deck>();
         StartFight();
     }
 
@@ -48,15 +52,33 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Fight started");
         IsPlayerTurn = PlayerPlayFirst;
+        PlayerTurn();
     }
     
     public void EndTurn()
     {
+        if (_deck.deckSize == 0)
+        {
+            _deck.ResetDeck();
+        }
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
             StartCoroutine(EnemyTurn());
         }
+        else
+        {
+            PlayerTurn();
+        }
+    }
+
+    private void PlayerTurn()
+    {
+        // Debug.Log("Hand draw");
+        StartCoroutine(_handController.DrawHand());
+        // Debug.Log("Hand done drawing");
+        // StopCoroutine(_handController.DrawHand());
+        // Card targeting and functionality takes over
     }
     
     private IEnumerator EnemyTurn()
