@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    private static List<int> DeckPile;
+    public static List<int> DeckPile;
     public int deckSize = 0;
 
     public GameObject cardPrefab;
