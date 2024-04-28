@@ -101,10 +101,9 @@ public class Card : MonoBehaviour
     {
         // Discard.currentSize++;
         Discard.DiscardPile.Add(cardID);
-        
         // Hand.currentSize--;
-        // do card effect
         
+        // do card effect
         
         Debug.Log("Card played");
         

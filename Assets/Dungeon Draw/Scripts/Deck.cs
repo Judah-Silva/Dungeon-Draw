@@ -10,7 +10,6 @@ public class Deck : MonoBehaviour
     public int deckSize = 0;
 
     public GameObject cardPrefab;
-    public Transform spawnPoint;
     
     // Start is called before the first frame update
     void Start()

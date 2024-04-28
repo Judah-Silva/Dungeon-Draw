@@ -8,33 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4358926476961250444, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a712a7d3b44398b4a9334ae1df7f559d, type: 2}
     - target: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_Name
       value: Deck Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0973072
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.7400001
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.5486536
-      objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.46
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -64,27 +56,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8410642866474033587, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 3372844598844058755, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-    - {fileID: 928339432267963412, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-    - {fileID: -644211229620769882, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
+    - {fileID: 5603384810539091031, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 634847788993848375}
+      addedObject: {fileID: 2793767998750760139}
   m_SourcePrefab: {fileID: 100100000, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
 --- !u!1 &216091514894562250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
   m_PrefabInstance: {fileID: 5196017720289934400}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &634847788993848375
+--- !u!114 &2793767998750760139
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,4 +84,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckSize: 0
   cardPrefab: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-  spawnPoint: {fileID: 0}
