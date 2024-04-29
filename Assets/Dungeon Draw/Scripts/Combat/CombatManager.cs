@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,6 +51,7 @@ public class CombatManager : MonoBehaviour
         StartFight();
     }
 
+
     public void StartFight()
     {
         Debug.Log("Fight started");
@@ -61,8 +63,13 @@ public class CombatManager : MonoBehaviour
         //     new CardStats("Attack", CardType.Attack, CardRarity.Common, 1, new List<Effect> {new DealDamage(1, 5)}),
         //     
         // };
-        enemies.Add(new Entity(10));
-        // enemies[0].ApplyCard(cards[0]);
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (GameObject gameObject in enemyObjects) 
+        {
+            enemies.Add(gameObject.GetComponent<Entity>());
+        }
+        
+        PlayerTurn();
     }
     
     private void PlayerTurn()
@@ -90,7 +97,6 @@ public class CombatManager : MonoBehaviour
             PlayerTurn();
         }
     }
-    
     
 
     private IEnumerator EnemyTurn()
