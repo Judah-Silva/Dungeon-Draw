@@ -60,27 +60,5 @@ PrefabInstance:
     - {fileID: 5603384810539091031, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2793767998750760139}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
---- !u!1 &216091514894562250 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
-  m_PrefabInstance: {fileID: 5196017720289934400}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2793767998750760139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 216091514894562250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1dd73df1f910c4d8742364b4302e78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deckSize: 0
-  cardPrefab: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}

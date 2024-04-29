@@ -22,6 +22,12 @@ public class Entity : MonoBehaviour
         }
 
     }
+    
+    public Entity(int health)
+    {
+        currentHP = health;
+        maxHP = health;
+    }
 
     public int getHP()
     {
@@ -48,6 +54,10 @@ public class Entity : MonoBehaviour
             entityEffectArray[0] -= damage;
         }
 
+        if (currentHP <= 0)
+        {
+            die();
+        }
         return currentHP;
     }
 
@@ -55,5 +65,11 @@ public class Entity : MonoBehaviour
     {
         entityEffectArray[0] += givenBlock;
         return entityEffectArray[0];
+    }
+    
+    public void die()
+    {
+        CombatManager.Instance.enemies.Remove(this); //we can't do this because we're iterating over the list
+        //TODO: Add death animation
     }
 }

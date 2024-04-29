@@ -76,8 +76,6 @@ public class GameManager : MonoBehaviour
     {
         // Debug.Log("Hand draw");
         StartCoroutine(_handController.DrawHand());
-        // Debug.Log("Hand done drawing");
-        // StopCoroutine(_handController.DrawHand());
         // Card targeting and functionality takes over
     }
     
