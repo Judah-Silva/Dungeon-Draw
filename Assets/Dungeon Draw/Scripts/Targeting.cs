@@ -45,7 +45,7 @@ public class Targeting : MonoBehaviour
         {
             _enemy = enemy;
             // Add checks for if card has multiple targets
-            _card.PlayCard(_card.gameObject);
+            _card.PlayCard();
             Debug.Log($"Card played on {enemy.name}");
         }
         else

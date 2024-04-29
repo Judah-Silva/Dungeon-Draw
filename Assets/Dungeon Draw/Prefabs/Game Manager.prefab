@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b624c28bc1f61448ba58f8e622dd132, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck: 12
 --- !u!114 &7202376072444443608
 MonoBehaviour:
   m_ObjectHideFlags: 0

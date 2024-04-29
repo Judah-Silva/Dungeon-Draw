@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static int DeckSize;
-    public int deck = 10;
+    public static int TotalDeckSize = 12;
+    public static int HandSize = 5;
+    public static List<int> PlayerDeck;
     
     void Start()
     {
-        DeckSize = deck;
+        PlayerDeck = new List<int>();
+        for (int i = 0; i < TotalDeckSize; i++)
+        {
+            PlayerDeck.Add(i);
+        }
+        // Debug.Log(PlayerDeck == null);
     }
 }
