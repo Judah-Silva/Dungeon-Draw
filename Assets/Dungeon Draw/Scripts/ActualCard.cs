@@ -60,9 +60,9 @@ public class ActualCard : MonoBehaviour
         init(cardInfo);
     }
 
-    public void CreateNewCard()
+    public void CreateNewCard(int cardId)
     {
-        init(CardDataBase.getCard(0));
+        init(CardDataBase.getCard(cardId));
     }
 
     private void init(List<int> cardInfo)

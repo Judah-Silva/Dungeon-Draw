@@ -44,7 +44,7 @@ public class HandController : MonoBehaviour
             float spaceTaken = (hand.Count * cardWidth) + ((hand.Count - 1) * spacing);
             float leftStart = (-spaceTaken / 2) + cardWidth / 2;
 
-            foreach (Card c in hand)
+            foreach (ActualCard c in hand)
             {
                 c.transform.position = new Vector3(leftStart, center.y, center.z);
                 leftStart += cardWidth + spacing;

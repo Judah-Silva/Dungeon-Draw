@@ -29,7 +29,7 @@ public class Entity : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _cardManager.SetTarget(this);
+        _cardManager.SetTarget(this.gameObject);
     }
 
     public void init(int health)

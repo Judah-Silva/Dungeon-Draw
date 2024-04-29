@@ -31,7 +31,7 @@ public class Deck : MonoBehaviour
         newCard.SetActive(false);
         
         ActualCard cardComponent = newCard.GetComponent<ActualCard>();
-        cardComponent.init(DeckPile[0]);
+        cardComponent.CreateNewCard(DeckPile[0]);
 
         DeckPile.RemoveAt(0);
         deckSize--;

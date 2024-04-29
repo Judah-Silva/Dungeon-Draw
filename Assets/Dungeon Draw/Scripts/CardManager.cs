@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class CardManager : MonoBehaviour
     
     public int maxMana = 3;
     public int currentMana;
+
+    public GameObject player;
 
     private ActualCard selectedCard;
     private GameObject selectedGameObject;
@@ -75,7 +78,7 @@ public class CardManager : MonoBehaviour
 
         // If all of these are good, run the cards dealBlocks
 
-        selectedCard.dealBlocks(selectedGameObject);
+        selectedCard.dealBlocks(player, selectedGameObject);
 
         return true;
 
