@@ -9,7 +9,7 @@ public class HandController : MonoBehaviour
     public GameObject handArea;
     public float spacing = 1f;
     
-    public static List<Card> hand = new List<Card>();
+    public static List<ActualCard> hand = new List<ActualCard>();
 
     private Deck _deck;
     private BoxCollider handAreaCollider;
@@ -32,7 +32,7 @@ public class HandController : MonoBehaviour
         Vector3 center = handAreaCollider.transform.position;
         // Debug.Log(center);
 
-        hand.Add(newCard.GetComponent<Card>());
+        hand.Add(newCard.GetComponent<ActualCard>());
         if (hand.Count == 0)
         {
             newCard.transform.position = new Vector3(center.x, center.y, center.z);
@@ -55,7 +55,7 @@ public class HandController : MonoBehaviour
 
     public IEnumerator DrawHand()
     {
-        // Debug.Log("Hand drawing");
+        Debug.Log("Hand drawing");
         while (hand.Count < PlayerStats.HandSize && _deck.deckSize > 0)
         {
             AddCardToHand();
@@ -63,7 +63,7 @@ public class HandController : MonoBehaviour
         }
     }
 
-    public static void RemoveCard(Card card)
+    public static void RemoveCard(ActualCard card)
     {
         hand.Remove(card);
     }

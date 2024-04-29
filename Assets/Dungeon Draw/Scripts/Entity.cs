@@ -1,29 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Entity : MonoBehaviour
 {
     public int maxHP;
     public int currentHP;
-    public int[] entityEffectArray = new int[10];
+    public int[] entityStatusEffectArray = new int[10];
+
+    private CardManager _cardManager;
 
     public void Start()
     {
+        _cardManager = CardManager.Instance;
         setUpEEA();
     }
 
     public void setUpEEA()
     {
 
-        for (int i = 0; i < entityEffectArray.Length; i++)
+        for (int i = 0; i < entityStatusEffectArray.Length; i++)
         {
-            entityEffectArray[i] = 0;
+            entityStatusEffectArray[i] = 0;
         }
-
     }
-    
-    public Entity(int health)
+
+    private void OnMouseDown()
+    {
+        _cardManager.SetTarget(this);
+    }
+
+    public void init(int health)
     {
         currentHP = health;
         maxHP = health;
@@ -34,24 +43,29 @@ public class Entity : MonoBehaviour
         return currentHP;
     }
 
-    public int getBlock()
+    public int getShield()
     {
-        return entityEffectArray[0];
+        return entityStatusEffectArray[0];
+    }
+
+    // Solely used by the effect class when get a modifier for dealing damage
+    public int getDamageMod() {
+        return entityStatusEffectArray[3] - entityStatusEffectArray[1];
     }
 
     public int takeDamage(int damage)
     {
 
-        int remainingDamage = getBlock() - damage;
+        int remainingDamage = getShield() - damage;
 
         if (remainingDamage > 0)
         {
             currentHP -= remainingDamage;
-            entityEffectArray[0] = 0;
+            entityStatusEffectArray[0] = 0;
         }
         else
         {
-            entityEffectArray[0] -= damage;
+            entityStatusEffectArray[0] -= damage;
         }
 
         if (currentHP <= 0)
@@ -61,10 +75,10 @@ public class Entity : MonoBehaviour
         return currentHP;
     }
 
-    public int giveBlock(int givenBlock)
+    public int giveShield(int givenShield)
     {
-        entityEffectArray[0] += givenBlock;
-        return entityEffectArray[0];
+        entityStatusEffectArray[0] += givenShield;
+        return entityStatusEffectArray[0];
     }
     
     public void die()

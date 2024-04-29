@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5535774861171883943}
   - component: {fileID: 4358926476961250444}
   - component: {fileID: 1295151628899900116}
-  - component: {fileID: 5603384810539091031}
+  - component: {fileID: -8925085340444703955}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -108,7 +108,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5603384810539091031
+--- !u!114 &-8925085340444703955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,11 +117,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5396509175230500746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ffc5b41fbed4073b9d43c9dbdb96f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7473e114b43bf8c488da838b06160f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c: {r: 0, g: 0, b: 0, a: 0}
-  moveAmount: 0
-  selected: 0
-  card: {fileID: 5396509175230500746}
+  cardName: 
   cardID: 0
+  image: 
+  manaCost: 0
+  cardVal: 0
+  rarity: 0
+  numOfEffects: 0
+  condition: 0
+  effectType: 0
+  effectVal: 0
+  offset: 5
+  cardManager: {fileID: 0}
+  Player: {fileID: 0}
+  block1: {fileID: 0}
+  block2: {fileID: 0}
+  manaCostText: {fileID: 0}
+  cardNameText: {fileID: 0}

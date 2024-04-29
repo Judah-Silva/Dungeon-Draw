@@ -30,8 +30,8 @@ public class Deck : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab);
         newCard.SetActive(false);
         
-        Card cardComponent = newCard.GetComponent<Card>();
-        cardComponent.SetCardProperties(DeckPile[0]);
+        ActualCard cardComponent = newCard.GetComponent<ActualCard>();
+        cardComponent.init(DeckPile[0]);
 
         DeckPile.RemoveAt(0);
         deckSize--;

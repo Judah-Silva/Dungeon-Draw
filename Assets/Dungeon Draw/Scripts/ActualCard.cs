@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using TMPro;
 
-public class ActualCard : ScriptableObject
+public class ActualCard : MonoBehaviour
 {
     public string cardName;
 
@@ -26,30 +27,40 @@ public class ActualCard : ScriptableObject
 
     public int offset = 5;
 
-    public CardManager cardManager;
+    private CardManager cardManager;
 
     public Block[] blockArray;
 
-    public GameObject Player;
+    private GameObject Player;
 
-    public TMP_Text block1;
+    private TMP_Text block1;
 
-    public TMP_Text block2;
+    private TMP_Text block2;
 
-    public TMP_Text manaCostText;
+    private TMP_Text manaCostText;
 
-    public TMP_Text cardNameText;
+    private TMP_Text cardNameText;
 
+    public Color c;
+    private Renderer rend;
+    private Animator anim;
+    public float moveAmount = 1;
+    private bool selected = false;
 
-
-    public ActualCard(List<int> cardInfo)
+    void Start()
     {
-
-        init(cardInfo);
-
+        rend = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
+        RandomColor();
+        cardManager = CardManager.Instance;
     }
 
-    public ActualCard()
+    public void CreateNewCard(List<int> cardInfo)
+    {
+        init(cardInfo);
+    }
+
+    public void CreateNewCard()
     {
         init(CardDataBase.getCard(0));
     }
@@ -121,16 +132,17 @@ public class ActualCard : ScriptableObject
         }
     }
 
-    //This method will be the main way to enact card effects, as it goes down the line to efffect
-    public void dealBlocks(GameObject Target)
+    //This method will be the main way to enact card effects, as it goes down the line to effect
+    public void dealBlocks(GameObject Origin, GameObject Target)
     {
 
         Entity target = Target.GetComponent<Entity>();
+        Entity origin = Origin.GetComponent<Entity>();
 
         for (int i = 0; i < blockArray.Length; i++)
         {
             Block block = blockArray[i];
-            block.dealBlock(target);
+            block.dealBlock(origin, target);
         }
     }
 
@@ -155,5 +167,53 @@ public class ActualCard : ScriptableObject
         }
     }
 
+    public void OnMouseDown()
+    {
+        cardManager.SetCard(this);
+    }
+
+    void OnMouseEnter()
+    {
+        c.r -= .1f;
+        c.g -= .1f;
+        c.b -= .1f;
+        rend.material.color = c;
+
+        //My weird attempt at a card hover animation
+        if (!selected)
+            for (float i = moveAmount; i > 0; i -= .01f)
+            {
+                //transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
+                    transform.localPosition.z - i);
+            }
+    }
+
+    void OnMouseExit()
+    {
+        c.r += .1f;
+        c.g += .1f;
+        c.b += .1f;
+        rend.material.color = c;
+
+        //moves the card back into the hand
+        if (!selected)
+        {
+            for (float i = moveAmount; i > 0; i -= .01f)
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i,
+                    transform.localPosition.z + i);
+            }
+        }
+    }
+
+    void RandomColor()
+    {
+        c.r = Random.Range(0f, 1f);
+        c.g = Random.Range(0f, 1f);
+        c.b = Random.Range(0f, 1f);
+        //Debug.Log(c.r + " " + c.g +  " "+ c.b);
+        rend.material.color = c;
+    }
 
 }

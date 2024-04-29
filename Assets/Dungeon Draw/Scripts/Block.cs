@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Block : MonoBehaviour
+public class Block
 {
     public int condition;
     public List<Effect> effectList;
@@ -27,11 +27,11 @@ public class Block : MonoBehaviour
         return temp;
     }
 
-    public void dealBlock(Entity target)
+    public void dealBlock(Entity origin, Entity target)
     {
         foreach (Effect e in effectList)
         {
-            e.dealEffect(target);
+            e.dealEffect(origin, target);
         }
     }
     //This method is for merging cards

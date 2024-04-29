@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect : MonoBehaviour
+public class Effect
 {
 
     // int representing the type of effect a given int is
@@ -38,8 +38,15 @@ public class Effect : MonoBehaviour
                 effectName = "Damage";
                 break;
             case 1:
-                effectName = "Block";
+                effectName = "Shield";
                 break;
+            case 2:
+                effectName = "Vulnerable";
+                break;
+            case 3: 
+                effectName = "Weak";
+                break;
+
         }
     }
 
@@ -89,16 +96,16 @@ public class Effect : MonoBehaviour
     // Current effect case list
     // [ damage (0) , block (1) , 
 
-    public void dealEffect(Entity target)
+    public void dealEffect(Entity origin, Entity target)
     {
 
         switch (effectType)
         {
             case 0:
-                dealDamage(target);
+                dealDamage(origin, target);
                 break;
             case 1:
-                giveBlock(target);
+                giveShield(target);
                 break;
         }
 
@@ -106,15 +113,20 @@ public class Effect : MonoBehaviour
 
 
     // lenghty function that goes through some checks before dealing damage
-    private void dealDamage(Entity target)
+    private void dealDamage(Entity origin, Entity target)
     {
-        target.takeDamage(effectVal);
+        // Modify damage value here
+        int tempVal = effectVal;
+
+        tempVal -= origin.getDamageMod();
+
+        target.takeDamage(tempVal);
     }
 
     // Similiar function for block instead of damage
-    private void giveBlock(Entity target)
+    private void giveShield(Entity target)
     {
-        target.giveBlock(effectVal);
+        target.giveShield(effectVal);
     }
 
 }

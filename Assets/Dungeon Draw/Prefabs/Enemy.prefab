@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 5086066245876359512}
   - component: {fileID: 6570973996453888361}
   - component: {fileID: 7655442912914931386}
-  - component: {fileID: 8075827503087859558}
+  - component: {fileID: 7115963815242535176}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8075827503087859558
+--- !u!114 &7115963815242535176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,6 +117,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5957138438978035146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02aff64bbfe322943aad65c22acb9184, type: 3}
+  m_Script: {fileID: 11500000, guid: 77f7da46bcd82d341a73ad4079854acb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 10
+  currentHP: 10
+  entityEffectArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
