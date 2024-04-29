@@ -18,6 +18,9 @@ public class CombatManager : MonoBehaviour
 
     [HideInInspector]
     public static CombatManager Instance { get; private set; }
+    
+    private HandController _handController;
+    private Deck _deck;
 
     private bool _isPlayerTurn;
     public bool IsPlayerTurn {
@@ -42,6 +45,8 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _handController = GetComponent<HandController>();
+        _deck = GetComponent<Deck>();
         StartFight();
     }
 
@@ -51,28 +56,42 @@ public class CombatManager : MonoBehaviour
         IsPlayerTurn = PlayerPlayFirst;
         
         //TODO: Remove (for testing purposes only)
-        CardStats[] cards =
-        {
-            new CardStats("Attack", CardType.Attack, CardRarity.Common, 1, new List<Effect> {new DealDamage(1, 5)}),
-            
-        };
+        // CardStats[] cards =
+        // {
+        //     new CardStats("Attack", CardType.Attack, CardRarity.Common, 1, new List<Effect> {new DealDamage(1, 5)}),
+        //     
+        // };
         enemies.Add(new Entity(10));
-        enemies[0].ApplyCard(cards[0]);
+        // enemies[0].ApplyCard(cards[0]);
+    }
+    
+    private void PlayerTurn()
+    {
+        // Debug.Log("Hand draw");
+        StartCoroutine(_handController.DrawHand());
+        // Debug.Log("Hand done drawing");
+        // StopCoroutine(_handController.DrawHand());
+        // Card targeting and functionality takes over
     }
 
     public void EndTurn()
     {
         foreach (Entity enemy in enemies)
         {
-            enemy.UpdateEffects();
-            Debug.Log("Enemy [" + enemy + "] health: " + enemy.Health);
+            Debug.Log("Enemy [" + enemy + "] health: " + enemy.currentHP);
         }
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
             StartCoroutine(EnemyTurn());
         }
+        else
+        {
+            PlayerTurn();
+        }
     }
+    
+    
 
     private IEnumerator EnemyTurn()
     {

@@ -43,17 +43,6 @@ public class Effect : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
-
     // Formats the effect so that it can be displayed on the card
     public string showEffect()
     {
