@@ -13,6 +13,19 @@ public class Discard : MonoBehaviour
         DiscardPile = new List<int>();
     }
 
+    public static void DiscardCard(ActualCard card)
+    {
+        DiscardPile.Add(card.cardID);
+    }
+
+    public static void DiscardHand(List<ActualCard> hand)
+    {
+        foreach (ActualCard card in hand)
+        {
+            DiscardCard(card);
+        }
+    }
+
     private void OnMouseDown()
     {
         int size = DiscardPile.Count;

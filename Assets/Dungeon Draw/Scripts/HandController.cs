@@ -39,23 +39,31 @@ public class HandController : MonoBehaviour
         }
         else
         {
-            float width = size.x;
-            float cardWidth = newCard.transform.localScale.x;
-            float spaceTaken = (hand.Count * cardWidth) + ((hand.Count - 1) * spacing);
-            float leftStart = (-spaceTaken / 2) + cardWidth / 2;
-
-            foreach (ActualCard c in hand)
-            {
-                c.transform.position = new Vector3(leftStart, center.y, center.z);
-                leftStart += cardWidth + spacing;
-            }
+            RearrangeCards(newCard.transform.localScale.x);
         }
         newCard.SetActive(true);
+    }
+
+    private void RearrangeCards(float cardWidth)
+    {
+        Vector3 size = handAreaCollider.bounds.size;
+        Vector3 center = handAreaCollider.transform.position;
+        
+        float width = size.x;
+        float spaceTaken = (hand.Count * cardWidth) + ((hand.Count - 1) * spacing);
+        float leftStart = (-spaceTaken / 2) + cardWidth / 2;
+
+        foreach (ActualCard c in hand)
+        {
+            c.transform.position = new Vector3(leftStart, center.y, center.z);
+            leftStart += cardWidth + spacing;
+        }
     }
 
     public IEnumerator DrawHand()
     {
         Debug.Log("Hand drawing");
+        Debug.Log(_deck.deckSize);
         while (hand.Count < PlayerStats.HandSize && _deck.deckSize > 0)
         {
             AddCardToHand();
@@ -63,34 +71,32 @@ public class HandController : MonoBehaviour
         }
     }
 
-    public static void RemoveCard(ActualCard card)
+    public void NewHand()
     {
-        hand.Remove(card);
+        StartCoroutine(DrawHand());
     }
 
-    // void ReadjustCards(GameObject card)
-    // {
-    //     Vector3 size = handAreaCollider.bounds.size;
-    //     Vector3 center = handAreaCollider.center;
-    //
-    //     hand.Add(card.GetComponent<Card>());
-    //     if (hand.Count == 0)
-    //     {
-    //         card.transform.position = new Vector3(center.x, center.y, 0);
-    //     }
-    //     else
-    //     {
-    //         float width = size.x;
-    //         float cardWidth = card.transform.localScale.x;
-    //         float spaceTaken = (hand.Count * cardWidth) + ((hand.Count - 1) * spacing);
-    //         float leftStart = (-spaceTaken / 2) + cardWidth / 2;
-    //
-    //         foreach (Card c in hand)
-    //         {
-    //             c.transform.position = new Vector3(leftStart, c.transform.position.y, 0);
-    //             leftStart += cardWidth + spacing;
-    //         }
-    //     }
-    // }
+    public void ClearHand()
+    {
+        foreach (ActualCard card in hand)
+        {
+            Destroy(card.gameObject);
+        }
+        hand.Clear();
+    }
+
+    public List<ActualCard> GetHand()
+    {
+        return hand;
+    }
+
+    public void RemoveCard(ActualCard card)
+    {
+        hand.Remove(card);
+        float cardWidth = card.transform.localScale.x;
+        Destroy(card.gameObject);
+        RearrangeCards(cardWidth);
+    }
+
     
 }
