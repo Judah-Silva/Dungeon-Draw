@@ -74,7 +74,7 @@ public class Entity : MonoBehaviour
             return 0;
         }
         
-        Debug.Log($"{currentHP} remaining");
+        Debug.Log($"{currentHP} hp remaining");
         return currentHP;
     }
 
