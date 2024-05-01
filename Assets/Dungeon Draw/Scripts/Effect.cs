@@ -50,6 +50,11 @@ public class Effect
         }
     }
 
+    public int GetEffectType()
+    {
+        return effectType;
+    }
+
     // Formats the effect so that it can be displayed on the card
     public string showEffect()
     {
@@ -122,7 +127,7 @@ public class Effect
 
         target.takeDamage(tempVal);
 
-        Debug.Log($"{tempVal} damage dealt");
+        // Debug.Log($"{tempVal} damage dealt");
     }
 
     // Similiar function for block instead of damage

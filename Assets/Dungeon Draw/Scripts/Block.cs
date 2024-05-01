@@ -30,7 +30,7 @@ public class Block
         foreach (Effect e in effectList)
         {
             e.dealEffect(origin, target);
-            Debug.Log("Effect dealt");
+            // Debug.Log("Effect dealt");
         }
     }
     //This method is for merging cards

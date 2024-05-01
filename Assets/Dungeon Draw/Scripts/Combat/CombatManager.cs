@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    public List<Entity> enemies = new List<Entity>();
+    public List<GameObject> enemies = new List<GameObject>();
+    private List<Entity> _enemyEntities = new List<Entity>();
+    private List<Enemy> _enemyScripts = new List<Enemy>();
     
     /*
     Use StartFight() to start the fight
@@ -25,6 +27,8 @@ public class CombatManager : MonoBehaviour
     private Deck _deck;
     private Discard _discard;
     private GameObject _player;
+    private Entity _playerEntity;
+    private bool battleOver = false;
 
     private bool _isPlayerTurn;
     public bool IsPlayerTurn {
@@ -54,6 +58,7 @@ public class CombatManager : MonoBehaviour
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
         _player = GameObject.FindWithTag("Player");
+        _playerEntity = _player.GetComponent<Entity>();
         StartFight();
     }
 
@@ -63,7 +68,7 @@ public class CombatManager : MonoBehaviour
         {
             BattleOver(1);
         }
-        else if (_player.GetComponent<Entity>().getHP() <= 0)
+        else if (_playerEntity.getHP() <= 0)
         {
             BattleOver(0);
         }
@@ -82,9 +87,11 @@ public class CombatManager : MonoBehaviour
         //     
         // };
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("enemy");
-        foreach (GameObject gameObject in enemyObjects) 
+        foreach (GameObject obj in enemyObjects) 
         {
-            enemies.Add(gameObject.GetComponent<Entity>());
+            enemies.Add(obj);
+            _enemyEntities.Add(obj.GetComponent<Entity>());
+            _enemyScripts.Add(obj.GetComponent<Enemy>());
         }
         
         PlayerTurn();
@@ -98,11 +105,13 @@ public class CombatManager : MonoBehaviour
 
     public void EndTurn()
     {
-        _cardManager.enabled = false;
-        foreach (Entity enemy in enemies)
+        if (battleOver)
         {
-            Debug.Log("Enemy [" + enemy + "] health: " + enemy.currentHP);
-        }
+            Debug.Log("Battle is over.");
+            return;
+        } 
+        _cardManager.enabled = false;
+        DisplayState();
         
         CheckCards();
         
@@ -116,6 +125,15 @@ public class CombatManager : MonoBehaviour
         else
         {
             PlayerTurn();
+        }
+    }
+
+    private void DisplayState()
+    {
+        Debug.Log($"Player health: {_playerEntity.getHP()}\nPlayer shields: {_playerEntity.getShield()}");
+        foreach (var enemy in _enemyEntities)
+        {
+            Debug.Log($"{enemy.name} health: {enemy.getHP()}\n{enemy.name} shield: {enemy.getShield()}");
         }
     }
 
@@ -141,14 +159,26 @@ public class CombatManager : MonoBehaviour
         _handController.ClearHand();
     }
 
+    public void RemoveEnemy(GameObject enemy)
+    {
+        enemies.Remove(enemy);
+        _enemyEntities.Remove(enemy.GetComponent<Entity>());
+        _enemyScripts.Remove(enemy.GetComponent<Enemy>());
+    }
+
     private IEnumerator EnemyTurn()
     {
-        yield return new WaitForSeconds(1f); //TODO: Replace with enemy turn logic
+        foreach (var enemy in _enemyScripts)
+        {
+            enemy.Attack();
+            yield return new WaitForSeconds(.5f); //TODO: Replace with enemy turn logic
+        }
         EndTurn();
     }
 
     private void BattleOver(int result)
     {
+        battleOver = true;
         if (result == 1)
         {
             Debug.Log("Battle won!");
@@ -157,6 +187,16 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Battle lost...");
         }
+    }
+
+    public Entity GetPlayerEntity()
+    {
+        return _playerEntity;
+    }
+
+    public List<Entity> GetEnemyEntities()
+    {
+        return _enemyEntities;
     }
 
 }

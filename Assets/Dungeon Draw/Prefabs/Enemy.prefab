@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6570973996453888361}
   - component: {fileID: 7655442912914931386}
   - component: {fileID: 7115963815242535176}
+  - component: {fileID: 7493138258883220049}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: enemy
@@ -122,4 +123,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 10
   currentHP: 10
-  entityEffectArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  entityStatusEffectArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+--- !u!114 &7493138258883220049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957138438978035146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992ef6eaeed7ddf4499103f90fc1632e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entity: {fileID: 7115963815242535176}
+  type: Basic Enemy
+  goldValue: 25
