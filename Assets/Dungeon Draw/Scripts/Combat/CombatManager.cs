@@ -19,9 +19,12 @@ public class CombatManager : MonoBehaviour
 
     [HideInInspector]
     public static CombatManager Instance { get; private set; }
-    
+
+    private CardManager _cardManager;
     private HandController _handController;
     private Deck _deck;
+    private Discard _discard;
+    private GameObject _player;
 
     private bool _isPlayerTurn;
     public bool IsPlayerTurn {
@@ -46,9 +49,24 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
+        _discard = GetComponent<Discard>();
+        _player = GameObject.FindWithTag("Player");
         StartFight();
+    }
+
+    private void Update()
+    {
+        if (enemies.Count == 0)
+        {
+            BattleOver(1);
+        }
+        else if (_player.GetComponent<Entity>().getHP() <= 0)
+        {
+            BattleOver(0);
+        }
     }
 
 
@@ -74,19 +92,22 @@ public class CombatManager : MonoBehaviour
     
     private void PlayerTurn()
     {
-        // Debug.Log("Hand draw");
-        StartCoroutine(_handController.DrawHand());
-        // Debug.Log("Hand done drawing");
-        // StopCoroutine(_handController.DrawHand());
-        // Card targeting and functionality takes over
+        _handController.NewHand();
+        _cardManager.enabled = true;
     }
 
     public void EndTurn()
     {
+        _cardManager.enabled = false;
         foreach (Entity enemy in enemies)
         {
             Debug.Log("Enemy [" + enemy + "] health: " + enemy.currentHP);
         }
+        
+        CheckCards();
+        
+        _cardManager.ResetMana();
+        
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
@@ -97,12 +118,45 @@ public class CombatManager : MonoBehaviour
             PlayerTurn();
         }
     }
-    
+
+    private void CheckCards()
+    {
+        ClearHand();
+        if (_deck.deckSize == 0)
+        {
+            RefreshDeck();
+        }
+    }
+
+    private void RefreshDeck()
+    {
+        _deck.RefreshDeck(Discard.DiscardPile);
+        Discard.DiscardPile.Clear();
+    }
+
+    private void ClearHand()
+    {
+        List<ActualCard> hand = _handController.GetHand();
+        Discard.DiscardHand(hand);
+        _handController.ClearHand();
+    }
 
     private IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(1f); //TODO: Replace with enemy turn logic
         EndTurn();
+    }
+
+    private void BattleOver(int result)
+    {
+        if (result == 1)
+        {
+            Debug.Log("Battle won!");
+        }
+        else
+        {
+            Debug.Log("Battle lost...");
+        }
     }
 
 }

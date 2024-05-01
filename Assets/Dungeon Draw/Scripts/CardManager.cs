@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,12 @@ public class CardManager : MonoBehaviour
     public int maxMana = 3;
     public int currentMana;
 
+    public GameObject player;
+
     private ActualCard selectedCard;
     private GameObject selectedGameObject;
     private Entity selectedEntity;
+    private HandController _handController;
 
     private void Awake()
     {
@@ -24,6 +28,16 @@ public class CardManager : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        _handController = GetComponent<HandController>();
+    }
+
+    public void ResetMana()
+    {
+        currentMana = maxMana;
     }
 
     public int getMana()
@@ -38,7 +52,16 @@ public class CardManager : MonoBehaviour
 
     public void SetCard(ActualCard card)
     {
-        selectedCard = card;
+        if (selectedCard == null || selectedCard != card)
+        {
+            selectedCard = card;
+            Debug.Log($"{card.cardID} has been selected");
+        }
+        else if (selectedCard == card)
+        {
+            selectedCard = null;
+            Debug.Log($"{card.cardID} has been deselected");
+        }
     }
 
     public void SetTarget(GameObject enemy)
@@ -66,18 +89,38 @@ public class CardManager : MonoBehaviour
     {
 
         // First check if there is a selected card
+        if (selectedCard == null)
+        {
+            return false;
+        }
 
         // check if the selected game object is a valid target
 
         // Then check if the cards mana cost <= the players mana cost
+        if (selectedCard.manaCost > currentMana)
+        {
+            return false;
+        }
+
+        currentMana -= selectedCard.manaCost;
 
         // Finally calls isplayable from card
+        if (!selectedCard.isPlayable())
+        {
+            return false;
+        }
 
         // If all of these are good, run the cards dealBlocks
-
-        selectedCard.dealBlocks(selectedGameObject);
+        
+        Debug.Log(currentMana);
+        
+        selectedCard.dealBlocks(player, selectedGameObject);
+        
+        Debug.Log($"Enemy: {selectedGameObject.name} targeted. Remaining health: {selectedEntity.getHP()}");
+        
+        _handController.RemoveCard(selectedCard);
+        Discard.DiscardCard(selectedCard);
 
         return true;
-
     }
 }

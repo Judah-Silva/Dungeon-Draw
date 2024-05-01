@@ -98,7 +98,7 @@ public class Effect
 
     public void dealEffect(Entity origin, Entity target)
     {
-
+        
         switch (effectType)
         {
             case 0:
@@ -121,6 +121,8 @@ public class Effect
         tempVal -= origin.getDamageMod();
 
         target.takeDamage(tempVal);
+
+        Debug.Log($"{tempVal} damage dealt");
     }
 
     // Similiar function for block instead of damage

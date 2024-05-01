@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1794020236318864302}
   - component: {fileID: 365619957077231973}
   - component: {fileID: 5021159665050852740}
+  - component: {fileID: 8979826410179953216}
   m_Layer: 0
   m_Name: Combat Manager
   m_TagString: Untagged
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8454cd52672de6647891915dbe1f52f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handArea: {fileID: 461714308649769273, guid: 16bf18cabff1e0541a3ef10df59f7d24, type: 3}
+  handArea: {fileID: 0}
   spacing: 1
 --- !u!114 &5021159665050852740
 MonoBehaviour:
@@ -75,3 +76,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckSize: 0
   cardPrefab: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
+--- !u!114 &8979826410179953216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826969820037210630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f7c1605bafb2446b7d7dc3800afc73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMana: 3
+  currentMana: 3
+  player: {fileID: 0}

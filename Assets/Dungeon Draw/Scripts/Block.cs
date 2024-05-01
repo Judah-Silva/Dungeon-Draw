@@ -13,18 +13,16 @@ public class Block
 
     public bool isPlayable()
     {
-
-        bool temp = true;
-
+        
         foreach (Effect e in effectList)
         {
             if (!e.isPlayable())
             {
-                temp = false;
+                return false;
             }
         }
 
-        return temp;
+        return true;
     }
 
     public void dealBlock(Entity origin, Entity target)
@@ -32,6 +30,7 @@ public class Block
         foreach (Effect e in effectList)
         {
             e.dealEffect(origin, target);
+            Debug.Log("Effect dealt");
         }
     }
     //This method is for merging cards
@@ -43,6 +42,10 @@ public class Block
 
     public Block addEffect(int type, int val)
     {
+        if (effectList == null)
+        {
+            effectList = new List<Effect>();
+        }
         effectList.Add(new Effect(type, val));
 
         return this;

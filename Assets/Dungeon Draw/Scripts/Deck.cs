@@ -15,12 +15,23 @@ public class Deck : MonoBehaviour
     void Start()
     {
         DeckPile = new List<int>();
-        ResetDeck();
+        DeckPile.Clear();
+        foreach (int cardId in PlayerStats.Deck)
+        {
+            DeckPile.Add(cardId);
+        }
+        deckSize = DeckPile.Count;
+        Shuffle(DeckPile);
     }
 
-    public void ResetDeck()
+    public void RefreshDeck(List<int> cards)
     {
-        DeckPile = PlayerStats.PlayerDeck;
+        DeckPile.Clear();
+        foreach (int cardID in cards)
+        {
+            AddCard(cardID);
+        }
+
         deckSize = DeckPile.Count;
         Shuffle(DeckPile);
     }
@@ -31,7 +42,7 @@ public class Deck : MonoBehaviour
         newCard.SetActive(false);
         
         ActualCard cardComponent = newCard.GetComponent<ActualCard>();
-        cardComponent.init(DeckPile[0]);
+        cardComponent.CreateNewCard(DeckPile[0]);
 
         DeckPile.RemoveAt(0);
         deckSize--;
@@ -40,6 +51,11 @@ public class Deck : MonoBehaviour
         // int index = i++;
 
         return newCard;
+    }
+
+    public void AddCard(int cardId)
+    {
+        DeckPile.Add(cardId);
     }
 
     void Shuffle<T>(List<T> list)
