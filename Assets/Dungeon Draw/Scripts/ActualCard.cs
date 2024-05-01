@@ -33,13 +33,13 @@ public class ActualCard : MonoBehaviour
 
     private GameObject Player;
 
-    private TMP_Text block1;
+    public TMP_Text block1;
 
-    private TMP_Text block2;
+    public TMP_Text block2;
 
-    private TMP_Text manaCostText;
+    public TMP_Text manaCostText;
 
-    private TMP_Text cardNameText;
+    public TMP_Text cardNameText;
 
     public Color c;
     private Renderer rend;
