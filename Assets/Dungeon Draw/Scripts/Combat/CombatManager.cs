@@ -22,6 +22,7 @@ public class CombatManager : MonoBehaviour
     [HideInInspector]
     public static CombatManager Instance { get; private set; }
 
+    private SceneRouter _sceneRouter;
     private CardManager _cardManager;
     private HandController _handController;
     private Deck _deck;
@@ -53,6 +54,7 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
@@ -182,6 +184,11 @@ public class CombatManager : MonoBehaviour
         if (result == 1)
         {
             Debug.Log("Battle won!");
+            // Do whatever needs to be done
+            ClearHand();
+            // Show rewards, but temporarily just go back to map
+            _sceneRouter.ToMap();
+            enabled = false;
         }
         else
         {

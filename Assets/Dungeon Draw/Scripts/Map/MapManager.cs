@@ -7,15 +7,10 @@ using Random = UnityEngine.Random;
 
 public class MapManager : MonoBehaviour
 {
-    public string mainMenuScene = "MainMenu";
-
     public Transform startPoint;
-    public GameObject battleIcon;
-    public GameObject shopIcon;
-    public GameObject restIcon;
-    public GameObject eventIcon;
-    public GameObject bossIcon;
-    public GameObject disabledIcon;
+
+    // 0: battle, 1: shop, 2: rest, 3: event, 4: boss, 5: disabled
+    public GameObject icon;
     
     public int columns = 3;
     public static int MaxColumns;
@@ -75,19 +70,23 @@ public class MapManager : MonoBehaviour
 
             if (r >= 1 && r <= 65)
             {
-                GameObject newIcon = Instantiate(battleIcon, spawnPos, Quaternion.identity);
+                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+                newIcon.GetComponent<Icon>().init(0);
             }
             else if (r >= 66 && r <= 79)
             {
-                GameObject newIcon = Instantiate(shopIcon, spawnPos, Quaternion.identity);
+                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+                newIcon.GetComponent<Icon>().init(1);
             }
             else if (r >= 80 && r <= 90)
             {
-                GameObject newIcon = Instantiate(restIcon, spawnPos, Quaternion.identity);
+                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+                newIcon.GetComponent<Icon>().init(2);
             }
             else if (r >= 91 && r <= 100)
             {
-                GameObject newIcon = Instantiate(eventIcon, spawnPos, Quaternion.identity);
+                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+                newIcon.GetComponent<Icon>().init(3);
             }
 
             // columnSpacing -= 5f;
@@ -101,7 +100,8 @@ public class MapManager : MonoBehaviour
     {
         // Debug.Log("generate boss icon");
         Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);
-        GameObject newIcon = Instantiate(bossIcon, spawnPos, Quaternion.identity);
+        GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+        newIcon.GetComponent<Icon>().init(4);
     }
 
     public void SpawnDisabled(Vector3 startPos)
@@ -126,7 +126,8 @@ public class MapManager : MonoBehaviour
                 }
             
                 Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, columnSpacing);
-                GameObject newIcon = Instantiate(disabledIcon, spawnPos, Quaternion.identity);
+                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
+                newIcon.GetComponent<Icon>().init(5);
             }
 
             startPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);
@@ -137,7 +138,7 @@ public class MapManager : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(mainMenuScene);
+        GameManager.Instance.GetSceneRouter().ToMainMenu();
     }
 
     public void OptionsMenu()
