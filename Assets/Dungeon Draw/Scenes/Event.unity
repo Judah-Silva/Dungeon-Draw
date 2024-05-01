@@ -874,7 +874,7 @@ PrefabInstance:
       objectReference: {fileID: 373422492}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: eventId
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: mapSceneName
@@ -896,6 +896,20 @@ PrefabInstance:
       propertyPath: 'ButtonGO.Array.data[2]'
       value: 
       objectReference: {fileID: 1849807708}
+    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
+      propertyPath: events.Array.data[0].eventText
+      value: 'You find yourself at an old shack. The roof appears to be missing and
+        the walls seem unstable. You find a gold coin lying on a small pedistal...
+
+
+
+        What
+        do you do?'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
+      propertyPath: events.Array.data[0].eventTitle
+      value: Old Shack
+      objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: events.Array.data[2].eventTitle
       value: Test Event 3
@@ -1019,8 +1033,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: events.Array.data[0].button.Array.data[1].postButtonPressedText
-      value: "As you touch the coin, the fountain crumbles knocking you to the floor
-        and some of your coins. \n\n-5 Health, -5 Coins"
+      value: "As you touch the coin, the walls surrounding you crumble knocking you
+        to the floor and some of your coins. \n\n-5 Health, -5 Coins"
       objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: 'events.Array.data[0].button.Array.data[2].actions.Array.data[0]'
@@ -1032,8 +1046,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: events.Array.data[0].button.Array.data[2].postButtonPressedText
-      value: "You grab the coin and as you do, the fountain collapses but you are
-        able to escape in the knick of time. \n\nYou gained, 1 coin."
+      value: "You grab the coin and as you do, the walls collapse but you are able
+        to escape in the knick of time. \n\nYou gained, 1 coin."
       objectReference: {fileID: 0}
     - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: 'events.Array.data[1].button.Array.data[0].actions.Array.data[0]'

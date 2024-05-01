@@ -107,23 +107,23 @@ public class Event : MonoBehaviour
                
                case Actions.LoseGold:
                    Debug.Log("LoseGold activated");
-                   //playerMoney -= but.intActs[i];
+                   PlayerStats.Coins -= but.intActs[i];
                    break;
                case Actions.GainGold:
                    Debug.Log("GainGold activated");
-                   //playerMoney += but.intActs[i];
+                   PlayerStats.Coins += but.intActs[i];
                    break;
                case Actions.LoseHealth:
                    Debug.Log("LoseHealth activated");
-                   //playerHP -= but.intActs[i];
+                   GameObject.Find("Player").GetComponent<Entity>().currentHP -= but.intActs[i];
                    break;
                case Actions.GainHealth:
                    Debug.Log("GainHealth activated");
-                   //playerHP += but.intActs[i];
+                   GameObject.Find("Player").GetComponent<Entity>().currentHP += but.intActs[i];
                    break;
                case Actions.GainCardById :
                    Debug.Log("GainCardById  activated");
-                   //cardDB.heldCards.add(cardDB.getCard(but.intActs[i]));
+                   CardDataBase.heldCards.Add(CardDataBase.getCard(but.intActs[i]));
                    break;
                case Actions.GainRelicById :
                   Debug.Log("GainRelicById  activated");
@@ -131,11 +131,11 @@ public class Event : MonoBehaviour
                   break;
                case Actions.GainGlue :
                   Debug.Log("GainGlue activated");
-                  //playerGlue += but.intActs[i];
+                  PlayerStats.Glue += but.intActs[i];
                   break;
                case Actions.GainTape :
                   Debug.Log("GainTape  activated");
-                  //playerTape += but.intActs[i];
+                  PlayerStats.Tape += but.intActs[i];
                   break;
                case Actions.Leave:
                    Debug.Log("Leave button pressed");

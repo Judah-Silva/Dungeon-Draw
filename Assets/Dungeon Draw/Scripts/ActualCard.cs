@@ -48,6 +48,8 @@ public class ActualCard : MonoBehaviour
     public float hoverSmoothness = 5f;
     public Vector3 originalPosition;
     private bool selected = false;
+    [HideInInspector]
+    public bool isShopItem = false;
 
     void Start()
     {
@@ -218,6 +220,7 @@ public class ActualCard : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if(!isShopItem)
         cardManager.SetCard(this);
     }
 
