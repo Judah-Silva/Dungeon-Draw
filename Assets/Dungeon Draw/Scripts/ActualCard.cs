@@ -3,23 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
 
 public class ActualCard : MonoBehaviour
 {
-    public string cardName;
 
+    [Header("General Card Vars")]
     public int cardID;
-
-    public String image; //Varible type not confirmed
-
+    public string cardName;
     public int manaCost;
-
     public int cardVal;
-
     public int rarity;
-    
+
+    [Header("Other pt. 1")]
     public int[] numOfEffects; // A value for each block
     public int[] condition; // A value for each block
     public int[][] effectType; // A value for each effect in each block
@@ -33,14 +31,21 @@ public class ActualCard : MonoBehaviour
 
     private GameObject Player;
 
+    [Header("Text Elements")]
     public TMP_Text block1;
-
     public TMP_Text block2;
-
     public TMP_Text manaCostText;
-
     public TMP_Text cardNameText;
 
+    [Header("Card Images && the associated gameobjects")]
+    public Image cardImage;
+    public Image block1Background;
+    public Image block2Background;
+    public GameObject cardImageBox;
+    public GameObject block1Box;
+    public GameObject block2Box;
+
+    [Header("Other pt. 2")]
     public Color c;
     private Renderer rend;
     private Animator anim;
