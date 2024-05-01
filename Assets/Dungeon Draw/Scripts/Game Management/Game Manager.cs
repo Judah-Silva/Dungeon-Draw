@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public static GameManager Instance { get; private set; }
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -18,6 +19,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public SceneRouter GetSceneRouter()
+    {
+        return GetComponent<SceneRouter>();
     }
 }
