@@ -6,6 +6,9 @@ public class PlayerStats : MonoBehaviour
 {
     public static int TotalDeckSize = 12;
     public static int HandSize = 5;
+    public static int Coins = 100;
+    public static int Glue;
+    public static int Tape;
     public static List<int> PlayerDeck;
     
     void Start()
