@@ -1,0 +1,13 @@
+[CARDS]
+1: Heal - Min: 50, Max: 100;
+2: Punch - Min: 25, Max: 200;
+3: Jump - Min: 10, Max: 25;
+[BOOSTER PACKS]
+1: Jumbo Pack - Min: 100, Max: 300;
+6: Mini Pack - Min: 50, Max: 100;
+7: Tiny Pack - Min: 25, Max: 50;
+[RELICS]
+1: Shovel - Min: 100, Max: 300;
+10: Hammer - Min: 200, Max: 250;
+11: Axe - Min: 8, Max: 1000;
+12: Bottle - Min: 16, Max: 34;

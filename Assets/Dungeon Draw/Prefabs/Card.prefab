@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5535774861171883943}
   - component: {fileID: 4358926476961250444}
   - component: {fileID: 1295151628899900116}
-  - component: {fileID: -644211229620769882}
+  - component: {fileID: -8925085340444703955}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.20997691, y: 0, z: 0, w: 0.9777064}
   m_LocalPosition: {x: 0, y: 1.97, z: -6.59}
-  m_LocalScale: {x: 1.0973072, y: 1.7400001, z: 0.5486536}
+  m_LocalScale: {x: 1.7, y: 2.6956902, z: 0.85}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c7e23c60e1dbede4ebee33567cdc8b80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-644211229620769882
+--- !u!114 &-8925085340444703955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,11 +117,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5396509175230500746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ffc5b41fbed4073b9d43c9dbdb96f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 7473e114b43bf8c488da838b06160f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  c: {r: 0, g: 0, b: 0, a: 0}
-  moveAmount: 0
-  selected: 0
-  card: {fileID: 0}
+  cardName: 
   cardID: 0
+  image: 
+  manaCost: 0
+  cardVal: 0
+  rarity: 0
+  numOfEffects: 0
+  condition: 0
+  effectType: 0
+  effectVal: 0
+  offset: 5
+  c: {r: 0, g: 0, b: 0, a: 0}
+  moveAmount: 1
+  originalPosition: {x: 0, y: 0, z: 0}

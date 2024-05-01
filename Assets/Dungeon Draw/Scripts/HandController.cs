@@ -1,32 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.XR;
 
 public class HandController : MonoBehaviour
 {
-    public Transform startPos;
-    public Transform endPos;
-    public int posNum = 5;
+    public GameObject handArea;
+    public float spacing = 1f;
+    
+    public static List<ActualCard> hand = new List<ActualCard>();
 
-    public static List<GameObject> positionsList = new List<GameObject>();
+    private Deck _deck;
+    private BoxCollider handAreaCollider;
+    
+    
     
     // Start is called before the first frame update
     void Start()
     {
-        float stepSize = 1.0f / (posNum + 1); // create spacing
+        _deck = GetComponent<Deck>();
+        // Debug.Log(_deck == null);
+        handAreaCollider = handArea.GetComponent<BoxCollider>();
+    }
 
-        for (int i = 0; i <= posNum; i++)
+    void AddCardToHand()
+    {
+        GameObject newCard = _deck.DrawCard();
+        
+        Vector3 size = handAreaCollider.bounds.size;
+        Vector3 center = handAreaCollider.transform.position;
+        // Debug.Log(center);
+
+        hand.Add(newCard.GetComponent<ActualCard>());
+        if (hand.Count == 0)
         {
-            float t = i * stepSize;
-            Vector3 interpolatedPos = Vector3.Lerp(startPos.position, endPos.position, t);
-            Quaternion interpolatedRot = Quaternion.Slerp(startPos.rotation, endPos.rotation, t);
+            newCard.transform.position = new Vector3(center.x, center.y, center.z);
+        }
+        else
+        {
+            RearrangeCards(newCard.transform.localScale.x);
+        }
+        newCard.SetActive(true);
+    }
 
-            // Create a new GameObject at the interpolated position
-            GameObject newObj = new GameObject("spawnPoint" + i);
-            newObj.transform.position = interpolatedPos;
-            newObj.transform.rotation = interpolatedRot;
+    private void RearrangeCards(float cardWidth)
+    {
+        Vector3 size = handAreaCollider.bounds.size;
+        Vector3 center = handAreaCollider.transform.position;
+        
+        float width = size.x;
+        float spaceTaken = (hand.Count * cardWidth) + ((hand.Count - 1) * spacing);
+        float leftStart = (-spaceTaken / 2) + cardWidth / 2;
 
-            positionsList.Add(newObj);
+        foreach (ActualCard c in hand)
+        {
+            c.transform.position = new Vector3(leftStart, center.y, center.z);
+            leftStart += cardWidth + spacing;
         }
     }
+
+    public IEnumerator DrawHand()
+    {
+        Debug.Log("Hand drawing");
+        Debug.Log(_deck.deckSize);
+        while (hand.Count < PlayerStats.HandSize && _deck.deckSize > 0)
+        {
+            AddCardToHand();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    public void NewHand()
+    {
+        StartCoroutine(DrawHand());
+    }
+
+    public void ClearHand()
+    {
+        foreach (ActualCard card in hand)
+        {
+            Destroy(card.gameObject);
+        }
+        hand.Clear();
+    }
+
+    public List<ActualCard> GetHand()
+    {
+        return hand;
+    }
+
+    public void RemoveCard(ActualCard card)
+    {
+        hand.Remove(card);
+        float cardWidth = card.transform.localScale.x;
+        Destroy(card.gameObject);
+        RearrangeCards(cardWidth);
+    }
+
+    
 }

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5031315956475244537}
   - component: {fileID: 5714806720236077535}
   - component: {fileID: 6068593273597660661}
+  - component: {fileID: 6559464047610564923}
+  - component: {fileID: 4452635303728036194}
   - component: {fileID: 4681110366827980267}
   m_Layer: 0
   m_Name: Test Player
@@ -110,6 +112,34 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6559464047610564923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845570671732852720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b624c28bc1f61448ba58f8e622dd132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: 
+--- !u!114 &4452635303728036194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845570671732852720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8454cd52672de6647891915dbe1f52f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos: {fileID: 0}
+  endPos: {fileID: 0}
+  posNum: 5
 --- !u!114 &4681110366827980267
 MonoBehaviour:
   m_ObjectHideFlags: 0
