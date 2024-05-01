@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class CombatManager : MonoBehaviour
     private Deck _deck;
     private Discard _discard;
     private GameObject _player;
+    
+    public Entity playerEntity;
 
     private bool _isPlayerTurn;
     public bool IsPlayerTurn {
@@ -158,5 +161,14 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Battle lost...");
         }
     }
-
+    
+    public Entity GetPlayerEntity()
+    {
+        return playerEntity;
+    }
+    
+    public List<Entity> GetEnemies()
+    {
+        return enemies;
+    }
 }

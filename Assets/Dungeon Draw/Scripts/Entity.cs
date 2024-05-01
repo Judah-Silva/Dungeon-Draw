@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class Entity : MonoBehaviour
 {
     public int maxHP;
-    public int currentHP;
+    [HideInInspector] public int currentHP;
     public int[] entityStatusEffectArray = new int[10];
 
     private CardManager _cardManager;

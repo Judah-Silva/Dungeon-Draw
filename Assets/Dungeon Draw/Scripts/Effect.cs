@@ -130,5 +130,10 @@ public class Effect
     {
         target.giveShield(effectVal);
     }
+    
+    public int GetEffectType()
+    {
+        return effectType;
+    }
 
 }
