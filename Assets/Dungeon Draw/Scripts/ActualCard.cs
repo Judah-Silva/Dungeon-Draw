@@ -47,7 +47,6 @@ public class ActualCard : MonoBehaviour
     public float moveAmount = 1;
     public float hoverSmoothness = 5f;
     public Vector3 originalPosition;
-    private bool selected = false;
     [HideInInspector]
     public bool isShopItem = false;
 
@@ -62,24 +61,24 @@ public class ActualCard : MonoBehaviour
 
     private void Update()
     {
-        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hitInfo;
-        //
-        // if (Physics.Raycast(ray, out hitInfo))
-        // {
-        //     Debug.Log(hitInfo.collider.gameObject.name);
-        //     if (hitInfo.collider.gameObject == gameObject)
-        //     {
-        //         // Move the object up smoothly
-        //         Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
-        //         transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
-        //     }
-        //     else if (transform.position != originalPosition)
-        //     {
-        //         // Move the object back to its original position if not hovering
-        //         transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
-        //     }
-        // }
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            // Debug.Log(hitInfo.collider.gameObject.name);
+            if (hitInfo.collider.gameObject == gameObject)
+            {
+                // Move the object up smoothly
+                Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
+                transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
+            }
+            else if (transform.position != originalPosition)
+            {
+                // Move the object back to its original position if not hovering
+                transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
+            }
+        }
     }
 
     public void CreateNewCard(List<int> cardInfo)
@@ -166,16 +165,18 @@ public class ActualCard : MonoBehaviour
     }
 
 
-    //A method to check if the card is playable due to manacost of the player and the card itself,
     // while also passing it down to block to check those isPlayables as well.
     public bool isPlayable()
     {
-        for (int i = 0; i < blockArray.Length - 1; i++)
+        for (int i = 0; i < blockArray.Length; i++)
         {
             Block block = blockArray[i];
-            return block.isPlayable();
+            if (block != null && !block.isPlayable())
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     //This method will be the main way to enact card effects, as it goes down the line to effect
@@ -193,7 +194,7 @@ public class ActualCard : MonoBehaviour
             }
             Block block = blockArray[i];
             block.dealBlock(origin, target);
-            Debug.Log("Block dealt");
+            // Debug.Log("Block dealt");
         }
     }
 
@@ -212,16 +213,16 @@ public class ActualCard : MonoBehaviour
         int[] cardData = blockArray[1].copyBlock(condition, cardID);
         int numOfEffects = cardData[6];
 
-        for (int i = 0; i < numOfEffects; i++)
-        {
-            //blockArray[1] = 
-        }
+        // for (int i = 0; i < numOfEffects; i++)
+        // {
+        //      blockArray[1] = 
+        // }
     }
 
     public void OnMouseDown()
     {
         if(!isShopItem)
-        cardManager.SetCard(this);
+            cardManager.SetCard(this);
     }
 
     // void OnMouseEnter()

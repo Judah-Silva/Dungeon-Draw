@@ -56,7 +56,7 @@ public class Entity : MonoBehaviour
     public int takeDamage(int damage)
     {
         int remainingDamage = damage - getShield();
-        Debug.Log($"Taking {remainingDamage} damage");
+        // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
@@ -68,13 +68,13 @@ public class Entity : MonoBehaviour
             entityStatusEffectArray[0] -= damage;
         }
 
+        Debug.Log($"{remainingDamage} damage taken to {gameObject.name}");
         if (currentHP <= 0)
         {
             die();
             return 0;
         }
         
-        Debug.Log($"{currentHP} hp remaining");
         return currentHP;
     }
 
@@ -86,7 +86,7 @@ public class Entity : MonoBehaviour
     
     public void die()
     {
-        CombatManager.Instance.enemies.Remove(this); //we can't do this because we're iterating over the list
+        CombatManager.Instance.RemoveEnemy(gameObject); //we can't do this because we're iterating over the list
         Destroy(gameObject);
         //TODO: Add death animation
     }
