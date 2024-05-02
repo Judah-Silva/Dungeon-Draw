@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
-    public List<Entity> enemies = new List<Entity>();
 
     public GameObject resultsWindow;
     
@@ -31,6 +30,7 @@ public class CombatManager : MonoBehaviour
     [HideInInspector]
     public static CombatManager Instance { get; private set; }
 
+    private SceneRouter _sceneRouter;
     private CardManager _cardManager;
     private HandController _handController;
     private Deck _deck;
@@ -61,6 +61,7 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
@@ -75,6 +76,10 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
+        if (battleOver)
+        {
+            return;
+        }
         if (enemies.Count == 0)
         {
             BattleOver(1);
@@ -217,13 +222,18 @@ public class CombatManager : MonoBehaviour
         if (result == 1)
         {
             Debug.Log("Battle won!");
+            // Do whatever needs to be done
+            ClearHand();
+            // Show rewards, but temporarily just go back to map
+            resultsWindow.SetActive(true);
+            // _sceneRouter.ToMap();
+            enabled = false;
         }
         else
         {
             Debug.Log("Battle lost...");
         }
         
-        resultsWindow.SetActive(true);
     }
 
     public Entity GetPlayerEntity()
