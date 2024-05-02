@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public abstract class Entity : MonoBehaviour
 {
@@ -10,14 +11,23 @@ public abstract class Entity : MonoBehaviour
     //[HideInInspector]
     public int currentHP;
     private int[] _entityStatusEffectArray = new int[10];
+    
+    public Slider healthBar;
 
     private CardManager _cardManager;
 
     public void SetUp()
     {
         currentHP = maxHP;
+        Debug.Log("Setting up entity, currentHP: " + currentHP);
         _cardManager = CardManager.Instance;
         setUpEEA();
+        healthBar = GetComponentInChildren<Slider>();
+        if (healthBar is not null)
+        {
+            healthBar.maxValue = maxHP;
+            healthBar.value = currentHP;
+        }
     }
 
     public void setUpEEA()
@@ -76,7 +86,7 @@ public abstract class Entity : MonoBehaviour
             Die();
             return 0;
         }
-        
+        UpdateHealthBar();
         return currentHP;
     }
 
@@ -84,6 +94,12 @@ public abstract class Entity : MonoBehaviour
     {
         _entityStatusEffectArray[0] += givenShield;
         return _entityStatusEffectArray[0];
+    }
+    
+    public void UpdateHealthBar()
+    {
+        if (healthBar is null) return;
+        healthBar.value = currentHP;
     }
     
     public abstract void Die();

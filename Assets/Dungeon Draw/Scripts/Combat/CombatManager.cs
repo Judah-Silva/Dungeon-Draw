@@ -66,6 +66,7 @@ public class CombatManager : MonoBehaviour
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
         _playerEntity = player.GetComponent<Player>();
+        
         StartFight();
     }
 
@@ -79,6 +80,21 @@ public class CombatManager : MonoBehaviour
         {
             BattleOver(0);
         }
+    }
+
+    public void SpawnWave()
+    {
+        foreach (GameObject prefab in levels[_currentLevel].enemies)
+        {
+            GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            enemies.Add(goEnemy);
+            Enemy enemy = goEnemy.GetComponent<Enemy>();
+            enemy.SetUp();
+            _enemyScripts.Add(enemy);
+            Debug.Log($"Enemy {enemy.name} added");
+        }
+        UpdateEnemiesPosition();
+        DisplayState();
     }
 
 
@@ -101,14 +117,9 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
-        foreach (GameObject prefab in levels[_currentLevel].enemies)
-        {
-            GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            enemies.Add(goEnemy);
-            Enemy enemy = goEnemy.GetComponent<Enemy>();
-            _enemyScripts.Add(enemy);
-            Debug.Log($"Enemy {enemy.name} added");
-        }
+        
+        _playerEntity.SetUp();
+        SpawnWave();
         
         PlayerTurn();
     }
@@ -226,10 +237,10 @@ public class CombatManager : MonoBehaviour
         //      x    
         //    x   x  
         //  x   x   x
-        int distanceBetweenEnemies = 2;
+        int distanceBetweenEnemies = 4;
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 0, 0);
+            enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);
         }
     }
 }

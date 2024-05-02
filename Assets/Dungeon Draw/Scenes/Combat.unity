@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 1981796760}
   - component: {fileID: 1981796759}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: EndTurnCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

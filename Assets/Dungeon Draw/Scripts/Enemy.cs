@@ -12,8 +12,6 @@ public class Enemy : Entity
 
     private void Start()
     {
-        SetUp();
-        
         _blockList = new List<Block>();
         
         // Testing purposes

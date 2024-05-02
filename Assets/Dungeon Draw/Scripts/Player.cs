@@ -4,7 +4,6 @@ public class Player : Entity
 {
     private void Start()
     {
-        SetUp();
     }
 
     public override void Die()
