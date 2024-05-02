@@ -72,15 +72,18 @@ public class Shop : MonoBehaviour
     private int cMax, rMax,  bMax; //Values to know where in the stack cards/relics/boosterpacks end || Set in the loadShopItems function
     void Start()
     {
+        // Debug.Log("Shop start called");
         loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
         
-        //Preparation for CardDataBase
-        CardDataBase.prePopulate();
+        //This line was really only needed in my testing.
+        if (!(CardDataBase.allCards.Count > 0)){CardDataBase.prePopulate();}
+        
          int ran = 0;
          for (int i = 0; i<cardShopItems.Length; i++)
          {
             cardShopItems[i].Slot = cardSlots[i];
             ran = Random.Range(0, CardDataBase.allCards.Count);
+            Debug.Log(CardDataBase.allCards.Count);
             cardShopItems[i].setCard(CardDataBase.getCard(ran), cardPrefab);
             //getPriceFromText(i, ran);
          }
@@ -98,7 +101,8 @@ public class Shop : MonoBehaviour
         if (PlayerStats.Coins >= cardShopItems[buttin].price) // if enough money
         {
              PlayerStats.Coins -= cardShopItems[buttin].price;
-             CardDataBase.heldCards.Add(CardDataBase.getCard(cardShopItems[buttin].ac.cardID));
+             PlayerStats.Deck.Add(cardShopItems[buttin].ac.cardID); 
+             PlayerStats.TotalDeckSize++;//Add to totalDeckSize??
              Debug.Log("Card bought - " + cardShopItems[buttin].ac.cardID);
              repopulateShopItem(buttin);
         }

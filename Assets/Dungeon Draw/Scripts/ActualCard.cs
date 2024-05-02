@@ -72,22 +72,27 @@ public class ActualCard : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-        
-        if (Physics.Raycast(ray, out hitInfo))
+        if (!isShopItem)
         {
-            // Debug.Log(hitInfo.collider.gameObject.name);
-            if (hitInfo.collider.gameObject == gameObject)
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
             {
-                // Move the object up smoothly
-                Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
-                transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
-            }
-            else if (transform.position != originalPosition)
-            {
-                // Move the object back to its original position if not hovering
-                transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
+                // Debug.Log(hitInfo.collider.gameObject.name);
+                if (hitInfo.collider.gameObject == gameObject)
+                {
+                    // Move the object up smoothly
+                    Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
+                    transform.position =
+                        Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
+                }
+                else if (transform.position != originalPosition)
+                {
+                    // Move the object back to its original position if not hovering
+                    transform.position = Vector3.Lerp(transform.position, originalPosition,
+                        hoverSmoothness * Time.deltaTime);
+                }
             }
         }
     }
@@ -116,6 +121,8 @@ public class ActualCard : MonoBehaviour
         rarity = cardInfo[3];
 
         int numOfBlocks = cardInfo[4];
+
+        cardNameText.text = cardID.ToString(); //Temporary for shop testing
 
 
         blockArray = new Block[2]; //Length should always be 2
