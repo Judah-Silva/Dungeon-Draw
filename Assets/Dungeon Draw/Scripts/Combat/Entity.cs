@@ -10,6 +10,9 @@ public abstract class Entity : MonoBehaviour
     public int maxHP;
     //[HideInInspector]
     public int currentHP;
+    
+    public StatusUI statusUI;
+
     private int[] _entityStatusEffectArray = new int[10];
     
     public Slider healthBar;
@@ -100,6 +103,17 @@ public abstract class Entity : MonoBehaviour
     {
         if (healthBar is null) return;
         healthBar.value = currentHP;
+    }
+
+    public void OnMouseEnter()
+    {
+        Transform posToSpawn = gameObject.transform;
+        statusUI.ActivateUI(posToSpawn);
+    }
+
+    public void OnMouseExit()
+    {
+        statusUI.HideUI();
     }
     
     public abstract void Die();

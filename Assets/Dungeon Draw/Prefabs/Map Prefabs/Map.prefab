@@ -107,3 +107,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2158966770164983228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8739319707098155672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc41ef1f17a401489615d5dd27a9a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPoint: {fileID: 1356994252747872612, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
+  battleIcon: {fileID: 5610378995545681068, guid: 9798ded902a49544398dd108d9f44f2e, type: 3}
+  shopIcon: {fileID: 4643296260360224629, guid: 8a2f6f238463c9d47a5c04afc558d990, type: 3}
+  restIcon: {fileID: 608877366185090156, guid: f6fe6489a479f5548b72b77479027e4d, type: 3}
+  eventIcon: {fileID: 863758272398202335, guid: 92e1353ee2964d446909a8b5e242faf2, type: 3}
+  bossIcon: {fileID: 5610378995545681068, guid: f2404f205bc136545b68eb5043ad83de, type: 3}
+  disabledIcon: {fileID: 8446352288383443004, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
+  columns: 7

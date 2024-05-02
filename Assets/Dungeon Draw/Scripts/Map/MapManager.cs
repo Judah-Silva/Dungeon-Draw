@@ -15,16 +15,13 @@ public class MapManager : MonoBehaviour
     public int columns = 3;
     public static int MaxColumns;
     public static int ColIndex;
-    // public static int CurrentColumns;
     
     public static float iconSpacing = 5f;
-    
 
     private void Start()
     {
         MaxColumns = columns;
         ColIndex = LevelTracker.levelsVisited;
-        // CurrentColumns = LevelTracker.levelsVisited;
         Vector3 startPos = startPoint.position;
         
         Debug.Log("colindex " + ColIndex);
@@ -42,7 +39,6 @@ public class MapManager : MonoBehaviour
 
     public void SpawnIcons(Vector3 startPos)
     {
-        // int colIndex = 0;
         if (ColIndex == MaxColumns)
         {
             SpawnBoss(startPos);
@@ -88,17 +84,11 @@ public class MapManager : MonoBehaviour
                 GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
                 newIcon.GetComponent<Icon>().init(3);
             }
-
-            // columnSpacing -= 5f;
         }
-
-        // ColIndex++;
-        // CurrentColumns++;
     }
 
     public void SpawnBoss(Vector3 startPos)
     {
-        // Debug.Log("generate boss icon");
         Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);
         GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
         newIcon.GetComponent<Icon>().init(4);

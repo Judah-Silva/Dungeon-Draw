@@ -6,6 +6,9 @@ using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
+    public List<Entity> enemies = new List<Entity>();
+
+    public GameObject resultsWindow;
     
     public bool PlayerPlayFirst { get; set; } = true;
     public List<Level> levels = new ();
@@ -208,7 +211,8 @@ public class CombatManager : MonoBehaviour
         EndTurn();
     }
 
-    private void BattleOver(int result)
+    // made it public so I could test it. hopefully didn't mess it up too bad --Matthew
+    public void BattleOver(int result)
     {
         DisplayState();
         battleOver = true;
@@ -225,6 +229,8 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Battle lost...");
         }
+        
+        resultsWindow.SetActive(true);
     }
 
     public Entity GetPlayerEntity()
