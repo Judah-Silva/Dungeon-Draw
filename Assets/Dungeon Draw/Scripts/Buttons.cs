@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour
 {
+    public string mapScene = "MapSelect";
+    public SceneTransition sceneTransition;
+    
     public void Map()
     { 
         Debug.Log("Map button clicked");
+        sceneTransition.FadeToScene(mapScene);
     }
 
     public void Deck()

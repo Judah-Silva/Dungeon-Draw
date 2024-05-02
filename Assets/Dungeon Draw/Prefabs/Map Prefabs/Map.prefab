@@ -120,12 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc41ef1f17a401489615d5dd27a9a76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuScene: MainMenu
   startPoint: {fileID: 1356994252747872612, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
-  battleIcon: {fileID: 5645111069454805375, guid: 00424183ae2d3ee47989643183e25e54, type: 3}
-  shopIcon: {fileID: 8111152860720398002, guid: 551735ba1691df247b720af35ef8abbe, type: 3}
-  restIcon: {fileID: 5362798339639954827, guid: 0074bc1d71d24c3419fd1f5506e0e4db, type: 3}
-  eventIcon: {fileID: 5503282126716121162, guid: 7b45e03d366e82145bb9c37714108a22, type: 3}
-  bossIcon: {fileID: 5645111069454805375, guid: 3a8e61ae8473bd94e9abc9e85145afc5, type: 3}
+  battleIcon: {fileID: 5610378995545681068, guid: 9798ded902a49544398dd108d9f44f2e, type: 3}
+  shopIcon: {fileID: 4643296260360224629, guid: 8a2f6f238463c9d47a5c04afc558d990, type: 3}
+  restIcon: {fileID: 608877366185090156, guid: f6fe6489a479f5548b72b77479027e4d, type: 3}
+  eventIcon: {fileID: 863758272398202335, guid: 92e1353ee2964d446909a8b5e242faf2, type: 3}
+  bossIcon: {fileID: 5610378995545681068, guid: f2404f205bc136545b68eb5043ad83de, type: 3}
   disabledIcon: {fileID: 8446352288383443004, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
   columns: 7

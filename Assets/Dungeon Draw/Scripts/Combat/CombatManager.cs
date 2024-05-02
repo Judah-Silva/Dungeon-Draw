@@ -6,6 +6,8 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     public List<Entity> enemies = new List<Entity>();
+
+    public GameObject resultsWindow;
     
     /*
     Use StartFight() to start the fight
@@ -147,7 +149,8 @@ public class CombatManager : MonoBehaviour
         EndTurn();
     }
 
-    private void BattleOver(int result)
+    // made it public so I could test it. hopefully didn't mess it up too bad --Matthew
+    public void BattleOver(int result)
     {
         if (result == 1)
         {
@@ -157,6 +160,8 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Battle lost...");
         }
+        
+        resultsWindow.SetActive(true);
     }
 
 }

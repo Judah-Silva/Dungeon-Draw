@@ -9,8 +9,10 @@ public class Entity : MonoBehaviour
     public int maxHP;
     public int currentHP;
     public int[] entityStatusEffectArray = new int[10];
-
+    
     private CardManager _cardManager;
+
+    public StatusUI statusUI;
 
     public void Start()
     {
@@ -89,5 +91,16 @@ public class Entity : MonoBehaviour
         CombatManager.Instance.enemies.Remove(this); //we can't do this because we're iterating over the list
         Destroy(gameObject);
         //TODO: Add death animation
+    }
+
+    public void OnMouseEnter()
+    {
+        Transform posToSpawn = gameObject.transform;
+        statusUI.ActivateUI(posToSpawn);
+    }
+
+    public void OnMouseExit()
+    {
+        statusUI.HideUI();
     }
 }

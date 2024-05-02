@@ -2587,7 +2587,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MapSceneName: Map
+  MapSceneName: MapSelect
+  sceneTransition: {fileID: 4560466939670260842, guid: 328f15beb06729040a31b7e3cd7c2975, type: 3}
   shopFileName: shop
 --- !u!1 &3067928779623751066
 GameObject:
@@ -4347,7 +4348,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.84546745, y: 0.048523232}
   m_AnchorMax: {x: 0.9804521, y: 0.3943252}
-  m_AnchoredPosition: {x: -4.7200317, y: 5.5899963}
+  m_AnchoredPosition: {x: -4.720093, y: 5.5899963}
   m_SizeDelta: {x: -18.32, y: -17.4}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &6947438568257445542

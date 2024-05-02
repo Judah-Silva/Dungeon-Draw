@@ -3,23 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ParticleSystem = UnityEngine.ParticleSystem;
 
 public class IconManager : MonoBehaviour
 {
-    public string battleScene = "BattleScene";
-    public string shopScene = "ShopScene";
-    public string restScene = "RestSpotScene";
-    public string eventScene = "EventScene";
+    public string newScene = "";
 
     public MapManager mapManager;
+    public LevelTracker levelTracker;
 
+    public Color mainColor;
     public Color disabledColor = Color.gray;
+    public Color hoverColor = Color.white;
+    
     private bool wasClicked = false;
     private Renderer rend;
+
+    private ParticleSystem particles;
+
+    // public ParticleSystem particles;
 
     private void Start()
     {
         rend = GetComponent<Renderer>();
+        mainColor = rend.material.color;
+        particles = GetComponent<ParticleSystem>();
+        // DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnMouseEnter()
+    {
+        rend.material.color = hoverColor;
+    }
+
+    private void OnMouseExit()
+    {
+        rend.material.color = mainColor;
     }
 
     private void OnMouseDown()
@@ -30,41 +49,11 @@ public class IconManager : MonoBehaviour
             return;
         }
         
-        if (gameObject.CompareTag("battle"))
-        {
-            Debug.Log("battle engaged");
-            // LevelTracker.levelsVisited++;
-            SceneManager.LoadScene(battleScene);
-        }
-        else if (gameObject.CompareTag("shop"))
-        {
-            Debug.Log("shop entered");
-            // LevelTracker.levelsVisited++;
-            SceneManager.LoadScene(shopScene);
-        }
-        else if (gameObject.CompareTag("rest"))
-        {
-            Debug.Log("resting");
-            // LevelTracker.levelsVisited++;
-            SceneManager.LoadScene(restScene);
-        }
-        else if (gameObject.CompareTag("event"))
-        {
-            Debug.Log("event triggered");
-            // LevelTracker.levelsVisited++;
-            SceneManager.LoadScene(eventScene);
-        } 
-        else if (gameObject.CompareTag("boss"))
-        {
-            Debug.Log("loading boss...");
-            return; // to prevent boss icon from being disabled (probably temporary)
-        }
-        else
-        {
-            Debug.Log("this icon doesn't exist");
-        }
+        particles.Play();
+        
+        SceneManager.LoadScene(newScene);
 
-        LevelTracker.IncrementLevelsVisited();
+        levelTracker.IncrementLevelsVisited();
         DisableIcons(); // probably not necessary anymore but idk
     }
 
