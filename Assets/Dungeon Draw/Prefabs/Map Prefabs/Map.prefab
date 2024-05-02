@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8074272819882568714}
   - component: {fileID: 6190010095847242334}
   - component: {fileID: 5457680754581776315}
-  - component: {fileID: 2158966770164983228}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -108,24 +107,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2158966770164983228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8739319707098155672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fc41ef1f17a401489615d5dd27a9a76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenuScene: MainMenu
-  startPoint: {fileID: 1356994252747872612, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
-  battleIcon: {fileID: 5645111069454805375, guid: 00424183ae2d3ee47989643183e25e54, type: 3}
-  shopIcon: {fileID: 8111152860720398002, guid: 551735ba1691df247b720af35ef8abbe, type: 3}
-  restIcon: {fileID: 5362798339639954827, guid: 0074bc1d71d24c3419fd1f5506e0e4db, type: 3}
-  eventIcon: {fileID: 5503282126716121162, guid: 7b45e03d366e82145bb9c37714108a22, type: 3}
-  bossIcon: {fileID: 5645111069454805375, guid: 3a8e61ae8473bd94e9abc9e85145afc5, type: 3}
-  disabledIcon: {fileID: 8446352288383443004, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}
-  columns: 7
