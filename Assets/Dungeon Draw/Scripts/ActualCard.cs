@@ -3,23 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using TMPro;
 
 public class ActualCard : MonoBehaviour
 {
-    public string cardName;
 
+    [Header("General Card Vars")]
     public int cardID;
-
-    public String image; //Varible type not confirmed
-
+    public string cardName;
     public int manaCost;
-
     public int cardVal;
-
     public int rarity;
-    
+
+    [Header("Other pt. 1")]
     public int[] numOfEffects; // A value for each block
     public int[] condition; // A value for each block
     public int[][] effectType; // A value for each effect in each block
@@ -33,21 +31,35 @@ public class ActualCard : MonoBehaviour
 
     private GameObject Player;
 
-    private TMP_Text block1;
+    [Header("Text Elements")]
+    public TMP_Text block1;
+    public TMP_Text block2;
+    public TMP_Text manaCostText;
+    public TMP_Text cardNameText;
 
-    private TMP_Text block2;
+    [Header("Card Images && the associated gameobjects")]
+    // May not need these
+    public Image cardImage;
+    public Image block1Background;
+    public Image block2Background;
+    // Used to hold the 3 variants of a block background
+    public Texture2D baseBG;
+    public Texture2D tapeBG;
+    public Texture2D glueBG;
+    // Game Objects that reference the actual objects holding the images
+    public GameObject cardImageBox;
+    public GameObject block1Box;
+    public GameObject block2Box;
 
-    private TMP_Text manaCostText;
-
-    private TMP_Text cardNameText;
-
+    [Header("Other pt. 2")]
     public Color c;
     private Renderer rend;
     private Animator anim;
     public float moveAmount = 1;
     public float hoverSmoothness = 5f;
     public Vector3 originalPosition;
-    private bool selected = false;
+    [HideInInspector]
+    public bool isShopItem = false;
 
     void Start()
     {
@@ -60,24 +72,29 @@ public class ActualCard : MonoBehaviour
 
     private void Update()
     {
-        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hitInfo;
-        //
-        // if (Physics.Raycast(ray, out hitInfo))
-        // {
-        //     Debug.Log(hitInfo.collider.gameObject.name);
-        //     if (hitInfo.collider.gameObject == gameObject)
-        //     {
-        //         // Move the object up smoothly
-        //         Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
-        //         transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
-        //     }
-        //     else if (transform.position != originalPosition)
-        //     {
-        //         // Move the object back to its original position if not hovering
-        //         transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
-        //     }
-        // }
+        if (!isShopItem)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                // Debug.Log(hitInfo.collider.gameObject.name);
+                if (hitInfo.collider.gameObject == gameObject)
+                {
+                    // Move the object up smoothly
+                    Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
+                    transform.position =
+                        Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
+                }
+                else if (transform.position != originalPosition)
+                {
+                    // Move the object back to its original position if not hovering
+                    transform.position = Vector3.Lerp(transform.position, originalPosition,
+                        hoverSmoothness * Time.deltaTime);
+                }
+            }
+        }
     }
 
     public void CreateNewCard(List<int> cardInfo)
@@ -104,6 +121,8 @@ public class ActualCard : MonoBehaviour
         rarity = cardInfo[3];
 
         int numOfBlocks = cardInfo[4];
+
+        cardNameText.text = cardID.ToString(); //Temporary for shop testing
 
 
         blockArray = new Block[2]; //Length should always be 2
@@ -161,19 +180,84 @@ public class ActualCard : MonoBehaviour
 
         }
 
+        updateVisuals();
+
     }
 
+    // Function that updates the text and the images on a card
+    private void updateVisuals()
+    {
 
-    //A method to check if the card is playable due to manacost of the player and the card itself,
+        // First the strings get updated
+        
+        // Makes a call to the card database as that's where all the card names get stored
+        // Then the code will update the card name text
+        cardName = CardDataBase.getCardName(cardID);
+        cardNameText.text = cardName;
+
+        // Then updates the mana value
+        manaCostText.text = manaCost.ToString();
+
+        // For both of the blocks, it wil first check if it exists, and if it does, then --- 
+        // --- it will call the afformentioned block w/ the show block function
+        if (condition[0] != 0)
+        {
+            block1.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block1.text = "";
+        }
+
+        if (condition[1] != 0)
+        {
+            block2.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block2.text = "";
+        }
+
+        updateTheBlockImages();
+
+    }
+
+    // Uses a separate function to update each condition individually
+    private void updateTheBlockImages()
+    {
+        updateGivenBlock(condition[0], block1Box.GetComponent<RawImage>());
+        updateGivenBlock(condition[1], block2Box.GetComponent<RawImage>());
+    }
+
+    public void updateGivenBlock(int con, RawImage bBox) { 
+
+        switch (con)
+        {
+            case 2:
+                bBox.texture = tapeBG;
+                break;
+            case 3:
+                bBox.texture = glueBG;
+                break;
+            default:
+                bBox.texture = baseBG;
+                break;
+        }
+
+    }
+
     // while also passing it down to block to check those isPlayables as well.
     public bool isPlayable()
     {
-        for (int i = 0; i < blockArray.Length - 1; i++)
+        for (int i = 0; i < blockArray.Length; i++)
         {
             Block block = blockArray[i];
-            return block.isPlayable();
+            if (block != null && !block.isPlayable())
+            {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     //This method will be the main way to enact card effects, as it goes down the line to effect
@@ -191,7 +275,7 @@ public class ActualCard : MonoBehaviour
             }
             Block block = blockArray[i];
             block.dealBlock(origin, target);
-            Debug.Log("Block dealt");
+            // Debug.Log("Block dealt");
         }
     }
 
@@ -210,15 +294,16 @@ public class ActualCard : MonoBehaviour
         int[] cardData = blockArray[1].copyBlock(condition, cardID);
         int numOfEffects = cardData[6];
 
-        for (int i = 0; i < numOfEffects; i++)
-        {
-            //blockArray[1] = 
-        }
+        // for (int i = 0; i < numOfEffects; i++)
+        // {
+        //      blockArray[1] = 
+        // }
     }
 
     public void OnMouseDown()
     {
-        cardManager.SetCard(this);
+        if(!isShopItem)
+            cardManager.SetCard(this);
     }
 
     // void OnMouseEnter()

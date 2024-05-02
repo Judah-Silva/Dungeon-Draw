@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 225}
+  m_SizeDelta: {x: 145, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4457710496785575107
 CanvasRenderer:
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -970,7 +970,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 225}
+  m_SizeDelta: {x: 145, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3896512750005694085
 CanvasRenderer:
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1440,7 +1440,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 225}
+  m_SizeDelta: {x: 145, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6568415685667461376
 CanvasRenderer:
@@ -1520,7 +1520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d2653e9c50a472c8f07a58bec4f18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 0}
+  cardPrefab: {fileID: 5396509175230500746, guid: 44cab59ee3c2047768766b261a52915c, type: 3}
   cardSlotAmount: 5
   cardSlots:
   - {fileID: 6689475913853444028}
@@ -2511,56 +2511,69 @@ MonoBehaviour:
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   boosterPacks:
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   relics:
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
+    ac: {fileID: 0}
   flashPanel: {fileID: 2025658318605409589}
   img: {fileID: 178593540990947457}
   curve:
@@ -4688,7 +4701,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 225}
+  m_SizeDelta: {x: 145, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2607073232365153676
 CanvasRenderer:
@@ -4768,7 +4781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5611,7 +5624,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 175, y: 225}
+  m_SizeDelta: {x: 145, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1942370709091192185
 CanvasRenderer:
@@ -5691,7 +5704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

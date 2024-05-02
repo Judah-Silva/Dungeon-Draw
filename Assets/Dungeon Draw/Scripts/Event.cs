@@ -15,12 +15,15 @@ public enum Actions //FILL THIS WITH MORE ACTIONS
     LoseGold,
     GainGold,
     GainHealth,
+    GainHealthByPercentage,
     LoseHealth,
     GainCardById,
     GainRelicById,
     GainGlue,
     GainTape,
     ChangeScene,
+    GainRandomRelic,
+    GainRandomCard,
 }
 
 // [System.Serializable]
@@ -95,7 +98,7 @@ public class Event : MonoBehaviour
     {
         if (ButtonGO[0].GetComponentInChildren<TMP_Text>().text == "Back To Map") 
         {
-            SceneManager.LoadScene(mapSceneName);// This only occurs after this function has happened once  |||  unless you set a button to this name but that shouldn't be necessary 
+            backToMap();// This only occurs after this function has happened once  |||  unless you set a button to this name but that shouldn't be necessary 
             return;
         }
         int actionLength = events[eventId].button[buttonId].actions.Length;
@@ -107,23 +110,28 @@ public class Event : MonoBehaviour
                
                case Actions.LoseGold:
                    Debug.Log("LoseGold activated");
-                   //playerMoney -= but.intActs[i];
+                   PlayerStats.Coins -= but.intActs[i];
                    break;
                case Actions.GainGold:
                    Debug.Log("GainGold activated");
-                   //playerMoney += but.intActs[i];
+                   PlayerStats.Coins += but.intActs[i];
                    break;
                case Actions.LoseHealth:
                    Debug.Log("LoseHealth activated");
-                   //playerHP -= but.intActs[i];
+                   GameObject.Find("Player").GetComponent<Entity>().currentHP -= but.intActs[i];
                    break;
                case Actions.GainHealth:
                    Debug.Log("GainHealth activated");
-                   //playerHP += but.intActs[i];
+                   GameObject.Find("Player").GetComponent<Entity>().currentHP += but.intActs[i];
+                   break;
+               case Actions.GainHealthByPercentage:
+                   float res = GameObject.Find("Player").GetComponent<Entity>().maxHP*(but.intActs[i]/100.0f);
+                   GameObject.Find("Player").GetComponent<Entity>().currentHP += (int)Math.Round(res);
                    break;
                case Actions.GainCardById :
                    Debug.Log("GainCardById  activated");
-                   //cardDB.heldCards.add(cardDB.getCard(but.intActs[i]));
+                   PlayerStats.Deck.Add(but.intActs[i]);
+                   PlayerStats.TotalDeckSize++;//Add to totalDeckSize???
                    break;
                case Actions.GainRelicById :
                   Debug.Log("GainRelicById  activated");
@@ -131,12 +139,20 @@ public class Event : MonoBehaviour
                   break;
                case Actions.GainGlue :
                   Debug.Log("GainGlue activated");
-                  //playerGlue += but.intActs[i];
+                  PlayerStats.Glue += but.intActs[i];
                   break;
                case Actions.GainTape :
                   Debug.Log("GainTape  activated");
-                  //playerTape += but.intActs[i];
+                  PlayerStats.Tape += but.intActs[i];
                   break;
+               case Actions.GainRandomRelic:
+                   
+                   break;
+               case Actions.GainRandomCard:
+                   int ran = Random.Range(0, CardDataBase.allCards.Count);
+                   PlayerStats.Deck.Add(ran);
+                   PlayerStats.TotalDeckSize++;
+                   break;
                case Actions.Leave:
                    Debug.Log("Leave button pressed");
                    //Used for getting the player to the next text display without affecting any values
@@ -151,6 +167,12 @@ public class Event : MonoBehaviour
             ButtonGO[1].SetActive(false);ButtonGO[2].SetActive(false); // Turns top buttons off
             ButtonGO[0].GetComponentInChildren<TMP_Text>().text = "Back To Map"; //Changes to a leave button
         }
+
+        
+    }
+    public void backToMap()
+    {
+        SceneManager.LoadScene(mapSceneName);
     }
 
     

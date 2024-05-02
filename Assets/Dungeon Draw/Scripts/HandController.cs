@@ -56,14 +56,15 @@ public class HandController : MonoBehaviour
         foreach (ActualCard c in hand)
         {
             c.transform.position = new Vector3(leftStart, center.y, center.z);
+            c.originalPosition = c.transform.position;
             leftStart += cardWidth + spacing;
         }
     }
 
     public IEnumerator DrawHand()
     {
-        Debug.Log("Hand drawing");
-        Debug.Log(_deck.deckSize);
+        // Debug.Log("Hand drawing");
+        // Debug.Log(_deck.deckSize);
         while (hand.Count < PlayerStats.HandSize && _deck.deckSize > 0)
         {
             AddCardToHand();

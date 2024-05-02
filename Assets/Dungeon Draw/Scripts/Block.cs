@@ -30,7 +30,7 @@ public class Block
         foreach (Effect e in effectList)
         {
             e.dealEffect(origin, target);
-            Debug.Log("Effect dealt");
+            // Debug.Log("Effect dealt");
         }
     }
     //This method is for merging cards
@@ -49,5 +49,31 @@ public class Block
         effectList.Add(new Effect(type, val));
 
         return this;
+    }
+
+    public string showBlock()
+    {
+
+        string temp = "";
+
+        bool first = true;
+
+        foreach (Effect e in effectList)
+        {
+
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                temp += ", ";
+            }
+
+            temp += e.showEffect();
+        }
+
+        return temp;
+
     }
 }

@@ -122,6 +122,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newScene: Judah Scene
+  battleScene: BattleScene
+  shopScene: ShopScene
+  restScene: Rest
+  eventScene: EventScene
   mapManager: {fileID: 2158966770164983228, guid: 9520fda63b5b3f2438747ee179007fb5, type: 3}
   levelTracker: {fileID: 2132468420682520212, guid: 5854c31a95935ab448bd057d82e21d6d, type: 3}
   mainColor: {r: 0, g: 0, b: 0, a: 0}

@@ -76,7 +76,7 @@ public class CardManager : MonoBehaviour
 
             if (isValid())
             {
-                Debug.Log("Enemy targeted");
+                // Debug.Log("Enemy targeted");
             }
             else
             {
@@ -112,11 +112,11 @@ public class CardManager : MonoBehaviour
 
         // If all of these are good, run the cards dealBlocks
         
-        Debug.Log(currentMana);
+        Debug.Log($"{currentMana} mana remaining.");
         
         selectedCard.dealBlocks(player, selectedGameObject);
         
-        Debug.Log($"Enemy: {selectedGameObject.name} targeted. Remaining health: {selectedEntity.getHP()}");
+        // Debug.Log($"Enemy: {selectedGameObject.name} targeted. Remaining health: {selectedEntity.getHP()}");
         
         _handController.RemoveCard(selectedCard);
         Discard.DiscardCard(selectedCard);

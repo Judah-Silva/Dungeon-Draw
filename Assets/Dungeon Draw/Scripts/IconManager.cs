@@ -8,6 +8,10 @@ using ParticleSystem = UnityEngine.ParticleSystem;
 public class IconManager : MonoBehaviour
 {
     public string newScene = "";
+    public string battleScene = "BattleScene";
+    public string shopScene = "Shop";
+    public string restScene = "Rest";
+    public string eventScene = "Event";
 
     public MapManager mapManager;
     public LevelTracker levelTracker;
