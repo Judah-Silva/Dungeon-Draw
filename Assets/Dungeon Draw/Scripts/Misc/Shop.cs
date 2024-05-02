@@ -16,13 +16,11 @@ public class shopItem
 {
     public void setCard(List<int> card, GameObject cardPref)
     {
-        if (ac == null) //used for changing the card if it is bought
-        {
-            GameObject g = GameObject.Instantiate(cardPref, Slot.transform);
-            g.transform.localScale *= 75;
-            g.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
-            ac = g.GetComponent<ActualCard>();
-        }
+        
+        GameObject g = GameObject.Instantiate(cardPref, Slot.transform);
+        g.transform.localScale *= 75;
+        g.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
+        ac = g.GetComponent<ActualCard>();
 
         ac.CreateNewCard(card);
         ac.isShopItem = true;
@@ -102,7 +100,7 @@ public class Shop : MonoBehaviour
             getPriceFromText(i, -1); 
          }
 
-         sceneRouter = GameManager.Instance.GetSceneRouter();
+         //sceneRouter = GameManager.Instance.GetSceneRouter();
     }
 
     public void CardPressed(int buttin)
@@ -164,7 +162,8 @@ public class Shop : MonoBehaviour
     {
         int ran = 0;
         ran = Random.Range(0, CardDataBase.allCards.Count);
-        cardShopItems[shopId].setCard(CardDataBase.getCard(ran), null);
+        Destroy(cardShopItems[shopId].Slot.transform.GetChild(2).gameObject);
+        cardShopItems[shopId].setCard(CardDataBase.getCard(ran), cardPrefab);
         //getPriceFromText(shopId, ran);
     }
     
