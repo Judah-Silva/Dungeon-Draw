@@ -38,9 +38,15 @@ public class ActualCard : MonoBehaviour
     public TMP_Text cardNameText;
 
     [Header("Card Images && the associated gameobjects")]
+    // May not need these
     public Image cardImage;
     public Image block1Background;
     public Image block2Background;
+    // Used to hold the 3 variants of a block background
+    public Texture2D baseBG;
+    public Texture2D tapeBG;
+    public Texture2D glueBG;
+    // Game Objects that reference the actual objects holding the images
     public GameObject cardImageBox;
     public GameObject block1Box;
     public GameObject block2Box;
@@ -167,8 +173,71 @@ public class ActualCard : MonoBehaviour
 
         }
 
+        updateVisuals();
+
     }
 
+    // Function that updates the text and the images on a card
+    private void updateVisuals()
+    {
+
+        // First the strings get updated
+        
+        // Makes a call to the card database as that's where all the card names get stored
+        // Then the code will update the card name text
+        cardName = CardDataBase.getCardName(cardID);
+        cardNameText.text = cardName;
+
+        // Then updates the mana value
+        manaCostText.text = manaCost.ToString();
+
+        // For both of the blocks, it wil first check if it exists, and if it does, then --- 
+        // --- it will call the afformentioned block w/ the show block function
+        if (condition[0] != 0)
+        {
+            block1.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block1.text = "";
+        }
+
+        if (condition[1] != 0)
+        {
+            block2.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block2.text = "";
+        }
+
+        updateTheBlockImages();
+
+    }
+
+    // Uses a separate function to update each condition individually
+    private void updateTheBlockImages()
+    {
+        updateGivenBlock(condition[0], block1Box.GetComponent<RawImage>());
+        updateGivenBlock(condition[1], block2Box.GetComponent<RawImage>());
+    }
+
+    public void updateGivenBlock(int con, RawImage bBox) { 
+
+        switch (con)
+        {
+            case 2:
+                bBox.texture = tapeBG;
+                break;
+            case 3:
+                bBox.texture = glueBG;
+                break;
+            default:
+                bBox.texture = baseBG;
+                break;
+        }
+
+    }
 
     // while also passing it down to block to check those isPlayables as well.
     public bool isPlayable()
