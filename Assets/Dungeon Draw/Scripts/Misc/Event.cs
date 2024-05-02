@@ -64,6 +64,9 @@ public class Event : MonoBehaviour
     public TMP_Text DescriptionBox;
     public string mapSceneName;
     
+    public GameObject gameManager;
+    public SceneRouter sceneRouter;
+    
     public List<eventClass> events;
   
 
@@ -73,7 +76,13 @@ public class Event : MonoBehaviour
     
     void Start()
     {
-       ButtonGO[0].SetActive(false);ButtonGO[1].SetActive(false);ButtonGO[2].SetActive(false); // Turns buttons off
+        if (GameObject.Find("Game Manager"))
+        {
+            gameManager = GameObject.Find("Game Manager");
+            sceneRouter = gameManager.GetComponent<SceneRouter>();
+        }
+
+        ButtonGO[0].SetActive(false);ButtonGO[1].SetActive(false);ButtonGO[2].SetActive(false); // Turns buttons off
         if (eventId == -1)
             eventId = Random.Range(0, events.Count); // selects random event
         Debug.Log(eventId);
@@ -118,15 +127,15 @@ public class Event : MonoBehaviour
                    break;
                case Actions.LoseHealth:
                    Debug.Log("LoseHealth activated");
-                   GameObject.Find("Player").GetComponent<Entity>().currentHP -= but.intActs[i];
+                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth-but.intActs[i]);
                    break;
                case Actions.GainHealth:
                    Debug.Log("GainHealth activated");
-                   GameObject.Find("Player").GetComponent<Entity>().currentHP += but.intActs[i];
+                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth+but.intActs[i]);
                    break;
                case Actions.GainHealthByPercentage:
-                   float res = GameObject.Find("Player").GetComponent<Entity>().maxHP*(but.intActs[i]/100.0f);
-                   GameObject.Find("Player").GetComponent<Entity>().currentHP += (int)Math.Round(res);
+                   float res = PlayerStats.MaxHealth*(but.intActs[i]/100.0f);
+                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth+(int)Math.Round(res));
                    break;
                case Actions.GainCardById :
                    Debug.Log("GainCardById  activated");
@@ -172,7 +181,7 @@ public class Event : MonoBehaviour
     }
     public void backToMap()
     {
-        SceneManager.LoadScene(mapSceneName);
+        sceneRouter.ToMap();
     }
 
     

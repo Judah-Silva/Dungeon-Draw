@@ -78,3 +78,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Dungeon Draw/Scripts/Misc/RelicDatabase.cs.meta
+Assets/Dungeon Draw/Scripts/Misc/RelicDatabase.cs
+Assets/Dungeon Draw/Scripts/Misc/Relic.cs.meta
+Assets/Dungeon Draw/Scripts/Misc/Relic.cs
