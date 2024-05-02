@@ -15,7 +15,16 @@ EditorBuildSettings:
     path: Assets/Dungeon Draw/Scenes/Credits.unity
     guid: 4e974e7933663ec4e8574f932ba0fbf5
   - enabled: 1
-    path: Assets/Dungeon Draw/Scenes/test event.unity
-    guid: 689e825e01ae1914f95408204759eea9
+    path: Assets/Dungeon Draw/Scenes/Battle Scene.unity
+    guid: c8ca303c27a4b334290a745431311cde
+  - enabled: 1
+    path: Assets/Dungeon Draw/Scenes/Event.unity
+    guid: aaf120b047f5f46959c8db4180c59f7b
+  - enabled: 1
+    path: Assets/Dungeon Draw/Scenes/Shop.unity
+    guid: dd268685902f54759a1c78351a8c887a
+  - enabled: 1
+    path: Assets/Dungeon Draw/Scenes/Rest.unity
+    guid: ae272e8b8958440f2af358ed0d31971c
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

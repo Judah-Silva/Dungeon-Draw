@@ -9,6 +9,7 @@ TagManager:
   - rest
   - event
   - boss
+  - enemy
   layers:
   - Default
   - TransparentFX
