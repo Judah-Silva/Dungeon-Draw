@@ -6,19 +6,21 @@ using UnityEngine;
 public class MapMenu : MonoBehaviour
 {
     public string mainMenuScene = "MainMenu";
-    public SceneTransition transition;
+    public SceneRouter sceneRouter;
     public GameObject inventoryUI;
     public TextMeshProUGUI floorText;
     
     // Start is called before the first frame update
     void Start()
     {
+
+        sceneRouter = GameManager.Instance.GetSceneRouter();
         floorText.text = "Floor " + LevelTracker.floorsVisited;
     }
     
     public void ReturnToMainMenu()
     {
-        transition.FadeToScene(mainMenuScene);
+        sceneRouter.ToMainMenu();
     }
 
     public void OptionsMenu()

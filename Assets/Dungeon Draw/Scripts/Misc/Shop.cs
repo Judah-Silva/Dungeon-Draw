@@ -65,8 +65,7 @@ public class Shop : MonoBehaviour
     public Image img;
     public AnimationCurve curve;
 
-    public string MapSceneName = "Map";
-    public SceneTransition sceneTransition;
+    public SceneRouter sceneRouter;
 
     public string shopFileName = "shop";
     private List<string> shopRows = new List<string>();
@@ -93,7 +92,8 @@ public class Shop : MonoBehaviour
          {
             getPriceFromText(i, -1); 
          }
-         
+
+         sceneRouter = GameManager.Instance.GetSceneRouter();
     }
 
     public void CardPressed(int buttin)
@@ -148,7 +148,7 @@ public class Shop : MonoBehaviour
 
     public void leaveScene()
     {
-        sceneTransition.FadeToScene(MapSceneName);
+        sceneRouter.ToMap();
     }
 
     private void repopulateShopItem(int shopId)
