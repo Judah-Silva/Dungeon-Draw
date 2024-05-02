@@ -10,7 +10,6 @@ public class MapManager : MonoBehaviour
     public Transform startPoint;
 
     // 0: battle, 1: shop, 2: rest, 3: event, 4: boss, 5: disabled
-    public GameObject icon;
     
     public int columns = 3;
     public static int MaxColumns;
@@ -18,8 +17,11 @@ public class MapManager : MonoBehaviour
     
     public static float iconSpacing = 5f;
 
+    private IconManager _iconManager;
+
     private void Start()
     {
+        _iconManager = IconManager.Instance;
         MaxColumns = columns;
         ColIndex = LevelTracker.levelsVisited;
         Vector3 startPos = startPoint.position;
@@ -66,23 +68,19 @@ public class MapManager : MonoBehaviour
 
             if (r >= 1 && r <= 65)
             {
-                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-                newIcon.GetComponent<Icon>().init(0);
+                _iconManager.CreateIcon(0, spawnPos);
             }
             else if (r >= 66 && r <= 79)
             {
-                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-                newIcon.GetComponent<Icon>().init(1);
+                _iconManager.CreateIcon(1, spawnPos);
             }
             else if (r >= 80 && r <= 90)
             {
-                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-                newIcon.GetComponent<Icon>().init(2);
+                _iconManager.CreateIcon(2, spawnPos);
             }
             else if (r >= 91 && r <= 100)
             {
-                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-                newIcon.GetComponent<Icon>().init(3);
+                _iconManager.CreateIcon(3, spawnPos);
             }
         }
     }
@@ -90,8 +88,7 @@ public class MapManager : MonoBehaviour
     public void SpawnBoss(Vector3 startPos)
     {
         Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);
-        GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-        newIcon.GetComponent<Icon>().init(4);
+        _iconManager.CreateIcon(4, spawnPos);
     }
 
     public void SpawnDisabled(Vector3 startPos)
@@ -116,8 +113,7 @@ public class MapManager : MonoBehaviour
                 }
             
                 Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, columnSpacing);
-                GameObject newIcon = Instantiate(icon, spawnPos, Quaternion.identity);
-                newIcon.GetComponent<Icon>().init(5);
+                _iconManager.CreateIcon(5, spawnPos);
             }
 
             startPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);

@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class IconManager : MonoBehaviour
 {
     public SceneRouter sceneRouter;
+
+    [Header("Icon Prefabs")] public List<GameObject> icons;
     
     public static IconManager Instance { get; private set; }
 
@@ -21,6 +24,11 @@ public class IconManager : MonoBehaviour
         {
             Destroy(this);
         }
+    }
+
+    public void CreateIcon(int type, Vector3 position)
+    {
+        Instantiate(icons[type], position, quaternion.identity);
     }
 
     public void Route(int type)
@@ -45,6 +53,6 @@ public class IconManager : MonoBehaviour
                 
         }
 
-        LevelTracker.IncrementLevelsVisited();
+        GameManager.Instance.GetLevelTracker().IncrementLevelsVisited();
     }
 }

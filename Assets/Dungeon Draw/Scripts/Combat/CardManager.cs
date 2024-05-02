@@ -55,12 +55,12 @@ public class CardManager : MonoBehaviour
         if (selectedCard == null || selectedCard != card)
         {
             selectedCard = card;
-            Debug.Log($"{card.cardID} has been selected");
+            // Debug.Log($"{card.cardID} has been selected");
         }
         else if (selectedCard == card)
         {
             selectedCard = null;
-            Debug.Log($"{card.cardID} has been deselected");
+            // Debug.Log($"{card.cardID} has been deselected");
         }
     }
 

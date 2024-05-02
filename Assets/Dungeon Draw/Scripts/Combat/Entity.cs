@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -14,24 +15,13 @@ public abstract class Entity : MonoBehaviour
     public StatusUI statusUI;
 
     private int[] _entityStatusEffectArray = new int[10];
-    
+
     public Slider healthBar;
 
-    private CardManager _cardManager;
+    [HideInInspector]
+    public CardManager _cardManager;
 
-    public void SetUp()
-    {
-        currentHP = maxHP;
-        Debug.Log("Setting up entity, currentHP: " + currentHP);
-        _cardManager = CardManager.Instance;
-        setUpEEA();
-        healthBar = GetComponentInChildren<Slider>();
-        if (healthBar is not null)
-        {
-            healthBar.maxValue = maxHP;
-            healthBar.value = currentHP;
-        }
-    }
+    public abstract void SetUp();
 
     public void setUpEEA()
     {
@@ -70,6 +60,8 @@ public abstract class Entity : MonoBehaviour
 
     public int takeDamage(int damage)
     {
+        Debug.Log($"{damage} damage taken to {gameObject.name}");
+        
         int remainingDamage = damage - getShield();
         // Debug.Log($"Taking {remainingDamage} damage");
 
@@ -83,7 +75,6 @@ public abstract class Entity : MonoBehaviour
             _entityStatusEffectArray[0] -= damage;
         }
 
-        Debug.Log($"{remainingDamage} damage taken to {gameObject.name}");
         if (currentHP <= 0)
         {
             Die();

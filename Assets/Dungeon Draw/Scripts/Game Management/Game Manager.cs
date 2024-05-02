@@ -26,4 +26,9 @@ public class GameManager : MonoBehaviour
     {
         return GetComponent<SceneRouter>();
     }
+
+    public LevelTracker GetLevelTracker()
+    {
+        return GetComponent<LevelTracker>();
+    }
 }

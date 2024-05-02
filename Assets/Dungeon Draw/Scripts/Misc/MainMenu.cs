@@ -7,16 +7,17 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public string mapScene = "MapSelect";
-    public string creditsScene = "Credits";
-    public string mainMenuScene = "MainMenu";
-
-    public SceneTransition transition;
+    private SceneRouter _sceneRouter;
 
     public AudioSource src;
     public AudioClip buttonSelectSound;
     public AudioClip quitSound;
-    
+
+    private void Start()
+    {
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
+    }
+
     // starting a new game
     public void StartGame()
     {
@@ -24,7 +25,7 @@ public class MainMenu : MonoBehaviour
         LevelTracker.levelsVisited = 0;
         LevelTracker.floorsVisited = 1;
         // TODO: overwrite totalLevels and floors when starting new game?
-        transition.FadeToScene(mapScene);
+        _sceneRouter.ToMap();
     }
 
     public void ContinueGame()
@@ -37,19 +38,19 @@ public class MainMenu : MonoBehaviour
         int totalFloors = PlayerPrefs.GetInt("TotalFloors", 0);
         LevelTracker.floorsVisited = totalFloors;
         
-        transition.FadeToScene(mapScene);
+        _sceneRouter.ToMap();
     }
 
     public void Credits()
     {
         PlaySFX(buttonSelectSound);
-        SceneManager.LoadScene(creditsScene);
+        _sceneRouter.ToCredits();
     }
 
     public void ReturnToMenu()
     {
         PlaySFX(quitSound);
-        SceneManager.LoadScene(mainMenuScene);
+        _sceneRouter.ToMainMenu();
     }
 
     public void QuitGame()

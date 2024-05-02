@@ -6,46 +6,41 @@ using UnityEngine;
 public class Icon : MonoBehaviour
 {
     public int type;
+    public Color hoverColor = Color.white;
+    
+    private Color _mainColor;
     private IconManager _iconManager;
-
     private Renderer _renderer;
+    
+    private ParticleSystem particles;
 
-    public void init(int type)
+    private void Start()
     {
-        this.type = type;
-        _renderer = GetComponent<Renderer>();
-        _renderer.material.SetFloat("_Glossiness", .5f);
+        if (type == 5)
+        {
+            enabled = false;
+            return;
+        }
+        
         _iconManager = IconManager.Instance;
-        SetColor();
+        _renderer = GetComponent<Renderer>();
+        _mainColor = _renderer.material.color;
+        particles = GetComponent<ParticleSystem>();
     }
 
-    public void SetColor()
+    private void OnMouseEnter()
     {
-        switch (type)
-        {
-            case 0:
-                _renderer.material.color = Color.red;
-                break;
-            case 1:
-                _renderer.material.color = new Color(1, 0.8838954f, 1, 1);
-                break;
-            case 2:
-                _renderer.material.color = new Color(0, 0.5726497f, 1, 1);
-                break;
-            case 3:
-                _renderer.material.color = Color.green;
-                break;
-            case 4:
-                _renderer.material.color = Color.red;
-                break;
-            case 5:
-                _renderer.material.color = Color.gray;
-                break;
-        }
+        _renderer.material.color = hoverColor;
+    }
+
+    private void OnMouseExit()
+    {
+        _renderer.material.color = _mainColor;
     }
     
     private void OnMouseDown()
     {
+        particles.Play();
         _iconManager.Route(type);
     }
 }

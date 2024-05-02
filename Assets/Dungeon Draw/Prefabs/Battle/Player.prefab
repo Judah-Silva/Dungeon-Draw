@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2290781690291806875}
   - component: {fileID: 4265805571905049450}
   - component: {fileID: 5665654679949773468}
-  - component: {fileID: 1918798378430880032}
+  - component: {fileID: 3351307052259346478}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -108,7 +108,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1918798378430880032
+--- !u!114 &3351307052259346478
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,9 +117,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7188800111430860240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f7da46bcd82d341a73ad4079854acb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e0c6015a6374b4ca2b23a45ba4a513f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 50
   currentHP: 50
-  entityStatusEffectArray: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  statusUI: {fileID: 0}
+  healthBar: {fileID: 0}
+  playerStats: {fileID: 360308579720605472, guid: 18b6430654c5328448653f4e576bd7c4, type: 3}

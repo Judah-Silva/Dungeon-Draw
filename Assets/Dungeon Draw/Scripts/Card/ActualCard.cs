@@ -94,6 +94,12 @@ public class ActualCard : MonoBehaviour
                         hoverSmoothness * Time.deltaTime);
                 }
             }
+            else
+            {
+                // Move the object back to its original position if not hovering
+                transform.position = Vector3.Lerp(transform.position, originalPosition,
+                    hoverSmoothness * Time.deltaTime);
+            }
         }
     }
 

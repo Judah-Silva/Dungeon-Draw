@@ -84,8 +84,17 @@ public class CardDataBase : MonoBehaviour
 
         switch (id)
         {
+            case 0:
+                temp = "Test card";
+                break;
             case 1:
                 temp = "Damage 1";
+                break;
+            case 2:
+                temp = "Shield 1";
+                break;
+            case 3:
+                temp = "Damage 2";
                 break;
             default:
                 temp = "NYI";

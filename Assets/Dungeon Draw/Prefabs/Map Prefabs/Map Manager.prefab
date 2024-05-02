@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 0}
-  icon: {fileID: 3824705959669086332, guid: 7e97a846624680542b128c4eaa776e3f, type: 3}
   columns: 7
 --- !u!114 &7001091681175164113
 MonoBehaviour:
@@ -61,3 +60,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneRouter: {fileID: 7202376072444443608, guid: 18b6430654c5328448653f4e576bd7c4, type: 3}
+  icons:
+  - {fileID: 5313611668024660318, guid: 357f3d393d7989b49a906ca62784d109, type: 3}
+  - {fileID: 8269029635005975451, guid: 76e33b5c25a31ce44831c4df71d8d27f, type: 3}
+  - {fileID: 796767095124288284, guid: 9eee8bda0b661e742a293b0323e11599, type: 3}
+  - {fileID: 4379982439448987111, guid: 00c340c47f3cc5141ab21593ff5ad3cc, type: 3}
+  - {fileID: 6743583942504507523, guid: 76535ecd19c4b60468317dfefc6f2413, type: 3}
+  - {fileID: 8446352288383443004, guid: 5a4a880e188d64444bbfc20f9577cd6c, type: 3}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : Entity
 {
@@ -18,6 +19,21 @@ public class Enemy : Entity
         _blockList.Add(new Block().addEffect(1, 6));
         _blockList.Add(new Block().addEffect(1, 6));
         _blockList.Add(new Block().addEffect(0, 12));
+    }
+    
+    public override void SetUp()
+    {
+        _cardManager = CardManager.Instance;
+        setUpEEA();
+        statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
+        currentHP = maxHP;
+        Debug.Log("Setting up entity, currentHP: " + currentHP);
+        healthBar = GetComponentInChildren<Slider>();
+        if (healthBar is not null)
+        {
+            healthBar.maxValue = maxHP;
+            healthBar.value = currentHP;
+        }
     }
 
     public void Attack()
@@ -41,7 +57,7 @@ public class Enemy : Entity
 
     public override void Die()
     {
-        //CombatManager.Instance.RemoveEnemy(gameObject);
+        CombatManager.Instance.RemoveEnemy(gameObject);
         //TODO : add gold to player
     }
 }

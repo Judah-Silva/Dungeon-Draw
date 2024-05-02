@@ -85,12 +85,7 @@ public class Effect
     public bool isPlayable()
     {
 
-        if (effectType == 3)
-        {
-            return false;
-        }
-
-        return true;
+        return effectType != 3;
     }
 
     // Function used by the block class that iterates through all effects to tell the system to use the various effects

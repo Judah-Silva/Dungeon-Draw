@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
-    public List<Entity> enemies = new List<Entity>();
 
     public GameObject resultsWindow;
     
@@ -77,6 +76,10 @@ public class CombatManager : MonoBehaviour
 
     private void Update()
     {
+        if (battleOver)
+        {
+            return;
+        }
         if (enemies.Count == 0)
         {
             BattleOver(1);
@@ -222,7 +225,8 @@ public class CombatManager : MonoBehaviour
             // Do whatever needs to be done
             ClearHand();
             // Show rewards, but temporarily just go back to map
-            _sceneRouter.ToMap();
+            resultsWindow.SetActive(true);
+            // _sceneRouter.ToMap();
             enabled = false;
         }
         else
@@ -230,7 +234,6 @@ public class CombatManager : MonoBehaviour
             Debug.Log("Battle lost...");
         }
         
-        resultsWindow.SetActive(true);
     }
 
     public Entity GetPlayerEntity()

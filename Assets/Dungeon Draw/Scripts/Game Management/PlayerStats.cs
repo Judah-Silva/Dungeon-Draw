@@ -9,7 +9,9 @@ public class PlayerStats : MonoBehaviour
     public static int Coins = 100;
     public static int Glue = 0;
     public static int Tape = 0;
-    public static List<int> Deck = new List<int>(); 
+    public static int CurrentHealth = 50;
+    public static int MaxHealth = 50;
+    public static List<int> Deck = new List<int>();
     
     void Start()
     {
@@ -35,5 +37,10 @@ public class PlayerStats : MonoBehaviour
         
         Deck.Add(3);
         Deck.Add(3);
+    }
+
+    public void UpdateHealth(int modifier)
+    {
+        CurrentHealth = modifier;
     }
 }
