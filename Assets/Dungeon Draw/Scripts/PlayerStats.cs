@@ -9,11 +9,11 @@ public class PlayerStats : MonoBehaviour
     public static int Coins = 100;
     public static int Glue = 0;
     public static int Tape = 0;
-    public static List<int> Deck;
+    public static List<int> Deck = new List<int>(); 
     
     void Start()
     {
-        Deck = new List<int>();
+        //Deck = new List<int>(); // This was removing the ability to add cards to deck.. Unless there was another way and I'm dumb lol - Erik
         PopulateDeck();
     }
 

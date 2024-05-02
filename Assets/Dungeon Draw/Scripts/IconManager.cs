@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class IconManager : MonoBehaviour
 {
     public string battleScene = "BattleScene";
-    public string shopScene = "ShopScene";
-    public string restScene = "RestSpotScene";
-    public string eventScene = "EventScene";
+    public string shopScene = "Shop";
+    public string restScene = "Rest";
+    public string eventScene = "Event";
 
     public MapManager mapManager;
 

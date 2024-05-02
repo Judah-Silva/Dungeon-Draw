@@ -123,6 +123,6 @@ MonoBehaviour:
   battleScene: BattleScene
   shopScene: ShopScene
   restScene: RestSpotScene
-  eventScene: test event
+  eventScene: Event
   mapManager: {fileID: 2158966770164983228, guid: 9520fda63b5b3f2438747ee179007fb5, type: 3}
   disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
