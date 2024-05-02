@@ -50,4 +50,30 @@ public class Block
 
         return this;
     }
+
+    public string showBlock()
+    {
+
+        string temp = "";
+
+        bool first = true;
+
+        foreach (Effect e in effectList)
+        {
+
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                temp += ", ";
+            }
+
+            temp += e.showEffect();
+        }
+
+        return temp;
+
+    }
 }

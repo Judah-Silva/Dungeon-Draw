@@ -167,6 +167,44 @@ public class ActualCard : MonoBehaviour
 
         }
 
+        updateVisuals();
+
+    }
+
+    // Function that updates the text and the images on a card
+    public void updateVisuals()
+    {
+
+        // First the strings get updated
+        
+        // Makes a call to the card database as that's where all the card names get stored
+        // Then the code will update the card name text
+        cardName = CardDataBase.getCardName(cardID);
+        cardNameText.text = cardName;
+
+        // Then updates the mana value
+        manaCostText.text = manaCost.ToString();
+
+        // For both of the blocks, it wil first check if it exists, and if it does, then --- 
+        // --- it will call the afformentioned block w/ the show block function
+        if (condition[0] != 0)
+        {
+            block1.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block1.text = "";
+        }
+
+        if (condition[1] != 0)
+        {
+            block2.text = blockArray[0].showBlock();
+        }
+        else
+        {
+            block2.text = "";
+        }
+
     }
 
 
