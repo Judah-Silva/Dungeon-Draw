@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 8074272819882568714}
   - component: {fileID: 6190010095847242334}
   - component: {fileID: 5457680754581776315}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 2158966770164983228}
+>>>>>>> main
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
