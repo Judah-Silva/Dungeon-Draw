@@ -38,9 +38,15 @@ public class ActualCard : MonoBehaviour
     public TMP_Text cardNameText;
 
     [Header("Card Images && the associated gameobjects")]
+    // May not need these
     public Image cardImage;
     public Image block1Background;
     public Image block2Background;
+    // Used to hold the 3 variants of a block background
+    public Texture2D baseBG;
+    public Texture2D tapeBG;
+    public Texture2D glueBG;
+    // Game Objects that reference the actual objects holding the images
     public GameObject cardImageBox;
     public GameObject block1Box;
     public GameObject block2Box;
@@ -172,7 +178,7 @@ public class ActualCard : MonoBehaviour
     }
 
     // Function that updates the text and the images on a card
-    public void updateVisuals()
+    private void updateVisuals()
     {
 
         // First the strings get updated
@@ -205,8 +211,33 @@ public class ActualCard : MonoBehaviour
             block2.text = "";
         }
 
+        updateTheBlockImages();
+
     }
 
+    // Uses a separate function to update each condition individually
+    private void updateTheBlockImages()
+    {
+        updateGivenBlock(condition[0], block1Box.GetComponent<RawImage>());
+        updateGivenBlock(condition[1], block2Box.GetComponent<RawImage>());
+    }
+
+    public void updateGivenBlock(int con, RawImage bBox) { 
+
+        switch (con)
+        {
+            case 2:
+                bBox.texture = tapeBG;
+                break;
+            case 3:
+                bBox.texture = glueBG;
+                break;
+            default:
+                bBox.texture = baseBG;
+                break;
+        }
+
+    }
 
     // while also passing it down to block to check those isPlayables as well.
     public bool isPlayable()
