@@ -9,8 +9,6 @@ public class InfoManager : MonoBehaviour
     public TextMeshProUGUI health;
     public TextMeshProUGUI gold;
 
-    // public PlayerStats playerStats;
-
     private void Update()
     {
         health.text = $"{PlayerStats.CurrentHealth}/{PlayerStats.MaxHealth} .";
