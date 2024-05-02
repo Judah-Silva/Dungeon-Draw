@@ -63,6 +63,8 @@ public class CombatManager : MonoBehaviour
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
 
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
         _playerEntity = player.GetComponent<Player>();
         StartFight();
     }
