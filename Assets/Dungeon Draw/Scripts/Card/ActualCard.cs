@@ -60,47 +60,57 @@ public class ActualCard : MonoBehaviour
     public Vector3 originalPosition;
     [HideInInspector]
     public bool isShopItem = false;
+    public bool isRipped = false;
 
-    void Start()
+    public ActualCard(List<int> cardInfo)
     {
-        rend = GetComponent<Renderer>();
-        anim = GetComponent<Animator>();
-        originalPosition = transform.position;
-        RandomColor();
-        cardManager = CardManager.Instance;
     }
 
     private void Update()
     {
-        if (!isShopItem)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo))
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            // Debug.Log(hitInfo.collider.gameObject.name);
+            if (hitInfo.collider.gameObject == gameObject)
             {
-                // Debug.Log(hitInfo.collider.gameObject.name);
-                if (hitInfo.collider.gameObject == gameObject)
-                {
-                    // Move the object up smoothly
-                    Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
-                    transform.position =
-                        Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
-                }
-                else if (transform.position != originalPosition)
-                {
-                    // Move the object back to its original position if not hovering
-                    transform.position = Vector3.Lerp(transform.position, originalPosition,
-                        hoverSmoothness * Time.deltaTime);
-                }
+                // Move the object up smoothly
+                Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
+                transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
             }
-            else
+            else if (transform.position != originalPosition)
             {
                 // Move the object back to its original position if not hovering
-                transform.position = Vector3.Lerp(transform.position, originalPosition,
-                    hoverSmoothness * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
+            }
+
+            // Used to check if we need to rip a card
+            // Then allows it to be merged into another card
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (PlayerStats.Tape < 1)
+                {
+                    Debug.Log("Not enough tape");
+                }
+                else if (isRipped)
+                {
+                    Debug.Log("This card is already ripped");
+                }
+                else if (condition[1] != 0)
+                {
+                    Debug.Log("This card is already full");
+                }
+                else
+                {
+                    Debug.Log("Choose a card to attach to");
+                    ripCard();
+                }
             }
         }
+
+
     }
 
     public void CreateNewCard(List<int> cardInfo)
@@ -119,6 +129,8 @@ public class ActualCard : MonoBehaviour
         init(cardInfo);
     }
 
+
+
     private void init(List<int> cardInfo)
     {
         cardID = cardInfo[0];
@@ -134,7 +146,7 @@ public class ActualCard : MonoBehaviour
         blockArray = new Block[2]; //Length should always be 2
         condition = new int[2];
         numOfEffects = new int[2];
-        
+
         effectType = new int[2][];
         effectType[0] = new int[5]; // temporary limit on effects per block
         effectType[1] = new int[5];
@@ -142,7 +154,7 @@ public class ActualCard : MonoBehaviour
         effectVal = new int[2][];
         effectVal[0] = new int[5]; // temporary limit on effects per block
         effectVal[1] = new int[5];
-        
+
         // For the number of blocks in a card
         for (int i = 0; i < numOfBlocks; i++)
         {
@@ -173,7 +185,7 @@ public class ActualCard : MonoBehaviour
                     // effectType = [ block1 -> [1, 1], block2 -> [1] ]
                     effectType[i][j] = cardInfo[offset];
                     offset++;
-                    
+
                     // effectVal = [ block1 -> [6, 6], block2 -> [3] ]
                     effectVal[i][j] = cardInfo[offset];
                     offset++;
@@ -189,13 +201,12 @@ public class ActualCard : MonoBehaviour
         updateVisuals();
 
     }
-
     // Function that updates the text and the images on a card
     private void updateVisuals()
     {
 
         // First the strings get updated
-        
+
         // Makes a call to the card database as that's where all the card names get stored
         // Then the code will update the card name text
         cardName = CardDataBase.getCardName(cardID);
@@ -227,15 +238,14 @@ public class ActualCard : MonoBehaviour
         updateTheBlockImages();
 
     }
-
-    // Uses a separate function to update each condition individually
     private void updateTheBlockImages()
     {
         updateGivenBlock(condition[0], block1Box.GetComponent<RawImage>());
         updateGivenBlock(condition[1], block2Box.GetComponent<RawImage>());
     }
 
-    public void updateGivenBlock(int con, RawImage bBox) { 
+    public void updateGivenBlock(int con, RawImage bBox)
+    {
 
         switch (con)
         {
@@ -252,6 +262,9 @@ public class ActualCard : MonoBehaviour
 
     }
 
+
+
+    //A method to check if the card is playable due to manacost of the player and the card itself,
     // while also passing it down to block to check those isPlayables as well.
     public bool isPlayable()
     {
@@ -285,7 +298,8 @@ public class ActualCard : MonoBehaviour
         }
     }
 
-    //This method will remove and extra NON-Glued cards
+
+    //This method will remove any extra NON-Glued cards
     public void cleanUp()
     {
         if (blockArray[1].condition == 2)
@@ -294,59 +308,62 @@ public class ActualCard : MonoBehaviour
         }
     }
 
-    //Used for merging cards with glue or tape
-    public void addBlock(int condition, int cardId)
+    //This function will create the new "ripped card" Visually
+    public void ripCard()
     {
-        int[] cardData = blockArray[1].copyBlock(condition, cardID);
-        int numOfEffects = cardData[6];
+        isRipped = true;
+        //Play the animation here/create visuals for ripping
 
-        // for (int i = 0; i < numOfEffects; i++)
-        // {
-        //      blockArray[1] = 
-        // }
+    }
+
+    //Used for merging cards with glue or tape
+    public Block addBlock(int cardId)
+    {
+        Block newBlock = new Block();
+        List<int> rippedCard = CardDataBase.getBlockAtId(cardId);
+        for (int i = 0; i < rippedCard[0]; i++)
+        {
+            newBlock.addEffect(rippedCard[i], rippedCard[i++]);
+        }
+        return newBlock;
+
+    }
+
+    public void createCombinedCard(int cardID)
+    {
+        blockArray[1] = addBlock(cardID);
+        CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost, cardVal, rarity, 2, 1,
+            numOfEffects[0], effectType[0][0], effectVal[0][0], 2, numOfEffects[1], effectType[1][1], effectVal[1][1]}); //Check the 2D arrays
+        CreateNewCard(CardDataBase.allCards.Count - 1); //Check on this as this will likely not create the card how its supposed to 
+        Debug.Log("New Card created");
+        Destroy(this);
+        // We destroy this card as we will be creating a new card to take its place
     }
 
     public void OnMouseDown()
     {
-        if(!isShopItem)
+        if (!isShopItem)
+        {
             cardManager.SetCard(this);
+        }
     }
 
-    // void OnMouseEnter()
-    // {
-    //     c.r -= .1f;
-    //     c.g -= .1f;
-    //     c.b -= .1f;
-    //     rend.material.color = c;
-    //
-    //     //My weird attempt at a card hover animation
-    //     if (!selected)
-    //         for (float i = moveAmount; i > 0; i -= .01f)
-    //         {
-    //             //transform.Translate(transform.position.x, transform.position.y + i, transform.position.z);
-    //             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + i,
-    //                 transform.localPosition.z - i);
-    //         }
-    // }
-    //
-    // void OnMouseExit()
-    // {
-    //     c.r += .1f;
-    //     c.g += .1f;
-    //     c.b += .1f;
-    //     rend.material.color = c;
-    //
-    //     //moves the card back into the hand
-    //     if (!selected)
-    //     {
-    //         for (float i = moveAmount; i > 0; i -= .01f)
-    //         {
-    //             transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - i,
-    //                 transform.localPosition.z + i);
-    //         }
-    //     }
-    // }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isRipped && Input.GetMouseButton(0))
+        {
+            ActualCard recivingCard = collision.gameObject.GetComponent<ActualCard>();
+            if (recivingCard.condition[1] != 0)
+            {
+                Debug.Log("Cannot merge to this card");
+            }
+            else
+            {
+                recivingCard.createCombinedCard(cardID);
+                Destroy(this);
+            }
+        }
+    }
     void RandomColor()
     {
         c.r = Random.Range(0f, 1f);
@@ -355,5 +372,6 @@ public class ActualCard : MonoBehaviour
         //Debug.Log(c.r + " " + c.g +  " "+ c.b);
         rend.material.color = c;
     }
+
 
 }

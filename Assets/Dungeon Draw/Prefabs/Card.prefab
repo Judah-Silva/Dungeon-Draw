@@ -921,7 +921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5396509175230500746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7473e114b43bf8c488da838b06160f32, type: 3}
+  m_Script: {fileID: 11500000, guid: 308356624d597b94ca9323b73d3483a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardID: 0
@@ -931,25 +931,26 @@ MonoBehaviour:
   rarity: 0
   numOfEffects: 
   condition: 
-  offset: 5
-  block1: {fileID: 3234354243599714314}
-  block2: {fileID: 8650242177081642909}
-  manaCostText: {fileID: 2466353549678835562}
-  cardNameText: {fileID: 7772725544072865888}
+  offset: 0
+  block1: {fileID: 0}
+  block2: {fileID: 0}
+  manaCostText: {fileID: 0}
+  cardNameText: {fileID: 0}
   cardImage: {fileID: 0}
   block1Background: {fileID: 0}
   block2Background: {fileID: 0}
-  baseBG: {fileID: 2800000, guid: d84caa82ebadf59459acad5b6e40fcb1, type: 3}
-  tapeBG: {fileID: 2800000, guid: f644aa03e937f964fb9d92869db3df44, type: 3}
-  glueBG: {fileID: 2800000, guid: 505d893e26f05e9418aa9b789740fd70, type: 3}
-  cardImageBox: {fileID: 4271919075191868843}
-  block1Box: {fileID: 3970349018806672411}
-  block2Box: {fileID: 3867729249543212087}
+  baseBG: {fileID: 0}
+  tapeBG: {fileID: 0}
+  glueBG: {fileID: 0}
+  cardImageBox: {fileID: 0}
+  block1Box: {fileID: 0}
+  block2Box: {fileID: 0}
   c: {r: 0, g: 0, b: 0, a: 0}
-  moveAmount: 1
-  hoverSmoothness: 5
+  moveAmount: 0
+  hoverSmoothness: 0
   originalPosition: {x: 0, y: 0, z: 0}
   isShopItem: 0
+  isRipped: 0
 --- !u!1 &5596014940580481760
 GameObject:
   m_ObjectHideFlags: 0
