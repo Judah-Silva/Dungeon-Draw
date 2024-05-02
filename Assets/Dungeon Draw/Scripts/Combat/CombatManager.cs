@@ -2,11 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
-    public List<GameObject> enemies = new List<GameObject>();
-    private List<Entity> _enemyEntities = new List<Entity>();
+
+    public GameObject resultsWindow;
+    
+    public bool PlayerPlayFirst { get; set; } = true;
+    public List<Level> levels = new ();
+    public GameObject player;
+    
+    private int _currentLevel = 0;
+    
+    private List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> _enemyScripts = new List<Enemy>();
     
     /*
@@ -17,16 +26,15 @@ public class CombatManager : MonoBehaviour
     And wait for the player to play again
      */
 
-    public bool PlayerPlayFirst { get; set; } = true;
 
     [HideInInspector]
     public static CombatManager Instance { get; private set; }
 
+    private SceneRouter _sceneRouter;
     private CardManager _cardManager;
     private HandController _handController;
     private Deck _deck;
     private Discard _discard;
-    private GameObject _player;
     private Entity _playerEntity;
     private bool battleOver = false;
 
@@ -53,17 +61,25 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
-        _player = GameObject.FindWithTag("Player");
-        _playerEntity = _player.GetComponent<Entity>();
+
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player");
+        _playerEntity = player.GetComponent<Player>();
+        
         StartFight();
     }
 
     private void Update()
     {
+        if (battleOver)
+        {
+            return;
+        }
         if (enemies.Count == 0)
         {
             BattleOver(1);
@@ -72,6 +88,21 @@ public class CombatManager : MonoBehaviour
         {
             BattleOver(0);
         }
+    }
+
+    public void SpawnWave()
+    {
+        foreach (GameObject prefab in levels[_currentLevel].enemies)
+        {
+            GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+            enemies.Add(goEnemy);
+            Enemy enemy = goEnemy.GetComponent<Enemy>();
+            enemy.SetUp();
+            _enemyScripts.Add(enemy);
+            Debug.Log($"Enemy {enemy.name} added");
+        }
+        UpdateEnemiesPosition();
+        DisplayState();
     }
 
 
@@ -86,13 +117,17 @@ public class CombatManager : MonoBehaviour
         //     new CardStats("Attack", CardType.Attack, CardRarity.Common, 1, new List<Effect> {new DealDamage(1, 5)}),
         //     
         // };
+        /*
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("enemy");
         foreach (GameObject obj in enemyObjects) 
         {
             enemies.Add(obj);
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
-        }
+        }*/
+        
+        _playerEntity.SetUp();
+        SpawnWave();
         
         PlayerTurn();
     }
@@ -109,14 +144,16 @@ public class CombatManager : MonoBehaviour
         {
             Debug.Log("Battle is over.");
             return;
-        } 
+        }
+
         _cardManager.enabled = false;
         DisplayState();
-        
+
         CheckCards();
-        
+
         _cardManager.ResetMana();
-        
+
+
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
@@ -131,7 +168,7 @@ public class CombatManager : MonoBehaviour
     private void DisplayState()
     {
         Debug.Log($"Player health: {_playerEntity.getHP()}\nPlayer shields: {_playerEntity.getShield()}");
-        foreach (var enemy in _enemyEntities)
+        foreach (var enemy in _enemyScripts)
         {
             Debug.Log($"{enemy.name} health: {enemy.getHP()}\n{enemy.name} shield: {enemy.getShield()}");
         }
@@ -162,8 +199,9 @@ public class CombatManager : MonoBehaviour
     public void RemoveEnemy(GameObject enemy)
     {
         enemies.Remove(enemy);
-        _enemyEntities.Remove(enemy.GetComponent<Entity>());
         _enemyScripts.Remove(enemy.GetComponent<Enemy>());
+        Destroy(enemy);
+        UpdateEnemiesPosition();
     }
 
     private IEnumerator EnemyTurn()
@@ -176,17 +214,26 @@ public class CombatManager : MonoBehaviour
         EndTurn();
     }
 
-    private void BattleOver(int result)
+    // made it public so I could test it. hopefully didn't mess it up too bad --Matthew
+    public void BattleOver(int result)
     {
+        DisplayState();
         battleOver = true;
         if (result == 1)
         {
             Debug.Log("Battle won!");
+            // Do whatever needs to be done
+            ClearHand();
+            // Show rewards, but temporarily just go back to map
+            resultsWindow.SetActive(true);
+            // _sceneRouter.ToMap();
+            enabled = false;
         }
         else
         {
             Debug.Log("Battle lost...");
         }
+        
     }
 
     public Entity GetPlayerEntity()
@@ -196,7 +243,20 @@ public class CombatManager : MonoBehaviour
 
     public List<Entity> GetEnemyEntities()
     {
-        return _enemyEntities;
+        return _enemyScripts.ConvertAll(e => (Entity)e);
     }
-
+    
+    public void UpdateEnemiesPosition()
+    {
+        //Each enemy will be placed in a different position
+        //Example :
+        //      x    
+        //    x   x  
+        //  x   x   x
+        int distanceBetweenEnemies = 4;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);
+        }
+    }
 }
