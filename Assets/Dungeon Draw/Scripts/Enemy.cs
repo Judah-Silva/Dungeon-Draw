@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public EnemyType type;
-    
     public int goldValue;
     private List<Block> _blockList;
 
