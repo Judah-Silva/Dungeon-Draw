@@ -1,26 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
     public int maxHP;
+    //[HideInInspector]
     public int currentHP;
-    public int[] entityEffectArray = new int[10];
+    
+    public StatusUI statusUI;
 
-    public void Start()
-    {
-        setUpEEA();
-    }
+    private int[] _entityStatusEffectArray = new int[10];
+
+    public Slider healthBar;
+
+    [HideInInspector]
+    public CardManager _cardManager;
+
+    public abstract void SetUp();
 
     public void setUpEEA()
     {
 
-        for (int i = 0; i < entityEffectArray.Length; i++)
+        for (int i = 0; i < _entityStatusEffectArray.Length; i++)
         {
-            entityEffectArray[i] = 0;
+            _entityStatusEffectArray[i] = 0;
         }
+    }
 
+    private void OnMouseDown()
+    {
+        _cardManager.SetTarget(gameObject);
+    }
+
+    public void init(int health)
+    {
+        currentHP = health;
+        maxHP = health;
     }
 
     public int getHP()
@@ -28,32 +48,64 @@ public class Entity : MonoBehaviour
         return currentHP;
     }
 
-    public int getBlock()
+    public int getShield()
     {
-        return entityEffectArray[0];
+        return _entityStatusEffectArray[0];
+    }
+
+    // Solely used by the effect class when get a modifier for dealing damage
+    public int getDamageMod() {
+        return _entityStatusEffectArray[3] - _entityStatusEffectArray[1];
     }
 
     public int takeDamage(int damage)
     {
-
-        int remainingDamage = getBlock() - damage;
+        Debug.Log($"{damage} damage taken to {gameObject.name}");
+        
+        int remainingDamage = damage - getShield();
+        // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
             currentHP -= remainingDamage;
-            entityEffectArray[0] = 0;
+            _entityStatusEffectArray[0] = 0;
         }
         else
         {
-            entityEffectArray[0] -= damage;
+            _entityStatusEffectArray[0] -= damage;
         }
 
+        if (currentHP <= 0)
+        {
+            Die();
+            return 0;
+        }
+        UpdateHealthBar();
         return currentHP;
     }
 
-    public int giveBlock(int givenBlock)
+    public int giveShield(int givenShield)
     {
-        entityEffectArray[0] += givenBlock;
-        return entityEffectArray[0];
+        _entityStatusEffectArray[0] += givenShield;
+        return _entityStatusEffectArray[0];
     }
+    
+    public void UpdateHealthBar()
+    {
+        if (healthBar is null) return;
+        healthBar.value = currentHP;
+    }
+
+    public void OnMouseEnter()
+    {
+        Transform posToSpawn = gameObject.transform;
+        statusUI.ActivateUI(posToSpawn);
+    }
+
+    public void OnMouseExit()
+    {
+        statusUI.HideUI();
+    }
+    
+    public abstract void Die();
 }

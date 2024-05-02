@@ -10,40 +10,52 @@ public class Deck : MonoBehaviour
     public int deckSize = 0;
 
     public GameObject cardPrefab;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        DeckPile = PlayerStats.PlayerDeck;
+        DeckPile = new List<int>();
+        DeckPile.Clear();
+        foreach (int cardId in PlayerStats.Deck)
+        {
+            DeckPile.Add(cardId);
+        }
         deckSize = DeckPile.Count;
-
         Shuffle(DeckPile);
-
-        for (int i = 0; i < deckSize; i++)
-        {
-            Debug.Log(DeckPile[i]);
-        }
     }
 
-    private void OnMouseDown()
+    public void RefreshDeck(List<int> cards)
     {
-        for (int i = 0; i < 5; i++)
+        DeckPile.Clear();
+        foreach (int cardID in cards)
         {
-            GameObject spawn = HandController.positionsList[i];
-            DrawCard(spawn);
+            AddCard(cardID);
         }
+
+        deckSize = DeckPile.Count;
+        Shuffle(DeckPile);
     }
 
-    void DrawCard(GameObject location)
+    public GameObject DrawCard()
     {
-        GameObject newCard = Instantiate(cardPrefab, location.transform.position, Quaternion.identity);
-        Card cardComponent = newCard.GetComponent<Card>();
-        cardComponent.SetCardProperties(DeckPile[0]);
+        GameObject newCard = Instantiate(cardPrefab);
+        newCard.SetActive(false);
+
+        ActualCard cardComponent = newCard.GetComponent<ActualCard>();
+        cardComponent.CreateNewCard(DeckPile[0]);
 
         DeckPile.RemoveAt(0);
+        deckSize--;
         // Debug.Log("pile count = " + DeckPile.Count);
         // Debug.Log(DeckPile[0]);
         // int index = i++;
+
+        return newCard;
+    }
+
+    public void AddCard(int cardId)
+    {
+        DeckPile.Add(cardId);
     }
 
     void Shuffle<T>(List<T> list)

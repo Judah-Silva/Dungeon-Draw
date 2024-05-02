@@ -27,15 +27,17 @@ public class Block : MonoBehaviour
         return temp;
     }
 
-    public void dealBlock(Entity target)
+    public void dealBlock(Entity origin, Entity target)
     {
         foreach (Effect e in effectList)
         {
-            e.dealEffect(target);
+            e.dealEffect(origin, target);
+            // Debug.Log("Effect dealt");
         }
     }
     //This method is for merging cards
-    public int[] copyBlock(int condtion, int cardID)
+    //This doesnt do anything at the moment
+    public int[] copyBlock(int cardID)
     {
         int[] ints = new int[1];
         return ints;
@@ -46,5 +48,30 @@ public class Block : MonoBehaviour
         effectList.Add(new Effect(type, val));
 
         return this;
+    }
+    public string showBlock()
+    {
+
+        string temp = "";
+
+        bool first = true;
+
+        foreach (Effect e in effectList)
+        {
+
+            if (first)
+            {
+                first = false;
+            }
+            else
+            {
+                temp += ", ";
+            }
+
+            temp += e.showEffect();
+        }
+
+        return temp;
+
     }
 }
