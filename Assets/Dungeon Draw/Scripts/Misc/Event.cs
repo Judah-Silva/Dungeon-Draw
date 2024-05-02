@@ -64,8 +64,8 @@ public class Event : MonoBehaviour
     public TMP_Text DescriptionBox;
     public string mapSceneName;
     
-    public GameObject gameManager;
     public SceneRouter sceneRouter;
+    public PlayerStats playerStats;
     
     public List<eventClass> events;
   
@@ -76,11 +76,8 @@ public class Event : MonoBehaviour
     
     void Start()
     {
-        if (GameObject.Find("Game Manager"))
-        {
-            gameManager = GameObject.Find("Game Manager");
-            sceneRouter = gameManager.GetComponent<SceneRouter>();
-        }
+        sceneRouter = GameManager.Instance.GetSceneRouter();
+        playerStats = GameManager.Instance.GetPlayerStats();
 
         ButtonGO[0].SetActive(false);ButtonGO[1].SetActive(false);ButtonGO[2].SetActive(false); // Turns buttons off
         if (eventId == -1)
@@ -127,15 +124,15 @@ public class Event : MonoBehaviour
                    break;
                case Actions.LoseHealth:
                    Debug.Log("LoseHealth activated");
-                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth-but.intActs[i]);
+                   playerStats.UpdateHealth(PlayerStats.CurrentHealth-but.intActs[i]);
                    break;
                case Actions.GainHealth:
                    Debug.Log("GainHealth activated");
-                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth+but.intActs[i]);
+                   playerStats.UpdateHealth(PlayerStats.CurrentHealth+but.intActs[i]);
                    break;
                case Actions.GainHealthByPercentage:
                    float res = PlayerStats.MaxHealth*(but.intActs[i]/100.0f);
-                   gameManager.GetComponent<PlayerStats>().UpdateHealth(PlayerStats.CurrentHealth+(int)Math.Round(res));
+                   playerStats.UpdateHealth(PlayerStats.CurrentHealth+(int)Math.Round(res));
                    break;
                case Actions.GainCardById :
                    Debug.Log("GainCardById  activated");
