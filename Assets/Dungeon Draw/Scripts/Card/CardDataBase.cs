@@ -76,4 +76,23 @@ public class CardDataBase : MonoBehaviour
     {
         return heldCards.Count;
     }
+
+    public static string getCardName(int id)
+    {
+
+        string temp = "";
+
+        switch (id)
+        {
+            case 1:
+                temp = "Damage 1";
+                break;
+            default:
+                temp = "NYI";
+                break;
+        }
+
+        return temp;
+
+    }
 }

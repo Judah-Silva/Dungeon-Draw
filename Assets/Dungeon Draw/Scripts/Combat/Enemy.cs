@@ -3,45 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Entity))]
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
-    public Entity entity;
-
-    public String type;
-    
     public int goldValue;
-    
-    public List<Block> blockList;
+    private List<Block> _blockList;
 
     private void Start()
     {
-        blockList = new List<Block>();
+        _blockList = new List<Block>();
         
         // Testing purposes
-        blockList.Add(new Block().addEffect(0, 6));
-        blockList.Add(new Block().addEffect(0, 6));
-        blockList.Add(new Block().addEffect(1, 6));
-        blockList.Add(new Block().addEffect(1, 6));
-        blockList.Add(new Block().addEffect(0, 12));
+        _blockList.Add(new Block().addEffect(0, 6));
+        _blockList.Add(new Block().addEffect(0, 6));
+        _blockList.Add(new Block().addEffect(1, 6));
+        _blockList.Add(new Block().addEffect(1, 6));
+        _blockList.Add(new Block().addEffect(0, 12));
     }
 
     public void Attack()
     {
         CombatManager combatManager = CombatManager.Instance;
-        List<Effect> effectList = blockList[UnityEngine.Random.Range(0, blockList.Count)].effectList;
+        List<Effect> effectList = _blockList[UnityEngine.Random.Range(0, _blockList.Count)].effectList;
         foreach (Effect effect in effectList)
         {
             if (effect.GetEffectType() == 0)
             {
-                effect.dealEffect(entity, combatManager.GetPlayerEntity());
+                effect.dealEffect(this, combatManager.GetPlayerEntity());
             }
             else if (effect.GetEffectType() == 1)
             {
                 Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
-                effect.dealEffect(entity, enemyEntity);
+                effect.dealEffect(this, enemyEntity);
             }
         }
 
+    }
+
+    public override void Die()
+    {
+        //CombatManager.Instance.RemoveEnemy(gameObject);
+        //TODO : add gold to player
     }
 }

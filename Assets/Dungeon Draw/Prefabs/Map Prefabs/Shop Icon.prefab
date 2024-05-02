@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleScene: BattleScene
-  shopScene: test event
+  shopScene: Shop
   restScene: RestSpotScene
   eventScene: EventScene
   mapManager: {fileID: 2158966770164983228, guid: 9520fda63b5b3f2438747ee179007fb5, type: 3}
