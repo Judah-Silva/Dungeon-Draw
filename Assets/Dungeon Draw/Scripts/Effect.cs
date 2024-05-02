@@ -112,6 +112,12 @@ public class Effect
             case 1:
                 giveShield(target);
                 break;
+            case 2:
+                giveVul(target);
+                break;
+            case 3:
+                giveWeak(target);
+                break;
         }
 
     }
@@ -134,6 +140,16 @@ public class Effect
     private void giveShield(Entity target)
     {
         target.giveShield(effectVal);
+    }
+
+    private void giveVul(Entity target)
+    {
+        target.giveVulnerable(effectVal);
+    }
+
+    private void giveWeak(Entity target)
+    {
+        target.giveWeak(effectVal);
     }
 
 }

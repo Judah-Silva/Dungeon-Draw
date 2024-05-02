@@ -48,27 +48,34 @@ public class Entity : MonoBehaviour
         return entityStatusEffectArray[0];
     }
 
+    public int getVul()
+    {
+        return entityStatusEffectArray[1];
+    }
+
     // Solely used by the effect class when get a modifier for dealing damage
     public int getDamageMod() {
-        return entityStatusEffectArray[3] - entityStatusEffectArray[1];
+        return entityStatusEffectArray[2];
     }
 
     public int takeDamage(int damage)
     {
-        int remainingDamage = damage - getShield();
+        int remainingDamage = damage - getShield() + getVul();
         // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
             currentHP -= remainingDamage;
             entityStatusEffectArray[0] = 0;
+
+            Debug.Log($"{remainingDamage} damage has been dealt to {gameObject.name}");
+
         }
         else
         {
             entityStatusEffectArray[0] -= damage;
         }
 
-        Debug.Log($"{remainingDamage} damage taken to {gameObject.name}");
         if (currentHP <= 0)
         {
             die();
@@ -83,7 +90,27 @@ public class Entity : MonoBehaviour
         entityStatusEffectArray[0] += givenShield;
         return entityStatusEffectArray[0];
     }
-    
+
+    public int giveVulnerable(int givenVulnerable)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenVulnerable} vulnerability");
+
+        entityStatusEffectArray[1] += givenVulnerable;
+        return entityStatusEffectArray[1];
+    }
+
+    public int giveWeak(int givenWeakness)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenWeakness} weakness");
+
+        entityStatusEffectArray[2] += givenWeakness;
+        return entityStatusEffectArray[2];
+    }
+
+
+
     public void die()
     {
         CombatManager.Instance.RemoveEnemy(gameObject); //we can't do this because we're iterating over the list
