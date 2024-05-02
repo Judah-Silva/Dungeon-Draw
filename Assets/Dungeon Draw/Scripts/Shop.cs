@@ -66,6 +66,7 @@ public class Shop : MonoBehaviour
     public AnimationCurve curve;
 
     public string MapSceneName = "Map";
+    public SceneTransition sceneTransition;
 
     public string shopFileName = "shop";
     private List<string> shopRows = new List<string>();
@@ -147,7 +148,7 @@ public class Shop : MonoBehaviour
 
     public void leaveScene()
     {
-        SceneManager.LoadScene(MapSceneName);
+        sceneTransition.FadeToScene(MapSceneName);
     }
 
     private void repopulateShopItem(int shopId)

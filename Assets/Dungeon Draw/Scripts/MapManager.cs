@@ -7,8 +7,6 @@ using Random = UnityEngine.Random;
 
 public class MapManager : MonoBehaviour
 {
-    public string mainMenuScene = "MainMenu";
-
     public Transform startPoint;
     public GameObject battleIcon;
     public GameObject shopIcon;
@@ -20,16 +18,13 @@ public class MapManager : MonoBehaviour
     public int columns = 3;
     public static int MaxColumns;
     public static int ColIndex;
-    // public static int CurrentColumns;
     
     public static float iconSpacing = 5f;
-    
 
     private void Start()
     {
         MaxColumns = columns;
         ColIndex = LevelTracker.levelsVisited;
-        // CurrentColumns = LevelTracker.levelsVisited;
         Vector3 startPos = startPoint.position;
         
         Debug.Log("colindex " + ColIndex);
@@ -47,7 +42,6 @@ public class MapManager : MonoBehaviour
 
     public void SpawnIcons(Vector3 startPos)
     {
-        // int colIndex = 0;
         if (ColIndex == MaxColumns)
         {
             SpawnBoss(startPos);
@@ -89,17 +83,11 @@ public class MapManager : MonoBehaviour
             {
                 GameObject newIcon = Instantiate(eventIcon, spawnPos, Quaternion.identity);
             }
-
-            // columnSpacing -= 5f;
         }
-
-        // ColIndex++;
-        // CurrentColumns++;
     }
 
     public void SpawnBoss(Vector3 startPos)
     {
-        // Debug.Log("generate boss icon");
         Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, startPos.z);
         GameObject newIcon = Instantiate(bossIcon, spawnPos, Quaternion.identity);
     }
@@ -133,16 +121,5 @@ public class MapManager : MonoBehaviour
         }
         
         SpawnIcons(startPos);
-    }
-
-    public void ReturnToMainMenu()
-    {
-        SceneManager.LoadScene(mainMenuScene);
-    }
-
-    public void OptionsMenu()
-    {
-        // TODO: open player inventory menu
-        Debug.Log("options menu");
     }
 }
