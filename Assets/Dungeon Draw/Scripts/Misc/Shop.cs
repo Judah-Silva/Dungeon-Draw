@@ -19,7 +19,7 @@ public class shopItem
         if (ac == null) //used for changing the card if it is bought
         {
             GameObject g = GameObject.Instantiate(cardPref, Slot.transform);
-            g.transform.localScale *= 85;
+            g.transform.localScale *= 75;
             g.transform.localRotation = new Quaternion(0f, 0f, 0f, 0f);
             ac = g.GetComponent<ActualCard>();
         }
@@ -65,6 +65,7 @@ public class Shop : MonoBehaviour
     public Image img;
     public AnimationCurve curve;
 
+    public GameObject gameManager;
     public SceneRouter sceneRouter;
 
     public string shopFileName = "shop";
@@ -72,10 +73,18 @@ public class Shop : MonoBehaviour
     private int cMax, rMax,  bMax; //Values to know where in the stack cards/relics/boosterpacks end || Set in the loadShopItems function
     void Start()
     {
+        //Find GameManager
+        if (GameObject.Find("Game Manager"))
+        {
+            gameManager = GameObject.Find("Game Manager");
+            sceneRouter = gameManager.GetComponent<SceneRouter>();
+        }
+
         // Debug.Log("Shop start called");
         loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
         
         //This line was really only needed in my testing.
+        CardDataBase.allCards.Clear();
         if (!(CardDataBase.allCards.Count > 0)){CardDataBase.prePopulate();}
         
          int ran = 0;
