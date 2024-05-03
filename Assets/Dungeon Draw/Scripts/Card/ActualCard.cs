@@ -88,7 +88,11 @@ public class ActualCard : MonoBehaviour
 
             // Used to check if we need to rip a card
             // Then allows it to be merged into another card
+<<<<<<< Updated upstream
             if (Input.GetMouseButtonDown(1))
+=======
+            if (Input.GetMouseButtonUp(1))
+>>>>>>> Stashed changes
             {
                 if (PlayerStats.Tape < 1)
                 {
@@ -344,6 +348,10 @@ public class ActualCard : MonoBehaviour
     {
         if (!isShopItem)
         {
+<<<<<<< Updated upstream
+=======
+            //Debug.Log("Entered OnMouseDown");
+>>>>>>> Stashed changes
             cardManager.SetCard(this);
         }
     }

@@ -20,8 +20,24 @@ public class CardDataBase : MonoBehaviour
         allCards.Add(new List<int> { 0, 0, 0, 0, 1, 1, 1, 1, 0 });
         allCards.Add(new List<int> { 1, 1, 0, 0, 2, 1, 1, 0, 6 });
         allCards.Add(new List<int> { 2, 1, 0, 0, 2, 1, 1, 1, 6 });
+<<<<<<< Updated upstream
 
+=======
+
+        allCards.Add(new List<int> { 3, 2, 0, 0, 2, 1, 1, 0, 6, 1, 1, 0, 4 });
+
+        // Add all cards to heldCards for testing purposes
+        heldCards.Add(allCards[0]);
+        heldCards.Add(allCards[1]);
+        heldCards.Add(allCards[2]);
+        heldCards.Add(allCards[3]);
     }
+    private void Start()
+    {
+        prePopulate();
+>>>>>>> Stashed changes
+    }
+
 
     public static List<int> getCard(int cardId)
     {

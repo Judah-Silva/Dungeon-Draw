@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public static int HandSize = 5;
     public static int Coins = 100;
     public static int Glue = 0;
-    public static int Tape = 0;
+    public static int Tape = 3;
     public static int CurrentHealth = 50;
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-    
+
     public static CardManager Instance { get; private set; }
-    
+
     public int maxMana = 3;
     public int currentMana;
 
@@ -69,7 +69,8 @@ public class CardManager : MonoBehaviour
         if (selectedCard == null)
         {
             Debug.Log("No selected card!");
-        } else
+        }
+        else
         {
             selectedGameObject = enemy;
             selectedEntity = enemy.GetComponent<Entity>();
@@ -111,13 +112,13 @@ public class CardManager : MonoBehaviour
         }
 
         // If all of these are good, run the cards dealBlocks
-        
+
         Debug.Log($"{currentMana} mana remaining.");
-        
+
         selectedCard.dealBlocks(player, selectedGameObject);
-        
+
         // Debug.Log($"Enemy: {selectedGameObject.name} targeted. Remaining health: {selectedEntity.getHP()}");
-        
+
         _handController.RemoveCard(selectedCard);
         Discard.DiscardCard(selectedCard);
 
