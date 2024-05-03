@@ -63,7 +63,6 @@ public class Shop : MonoBehaviour
     public Image img;
     public AnimationCurve curve;
 
-    public GameObject gameManager;
     public SceneRouter sceneRouter;
 
     public string shopFileName = "shop";
@@ -71,12 +70,7 @@ public class Shop : MonoBehaviour
     private int cMax, rMax,  bMax; //Values to know where in the stack cards/relics/boosterpacks end || Set in the loadShopItems function
     void Start()
     {
-        //Find GameManager
-        if (GameObject.Find("Game Manager"))
-        {
-            gameManager = GameObject.Find("Game Manager");
-            sceneRouter = gameManager.GetComponent<SceneRouter>();
-        }
+        sceneRouter = GameManager.Instance.GetSceneRouter();
 
         // Debug.Log("Shop start called");
         loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop

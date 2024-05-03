@@ -31,4 +31,9 @@ public class GameManager : MonoBehaviour
     {
         return GetComponent<LevelTracker>();
     }
+
+    public PlayerStats GetPlayerStats()
+    {
+        return GetComponent<PlayerStats>();
+    }
 }
