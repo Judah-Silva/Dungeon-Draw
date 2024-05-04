@@ -29,7 +29,7 @@ public class LevelTracker : MonoBehaviour
 
     public void CheckLevels()
     {
-        if (levelsVisited > totalLevels)
+        if (levelsVisited != totalLevels)
         {
             totalLevels = levelsVisited;
             PlayerPrefs.SetInt(totalLevelsKey, totalLevels);
@@ -45,11 +45,30 @@ public class LevelTracker : MonoBehaviour
 
     public void CheckFloors()
     {
-        if (floorsVisited > totalFloors)
+        // != so it gets overwritten on each new playthrough
+        if (floorsVisited != totalFloors)
         {
             totalFloors = floorsVisited;
             PlayerPrefs.SetInt(totalFloorsKey, totalFloors);
             PlayerPrefs.Save();
         }
+    }
+
+    public void ResetLevels()
+    {
+        // sets to -1 bc levelsVisited is incremented again at end of IconManager
+        levelsVisited = -1;
+        
+        totalLevels = levelsVisited;
+        PlayerPrefs.SetInt(totalLevelsKey, totalLevels);
+        PlayerPrefs.Save();
+    }
+
+    // to update floors visited when starting new game
+    public void ResetFloors()
+    {
+        totalFloors = floorsVisited;
+        PlayerPrefs.SetInt(totalFloorsKey, totalFloors);
+        PlayerPrefs.Save();
     }
 }

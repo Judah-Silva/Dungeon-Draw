@@ -48,6 +48,8 @@ public class IconManager : MonoBehaviour
                 sceneRouter.ToEvent();
                 break;
             case 4:
+                GameManager.Instance.GetLevelTracker().IncrementFloorsVisited();
+                GameManager.Instance.GetLevelTracker().ResetLevels();
                 sceneRouter.ToBattle();
                 break;
                 
