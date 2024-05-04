@@ -21,11 +21,11 @@ public class CardDataBase : MonoBehaviour
     {
         //add all cards to allCards;
         allCards.Add(new List<int> { 0, 0, 0, 0, 1, 1, 1, 1, 0 });
-        allCards.Add(new List<int> { 1, 1, 0, 0, 1, 1, 1, 0, 6 });
-        allCards.Add(new List<int> { 2, 1, 0, 0, 1, 1, 1, 1, 6 });
+        allCards.Add(new List<int> { 1, 1, 15, 0, 1, 1, 1, 0, 6 });
+        allCards.Add(new List<int> { 2, 1, 15, 0, 1, 1, 1, 1, 6 });
         
         // Test card
-        allCards.Add(new List<int> { 3, 2, 0, 0, 2, 1, 1, 0, 6, 1, 1, 0, 4 });
+        allCards.Add(new List<int> { 3, 2, 30, 0, 2, 1, 1, 0, 6, 1, 1, 0, 4 });
 
         // Add all cards to heldCards for testing purposes
         heldCards.Add(allCards[0]);

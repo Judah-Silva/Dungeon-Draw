@@ -2512,68 +2512,199 @@ MonoBehaviour:
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   boosterPacks:
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   relics:
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
   - price: 0
     ID: 0
     image: {fileID: 0}
     Slot: {fileID: 0}
     ac: {fileID: 0}
+    rel:
+      id: 0
+      art: {fileID: 0}
+      name: 
+      description: 
+      value: 0
+      rarity: 0
+      abilities: 
+      function: 
+      intToUse: 
+  X: {fileID: 2800000, guid: b1b4d9badfaf44d82a0824bff2bc0ad2, type: 3}
   flashPanel: {fileID: 2025658318605409589}
   img: {fileID: 178593540990947457}
   curve:
@@ -2802,8 +2933,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b1b4d9badfaf44d82a0824bff2bc0ad2, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

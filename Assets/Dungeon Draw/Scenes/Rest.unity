@@ -829,6 +829,114 @@ PrefabInstance:
       propertyPath: m_Name
       value: RestCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: eventId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].eventText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].eventTitle
+      value: What to do?
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[0].button.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[0].Text
+      value: Rest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[1].Text
+      value: Tape gain
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[2].Text
+      value: Dig For Relic
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[0].button.Array.data[2].actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[0].actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[0].intActs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[1].actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[1].intActs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[2].actions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[2].intActs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[0].button.Array.data[2].actions.Array.data[0]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[0].actions.Array.data[0]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[0].intActs.Array.data[0]'
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[0].postButtonPressedText
+      value: You rest up and heal 1/3rd of your max HP!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[1].actions.Array.data[0]'
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[1].intActs.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[1].postButtonPressedText
+      value: You gain 1 Tape
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[2].actions.Array.data[0]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[2].actions.Array.data[1]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: 'events.Array.data[1].button.Array.data[2].intActs.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357700261685784889, guid: f44316285e6fc4c528ba9c3ceedf27ef, type: 3}
+      propertyPath: events.Array.data[1].button.Array.data[2].postButtonPressedText
+      value: You use your Sand Shovel and Find A Random Relic.
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
