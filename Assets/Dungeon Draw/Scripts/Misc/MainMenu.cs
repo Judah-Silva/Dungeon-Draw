@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
         PlaySFX(buttonSelectSound);
         LevelTracker.levelsVisited = 0;
         LevelTracker.floorsVisited = 1;
+        GameManager.Instance.GetLevelTracker().CheckLevels();
+        GameManager.Instance.GetLevelTracker().ResetFloors();
+        
         // TODO: overwrite totalLevels and floors when starting new game?
         _sceneRouter.ToMap();
     }
@@ -31,7 +34,7 @@ public class MainMenu : MonoBehaviour
     public void ContinueGame()
     {
         PlaySFX(buttonSelectSound);
-        
+
         int totalLevels = PlayerPrefs.GetInt("TotalLevels", 0);
         LevelTracker.levelsVisited = totalLevels;
         
