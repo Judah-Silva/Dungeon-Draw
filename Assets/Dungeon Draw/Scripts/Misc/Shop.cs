@@ -28,22 +28,34 @@ public class shopItem
         fillSlot();
     }
 
-    public void setRelic(){}
-    
+    public void setRelic(Relic r)
+    {
+        rel = r;
+        this.price = r.value;
+        Debug.Log(r.art);
+        this.image = r.art;
+        fillSlot();
+    }
+
     public void setBooster(){}
 
 
     public void fillSlot()
     {
         Slot.GetComponentInChildren<TMP_Text>().text = price.ToString();
+        if (image != null)
+        {
+            Slot.GetComponent<RawImage>().texture = image.texture;
+        }
         
     }
     public int price;
     public int ID;
-    public Texture image;
+    public Sprite image;
     public GameObject Slot;
     public ActualCard ac;
-    //public relic r;
+
+    public Relic rel;
     //public booster b;
 }
 
@@ -59,25 +71,37 @@ public class Shop : MonoBehaviour
     public shopItem[] boosterPacks = new shopItem[2];
     public shopItem[] relics = new shopItem[6];
 
+    public Texture X;
+
     public GameObject flashPanel;
     public Image img;
     public AnimationCurve curve;
 
     public SceneRouter sceneRouter;
+    public PlayerStats playerStats;
 
     public string shopFileName = "shop";
     private List<string> shopRows = new List<string>();
     private int cMax, rMax,  bMax; //Values to know where in the stack cards/relics/boosterpacks end || Set in the loadShopItems function
     void Start()
     {
-        sceneRouter = GameManager.Instance.GetSceneRouter();
+        if (GameManager.Instance != null)
+        {
+            sceneRouter = GameManager.Instance.GetSceneRouter();
+            playerStats = GameManager.Instance.GetPlayerStats();
+        }
 
         // Debug.Log("Shop start called");
-        loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
+        //loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
+
+        // Sprite s = Resources.Load<Sprite>("RelicArt/BigToe");
+        // Debug.Log(s);
         
         //This line was really only needed in my testing.
         CardDataBase.allCards.Clear();
-        if (!(CardDataBase.allCards.Count > 0)){CardDataBase.prePopulate();}
+        if ((CardDataBase.allCards.Count == 0)){CardDataBase.prePopulate();}
+        if ((RelicDatabase.allRelics.Count == 0)){RelicDatabase.prePopulate();}
+        //RelicDatabase.prePopulate();
         
          int ran = 0;
          for (int i = 0; i<cardShopItems.Length; i++)
@@ -88,10 +112,48 @@ public class Shop : MonoBehaviour
             cardShopItems[i].setCard(CardDataBase.getCard(ran), cardPrefab);
             //getPriceFromText(i, ran);
          }
+         int[] shopUsedRels = new int[6];
 
-         for (int i = 5; i < 13; i++)
+         for (int i = 0; i < 6; i++)
          {
-            getPriceFromText(i, -1); 
+             
+            bool repeat = false;
+             ran = 0;
+                 relics[i].Slot = relicSlots[i];
+                 if (i < 3) // This will set the top 3 relics as non commons and make sure no duplicates
+                 {
+                     while (RelicDatabase.getRelic(ran).rarity == rarityValues.common || repeat == true)
+                     {
+                         ran = Random.Range(0, RelicDatabase.allRelics.Count);
+                         Debug.Log(ran);
+                         for (int l = 0; l < i; l++)
+                         {
+                             if (shopUsedRels[l] == ran)
+                             {
+                                 repeat = true;
+                                 break;
+                             }
+                             else
+                             {
+                                 repeat = false;
+                             }
+                            
+                         }
+                     }
+
+                 }
+                 else //Commons currently can be duplicate.
+                 {
+                     ran = 2; //defaulting to a rare rarity relic for while loop
+                     while (RelicDatabase.getRelic(ran).rarity != rarityValues.common)
+                     {
+                         ran = Random.Range(0, RelicDatabase.allRelics.Count);
+                         Debug.Log(ran);
+                     }
+                 }
+
+                 shopUsedRels[i] = ran;
+                 relics[i].setRelic(RelicDatabase.getRelic(ran));
          }
 
          //sceneRouter = GameManager.Instance.GetSceneRouter();
@@ -106,7 +168,7 @@ public class Shop : MonoBehaviour
              PlayerStats.Deck.Add(cardShopItems[buttin].ac.cardID); 
              PlayerStats.TotalDeckSize++;//Add to totalDeckSize??
              Debug.Log("Card bought - " + cardShopItems[buttin].ac.cardID);
-             repopulateShopItem(buttin);
+             repopulateCardShopItem(buttin);
         }
         else
         {
@@ -134,7 +196,12 @@ public class Shop : MonoBehaviour
         Debug.Log(relics[buttin].price);
         if (PlayerStats.Coins >= relics[buttin].price) // if enough money
         {
-            
+            PlayerStats.Coins -=  relics[buttin].price;
+            playerStats.addRelic(relics[buttin].rel);
+            relics[buttin].Slot.GetComponent<RawImage>().texture = X;
+            relics[buttin].price = 99999;
+            relics[buttin].Slot.GetComponentsInChildren<RawImage>()[1].enabled = false;
+            relics[buttin].Slot.GetComponentInChildren<TMP_Text>().enabled = false;
         }
         else
         {
@@ -152,7 +219,7 @@ public class Shop : MonoBehaviour
         sceneRouter.ToMap();
     }
 
-    private void repopulateShopItem(int shopId)
+    private void repopulateCardShopItem(int shopId)
     {
         int ran = 0;
         ran = Random.Range(0, CardDataBase.allCards.Count);
@@ -174,89 +241,89 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void loadShopItemsFromText()
-    {
-        string shopFile = $"{Application.dataPath}{"/Dungeon Draw/Resources/"}{shopFileName}.txt";
-        Debug.Log($"Loading shop file: {shopFile}");
-
-
-        using (StreamReader sr = new StreamReader(shopFile))
-        {
-            string line = "";
-            while ((line = sr.ReadLine()) != null)
-            {
-                shopRows.Add(line);
-                //Debug.Log("Line pushed - " + line);
-                if (line == "[RELICS]")
-                    bMax = shopRows.Count - 1;
-                if (line == "[BOOSTER PACKS]")
-                    cMax = shopRows.Count - 1;
-            }
-
-            rMax = shopRows.Count - 1;
-
-            sr.Close();
-        }
-
-        
-    }
-
-    private void getPriceFromText(int i, int ran)
-        {
-            int priceMinIndex, priceMaxIndex, priceMin, priceMax;
-                    
-                if (i < 5)
-                {
-                    //ran = Random.Range(1, cMax); //picks random card
-                    ran += 1;
-                    Debug.Log(shopRows[ran]);
-                    priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
-                    priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
-                    priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
-                        shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
-                    priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
-                        shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
-                    cardShopItems[i].price = Random.Range(priceMin, priceMax + 1);
-                    Debug.Log(cardShopItems[i].price);
-    
-                    //After price is dealt with, we first assign a slot in the shop, then adjust visuals
-                    //cardShopItems[i].Slot = cardSlots[i];
-                    cardShopItems[i].fillSlot();
-                }
-                else if (i < 7)
-                {
-                    ran = Random.Range(cMax + 1, bMax); //picks random booster pack
-                    Debug.Log(shopRows[ran]);
-                    priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
-                    priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
-                    priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
-                        shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
-                    priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
-                        shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
-                    boosterPacks[i % 5].price = Random.Range(priceMin, priceMax + 1);
-                    Debug.Log(boosterPacks[i % 5].price);
-    
-                    boosterPacks[i % 5].Slot = cardSlots[i];
-                    boosterPacks[i % 5].fillSlot();
-    
-                }
-                else if (i < 13)
-                {
-                    ran = Random.Range(bMax + 1, rMax + 1); // picks random relic
-                    Debug.Log(shopRows[ran]);
-                    priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
-                    priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
-                    priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
-                        shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
-                    priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
-                        shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
-                    relics[i % 7].price = Random.Range(priceMin, priceMax + 1);
-                    Debug.Log(relics[i % 7].price);
-    
-                    relics[i % 7].Slot = relicSlots[i % 7];
-                    relics[i % 7].fillSlot();
-                }
-        }
+    // private void loadShopItemsFromText()
+    // {
+    //     string shopFile = $"{Application.dataPath}{"/Dungeon Draw/Resources/"}{shopFileName}.txt";
+    //     Debug.Log($"Loading shop file: {shopFile}");
+    //     
+    //
+    //     using (StreamReader sr = new StreamReader(shopFile))
+    //     {
+    //         string line = "";
+    //         while ((line = sr.ReadLine()) != null)
+    //         {
+    //             shopRows.Add(line);
+    //             //Debug.Log("Line pushed - " + line);
+    //             if (line == "[RELICS]")
+    //                 bMax = shopRows.Count - 1;
+    //             if (line == "[BOOSTER PACKS]")
+    //                 cMax = shopRows.Count - 1;
+    //         }
+    //
+    //         rMax = shopRows.Count - 1;
+    //
+    //         sr.Close();
+    //     }
+    //
+    //     
+    // }
+    //
+    // private void getPriceFromText(int i, int ran)
+    //     {
+    //         int priceMinIndex, priceMaxIndex, priceMin, priceMax;
+    //                 
+    //             if (i < 5)
+    //             {
+    //                 //ran = Random.Range(1, cMax); //picks random card
+    //                 ran += 1;
+    //                 Debug.Log(shopRows[ran]);
+    //                 priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
+    //                 priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
+    //                 priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
+    //                     shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
+    //                 priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
+    //                     shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
+    //                 cardShopItems[i].price = Random.Range(priceMin, priceMax + 1);
+    //                 Debug.Log(cardShopItems[i].price);
+    //
+    //                 //After price is dealt with, we first assign a slot in the shop, then adjust visuals
+    //                 //cardShopItems[i].Slot = cardSlots[i];
+    //                 cardShopItems[i].fillSlot();
+    //             }
+    //             else if (i < 7)
+    //             {
+    //                 ran = Random.Range(cMax + 1, bMax); //picks random booster pack
+    //                 Debug.Log(shopRows[ran]);
+    //                 priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
+    //                 priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
+    //                 priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
+    //                     shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
+    //                 priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
+    //                     shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
+    //                 boosterPacks[i % 5].price = Random.Range(priceMin, priceMax + 1);
+    //                 Debug.Log(boosterPacks[i % 5].price);
+    //
+    //                 boosterPacks[i % 5].Slot = cardSlots[i];
+    //                 boosterPacks[i % 5].fillSlot();
+    //
+    //             }
+    //             else if (i < 13)
+    //             {
+    //                 ran = Random.Range(bMax + 1, rMax + 1); // picks random relic
+    //                 Debug.Log(shopRows[ran]);
+    //                 priceMinIndex = shopRows[ran].IndexOf("Min:") + "Min:".Length;
+    //                 priceMaxIndex = shopRows[ran].IndexOf("Max:") + "Max:".Length;
+    //                 priceMin = int.Parse(shopRows[ran].Substring(priceMinIndex,
+    //                     shopRows[ran].IndexOf(',', priceMinIndex) - priceMinIndex));
+    //                 priceMax = int.Parse(shopRows[ran].Substring(priceMaxIndex,
+    //                     shopRows[ran].IndexOf(';', priceMaxIndex) - priceMaxIndex));
+    //                 relics[i % 7].price = Random.Range(priceMin, priceMax + 1);
+    //                 Debug.Log(relics[i % 7].price);
+    //
+    //                 relics[i % 7].Slot = relicSlots[i % 7];
+    //                 relics[i % 7].fillSlot();
+    //             }
+    //     }
     
 
 }
