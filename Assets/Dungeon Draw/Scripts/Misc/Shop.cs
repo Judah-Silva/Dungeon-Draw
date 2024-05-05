@@ -1,4 +1,4 @@
-using System;
+  using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +65,10 @@ public class Shop : MonoBehaviour
     public Image img;
     public AnimationCurve curve;
 
+    public AudioSource src;
+    public AudioClip purchaseClip;
+    public AudioClip declineClip;
+
     public SceneRouter sceneRouter;
 
     public string shopFileName = "shop";
@@ -104,6 +108,9 @@ public class Shop : MonoBehaviour
         //Debug.Log("Card "+ buttin +" Pressed");
         if (PlayerStats.Coins >= cardShopItems[buttin].price) // if enough money
         {
+            src.clip = purchaseClip;
+            src.Play();
+            
              PlayerStats.Coins -= cardShopItems[buttin].price;
              PlayerStats.Deck.Add(cardShopItems[buttin].ac.cardID); 
              PlayerStats.TotalDeckSize++;//Add to totalDeckSize??
@@ -112,6 +119,9 @@ public class Shop : MonoBehaviour
         }
         else
         {
+            src.clip = declineClip;
+            src.Play();
+            
             StartCoroutine(declineFade());
         }
     }
@@ -122,10 +132,14 @@ public class Shop : MonoBehaviour
         Debug.Log(boosterPacks[buttin].price);
         if (PlayerStats.Coins >= boosterPacks[buttin].price) // if enough money
         {
-            
+            src.clip = purchaseClip;
+            src.Play();
         }
         else
         {
+            src.clip = declineClip;
+            src.Play(); 
+            
             StartCoroutine(declineFade());
         }
     }
@@ -136,10 +150,14 @@ public class Shop : MonoBehaviour
         Debug.Log(relics[buttin].price);
         if (PlayerStats.Coins >= relics[buttin].price) // if enough money
         {
-            
+            src.clip = purchaseClip;
+            src.Play();
         }
         else
         {
+            src.clip = declineClip;
+            src.Play(); 
+            
             StartCoroutine(declineFade());
         }
     }

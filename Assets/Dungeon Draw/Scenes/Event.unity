@@ -837,30 +837,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 373422492}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: events.Array.data[1].eventTitle
-      value: Fountain
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: events.Array.data[2].eventTitle
-      value: Fight Scene Template
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: 'events.Array.data[0].button.Array.data[1].actions.Array.data[1]'
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: 'events.Array.data[1].button.Array.data[0].actions.Array.data[0]'
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: 'events.Array.data[1].button.Array.data[0].intActs.Array.data[0]'
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
-      propertyPath: 'events.Array.data[2].button.Array.data[0].actions.Array.data[0]'
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 7486667114516369056, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: m_Name
       value: EventCanvas
