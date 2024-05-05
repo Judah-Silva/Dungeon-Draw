@@ -66,6 +66,9 @@ public class Event : MonoBehaviour
     
     public SceneRouter sceneRouter;
     public PlayerStats playerStats;
+
+    public AudioSource src;
+    public AudioClip selectAudio;
     
     public List<eventClass> events;
   
@@ -102,6 +105,9 @@ public class Event : MonoBehaviour
 
     public void ButtonPressed(int buttonId)
     {
+        src.clip = selectAudio;
+        src.Play();
+        
         if (ButtonGO[0].GetComponentInChildren<TMP_Text>().text == "Back To Map") 
         {
             backToMap();// This only occurs after this function has happened once  |||  unless you set a button to this name but that shouldn't be necessary 
