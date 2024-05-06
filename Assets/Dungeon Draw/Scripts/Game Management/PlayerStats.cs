@@ -43,6 +43,10 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateHealth(int modifier)
     {
+        if (modifier > MaxHealth)
+            modifier = MaxHealth;
+        else if (modifier < 0)
+            modifier = 0;
         CurrentHealth = modifier;
     }
 
@@ -62,6 +66,10 @@ public class PlayerStats : MonoBehaviour
     {
         Relics.Add(r);
         r.PerformFunction();
+        if (GameObject.Find("Top Info"))
+        {
+            GameObject.Find("Top Info").GetComponent<InfoManager>().updateRelics(r);
+        }
     }
     
 }
