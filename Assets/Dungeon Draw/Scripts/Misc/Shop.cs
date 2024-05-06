@@ -92,7 +92,7 @@ public class Shop : MonoBehaviour
         }
         
         //Check for slimy glasses relic
-        if (playerStats.checkForRelic(11))
+        if (playerStats != null && playerStats.checkForRelic(11))
             playerStats.UpdateHealth(PlayerStats.CurrentHealth+8);
 
         // Debug.Log("Shop start called");
@@ -218,6 +218,19 @@ public class Shop : MonoBehaviour
         {
             StartCoroutine(declineFade());
         }
+    }
+
+    public void RelicHovered(int buttin)
+    {
+        // Debug.Log("Relic : " + buttin + " Hovered");
+        relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(true);
+        relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +relics[buttin].rel.name + "</b>\n" + relics[buttin].rel.description);
+    }
+
+    public void RelicUnHovered(int buttin)
+    {
+        // Debug.Log("Relic : " + buttin + " UnHovered");
+        relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void RemoveCard()
