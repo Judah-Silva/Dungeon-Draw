@@ -16,27 +16,31 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         //Deck = new List<int>(); // This was removing the ability to add cards to deck.. Unless there was another way and I'm dumb lol - Erik
-        PopulateDeck();
+        // PopulateDeck();
     }
 
     // Populate deck with 12 cards from database for testing purposes
-    void PopulateDeck()
+    public void PopulateDeck()
     {
-        Deck.Add(0);
-        Deck.Add(0);
+        List<int> defaultDeck = new List<int>();
         
-        Deck.Add(1);
-        Deck.Add(1);
-        Deck.Add(1);
-        Deck.Add(1);
+        defaultDeck.Add(0);
+        defaultDeck.Add(0);
         
-        Deck.Add(2);
-        Deck.Add(2);
-        Deck.Add(2);
-        Deck.Add(2);
+        defaultDeck.Add(1);
+        defaultDeck.Add(1);
+        defaultDeck.Add(1);
+        defaultDeck.Add(1);
         
-        Deck.Add(3);
-        Deck.Add(3);
+        defaultDeck.Add(2);
+        defaultDeck.Add(2);
+        defaultDeck.Add(2);
+        defaultDeck.Add(2);
+        
+        defaultDeck.Add(3);
+        defaultDeck.Add(3);
+
+        Deck = defaultDeck;
     }
 
     public void UpdateHealth(int modifier)
