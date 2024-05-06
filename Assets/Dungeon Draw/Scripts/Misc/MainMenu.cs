@@ -27,7 +27,8 @@ public class MainMenu : MonoBehaviour
         GameManager.Instance.GetLevelTracker().CheckLevels();
         GameManager.Instance.GetLevelTracker().ResetFloors();
         
-        // TODO: overwrite totalLevels and floors when starting new game?
+        GameManager.Instance.GetPlayerStats().PopulateDeck();
+        
         _sceneRouter.ToMap();
     }
 
@@ -40,6 +41,15 @@ public class MainMenu : MonoBehaviour
         
         int totalFloors = PlayerPrefs.GetInt("TotalFloors", 0);
         LevelTracker.floorsVisited = totalFloors;
+
+        List<int> loadedDeck = new List<int>();
+        int deckSize = PlayerPrefs.GetInt("SavedDeckCount", 0);
+        for (int i = 0; i < deckSize; i++)
+        {
+            int card = PlayerPrefs.GetInt("SavedDeck" + i, 0);
+            loadedDeck.Add(card);
+        }
+        PlayerStats.Deck = loadedDeck;
         
         _sceneRouter.ToMap();
     }
