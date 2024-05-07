@@ -69,7 +69,7 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
-        _sceneRouter = GameManager.Instance.GetSceneRouter();
+        //_sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
@@ -95,6 +95,13 @@ public class CombatManager : MonoBehaviour
         else if (_playerEntity.getHP() <= 0)
         {
             BattleOver(0);
+        }
+        
+        //For testing purposes only
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            enemy.TakeDamage(1);
         }
     }
 
@@ -242,6 +249,8 @@ public class CombatManager : MonoBehaviour
             resultsWindow.SetActive(true);
             // _sceneRouter.ToMap();
             enabled = false;
+            
+            NextLevel();
         }
         else
         {
@@ -263,7 +272,7 @@ public class CombatManager : MonoBehaviour
     
     public HandController GetHandController()
     {
-        if (_handController == null)
+        if (_handController is null)
             _handController = GetComponent<HandController>();
         return _handController;
     }
@@ -284,6 +293,21 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);
+        }
+    }
+    
+    public void NextLevel()
+    {
+        if (_currentLevel < levels.Count - 1)
+        {
+            _currentLevel++;
+            SpawnWave();
+            battleOver = false;
+            StartFight();
+        }
+        else
+        {
+            Debug.Log("All levels cleared!");
         }
     }
 }

@@ -65,7 +65,7 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[2];
     }
 
-    public int takeDamage(int damage)
+    public int TakeDamage(int damage)
     {
         int remainingDamage = damage - getShield() + getVul();
         // Debug.Log($"Taking {remainingDamage} damage");

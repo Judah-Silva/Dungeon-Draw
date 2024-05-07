@@ -59,6 +59,6 @@ public class Enemy : Entity
     public override void Die()
     {
         CombatManager.Instance.RemoveEnemy(gameObject);
-        //TODO : add gold to player
+        PlayerStats.Gold += goldValue;
     }
 }
