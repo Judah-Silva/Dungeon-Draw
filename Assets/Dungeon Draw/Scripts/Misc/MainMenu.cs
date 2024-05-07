@@ -24,19 +24,32 @@ public class MainMenu : MonoBehaviour
         PlaySFX(buttonSelectSound);
         LevelTracker.levelsVisited = 0;
         LevelTracker.floorsVisited = 1;
-        // TODO: overwrite totalLevels and floors when starting new game?
+        GameManager.Instance.GetLevelTracker().CheckLevels();
+        GameManager.Instance.GetLevelTracker().ResetFloors();
+        
+        GameManager.Instance.GetPlayerStats().PopulateDeck();
+        
         _sceneRouter.ToMap();
     }
 
     public void ContinueGame()
     {
         PlaySFX(buttonSelectSound);
-        
+
         int totalLevels = PlayerPrefs.GetInt("TotalLevels", 0);
         LevelTracker.levelsVisited = totalLevels;
         
         int totalFloors = PlayerPrefs.GetInt("TotalFloors", 0);
         LevelTracker.floorsVisited = totalFloors;
+
+        List<int> loadedDeck = new List<int>();
+        int deckSize = PlayerPrefs.GetInt("SavedDeckCount", 0);
+        for (int i = 0; i < deckSize; i++)
+        {
+            int card = PlayerPrefs.GetInt("SavedDeck" + i, 0);
+            loadedDeck.Add(card);
+        }
+        PlayerStats.Deck = loadedDeck;
         
         _sceneRouter.ToMap();
     }

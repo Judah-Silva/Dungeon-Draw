@@ -20,6 +20,16 @@ public class MapMenu : MonoBehaviour
     
     public void ReturnToMainMenu()
     {
+        // save deck 
+        List<int> savedDeck = PlayerStats.Deck;
+        
+        PlayerPrefs.SetInt("SavedDeckCount", savedDeck.Count);
+        for (int i = 0; i < savedDeck.Count; i++)
+        {
+            PlayerPrefs.SetInt("SavedDeck" + i, savedDeck[i]);
+        }
+        PlayerPrefs.Save();
+        
         sceneRouter.ToMainMenu();
     }
 

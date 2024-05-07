@@ -14,8 +14,14 @@ public class Icon : MonoBehaviour
     
     private ParticleSystem particles;
 
+    public AudioSource src;
+    public AudioClip hoverAudio;
+    public AudioClip selectAudio;
+
     private void Start()
     {
+        src = GetComponent<AudioSource>();
+        
         if (type == 5)
         {
             enabled = false;
@@ -30,6 +36,8 @@ public class Icon : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        src.clip = hoverAudio;
+        src.Play();
         _renderer.material.color = hoverColor;
     }
 
@@ -40,6 +48,8 @@ public class Icon : MonoBehaviour
     
     private void OnMouseDown()
     {
+        src.clip = selectAudio;
+        src.Play();
         particles.Play();
         _iconManager.Route(type);
     }
