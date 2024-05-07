@@ -213,6 +213,8 @@ public class Shop : MonoBehaviour
             relics[buttin].price = 99999;
             relics[buttin].Slot.GetComponentsInChildren<RawImage>()[1].enabled = false;
             relics[buttin].Slot.GetComponentInChildren<TMP_Text>().enabled = false;
+            relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text =
+                            ("<b>" + relics[buttin].rel.name + "</b>\n\nPURCHASED!!!");
         }
         else
         {
@@ -223,14 +225,18 @@ public class Shop : MonoBehaviour
     public void RelicHovered(int buttin)
     {
         // Debug.Log("Relic : " + buttin + " Hovered");
-        relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(true);
-        relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +relics[buttin].rel.name + "</b>\n" + relics[buttin].rel.description);
+        if (relics[buttin].price != 99999)
+        {
+            relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(true);
+            relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text =
+                ("<b>" + relics[buttin].rel.name + "</b>\n" + relics[buttin].rel.description);
+        }
     }
 
     public void RelicUnHovered(int buttin)
     {
         // Debug.Log("Relic : " + buttin + " UnHovered");
-        relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(false);
+            relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void RemoveCard()
