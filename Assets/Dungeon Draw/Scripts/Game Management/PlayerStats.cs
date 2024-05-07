@@ -46,7 +46,13 @@ public class PlayerStats : MonoBehaviour
         if (modifier > MaxHealth)
             modifier = MaxHealth;
         else if (modifier < 0)
-            modifier = 0;
+        {
+            if (!checkForRelic(10)) // checks for revive relic 'cellphone'
+                modifier = 0;
+            else
+                modifier = (MaxHealth / 4);
+        }
+
         CurrentHealth = modifier;
     }
 

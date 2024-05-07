@@ -17,7 +17,7 @@ public class RelicDatabase : MonoBehaviour
         allRelics.Add(new Relic(5, "RelicArt/GreenLiquid", "Suspicious Green Liquid", "When an enemy dies, gain 1 mana and draw 1 card", 75, rarityValues.uncommon, relicFunction.Combat, relicAbility.Custom, 1));
         allRelics.Add(new Relic(6, "RelicArt/Cookie", "Chocolate Chip Cookie", "If you end your turn without block, gain 3 block", 60, rarityValues.common, relicFunction.Combat, relicAbility.Custom, 3));
         allRelics.Add(new Relic(7, "RelicArt/SandShovel", "Sand Shovel", "You can now dig for relics at rest sites", 125, rarityValues.rare));
-        allRelics.Add(new Relic(8, "RelicArt/Penny", "Squished Penny", "Cards in the shop now replenish", 80, rarityValues.uncommon));
+        allRelics.Add(new Relic(8, "RelicArt/Penny", "Penny", "Cards in the shop now replenish", 80, rarityValues.uncommon));
         allRelics.Add(new Relic(9, "RelicArt/BallToy", "Ball and String Toy", "Heal 5 HP after winning a combat encounter", 100, rarityValues.rare));
         allRelics.Add(new Relic(10, "RelicArt/CellPhone", "Cellphone", "When you would die, heal to 25% HP instead", 175, rarityValues.rare));
         allRelics.Add(new Relic(11, "RelicArt/GreenGlasses", "Slimy Glasses", "Whenever you enter a shop, heal 8 HP", 85, rarityValues.uncommon));

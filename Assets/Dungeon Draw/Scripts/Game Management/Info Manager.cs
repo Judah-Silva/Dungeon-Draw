@@ -41,16 +41,18 @@ public class InfoManager : MonoBehaviour
 
     public void updateRelics(Relic r) //used when a relic is first gotten
     {
+        int objId = PlayerStats.Relics.Count - 1;
         GameObject g = Instantiate(relicUIGameObject, relicHolder.transform);
         g.GetComponent<Image>().sprite = r.art;
          EventTrigger t = g.GetComponent<EventTrigger>();
         EventTrigger.Entry ent = new EventTrigger.Entry();
+        
         ent.eventID = EventTriggerType.PointerEnter;
-        ent.callback.AddListener((data) => { RelicHovered(PlayerStats.Relics.Count-1); });
+        ent.callback.AddListener((data) => { RelicHovered(objId); });
         t.triggers.Add(ent);
         EventTrigger.Entry ent2 = new EventTrigger.Entry();
         ent2.eventID = EventTriggerType.PointerExit;
-        ent2.callback.AddListener((data) => { RelicUnHovered(PlayerStats.Relics.Count-1); });
+        ent2.callback.AddListener((data) => { RelicUnHovered(objId); });
         t.triggers.Add(ent2);
     }
     
