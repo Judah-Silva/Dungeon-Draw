@@ -90,6 +90,10 @@ public class Shop : MonoBehaviour
             sceneRouter = GameManager.Instance.GetSceneRouter();
             playerStats = GameManager.Instance.GetPlayerStats();
         }
+        
+        //Check for slimy glasses relic
+        if (playerStats != null && playerStats.checkForRelic(11))
+            playerStats.UpdateHealth(PlayerStats.CurrentHealth+8);
 
         // Debug.Log("Shop start called");
         //loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
@@ -107,7 +111,7 @@ public class Shop : MonoBehaviour
          for (int i = 0; i<cardShopItems.Length; i++)
          {
             cardShopItems[i].Slot = cardSlots[i];
-            ran = Random.Range(0, CardDataBase.allCards.Count);
+            ran = Random.Range(1, CardDataBase.allCards.Count);
             Debug.Log(CardDataBase.allCards.Count);
             cardShopItems[i].setCard(CardDataBase.getCard(ran), cardPrefab);
             //getPriceFromText(i, ran);
@@ -137,10 +141,8 @@ public class Shop : MonoBehaviour
                              {
                                  repeat = false;
                              }
-                            
                          }
                      }
-
                  }
                  else //Commons currently can be duplicate.
                  {
@@ -168,7 +170,16 @@ public class Shop : MonoBehaviour
              PlayerStats.Deck.Add(cardShopItems[buttin].ac.cardID); 
              PlayerStats.TotalDeckSize++;//Add to totalDeckSize??
              Debug.Log("Card bought - " + cardShopItems[buttin].ac.cardID);
-             repopulateCardShopItem(buttin);
+             Destroy(cardShopItems[buttin].Slot.transform.GetChild(2).gameObject);
+             if (playerStats.checkForRelic(8)) // If player has penny relic then replenish item
+                repopulateCardShopItem(buttin);
+             else
+             {
+                 cardShopItems[buttin].Slot.GetComponent<RawImage>().texture = X;
+                 cardShopItems[buttin].price = 99999;
+                 cardShopItems[buttin].Slot.GetComponentsInChildren<RawImage>()[1].enabled = false;
+                 cardShopItems[buttin].Slot.GetComponentInChildren<TMP_Text>().enabled = false;
+             }
         }
         else
         {
@@ -202,11 +213,30 @@ public class Shop : MonoBehaviour
             relics[buttin].price = 99999;
             relics[buttin].Slot.GetComponentsInChildren<RawImage>()[1].enabled = false;
             relics[buttin].Slot.GetComponentInChildren<TMP_Text>().enabled = false;
+            relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text =
+                            ("<b>" + relics[buttin].rel.name + "</b>\n\nPURCHASED!!!");
         }
         else
         {
             StartCoroutine(declineFade());
         }
+    }
+
+    public void RelicHovered(int buttin)
+    {
+        // Debug.Log("Relic : " + buttin + " Hovered");
+        if (relics[buttin].price != 99999)
+        {
+            relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(true);
+            relics[buttin].Slot.transform.GetChild(2).gameObject.GetComponentInChildren<TMP_Text>().text =
+                ("<b>" + relics[buttin].rel.name + "</b>\n" + relics[buttin].rel.description);
+        }
+    }
+
+    public void RelicUnHovered(int buttin)
+    {
+        // Debug.Log("Relic : " + buttin + " UnHovered");
+            relics[buttin].Slot.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     public void RemoveCard()
@@ -222,8 +252,8 @@ public class Shop : MonoBehaviour
     private void repopulateCardShopItem(int shopId)
     {
         int ran = 0;
-        ran = Random.Range(0, CardDataBase.allCards.Count);
-        Destroy(cardShopItems[shopId].Slot.transform.GetChild(2).gameObject);
+        ran = Random.Range(1, CardDataBase.allCards.Count);
+        
         cardShopItems[shopId].setCard(CardDataBase.getCard(ran), cardPrefab);
         //getPriceFromText(shopId, ran);
     }
