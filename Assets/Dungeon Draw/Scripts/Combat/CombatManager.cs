@@ -181,7 +181,7 @@ public class CombatManager : MonoBehaviour
 
     private void DisplayState()
     {
-        Debug.Log($"Player health: {_playerEntity.getHP()}\nPlayer shields: {_playerEntity.getShield()}");
+        Debug.Log($"Player health: {GetPlayerEntity().getHP()}\nPlayer shields: {GetPlayerEntity().getShield()}");
         foreach (var enemy in _enemyScripts)
         {
             Debug.Log($"{enemy.name} health: {enemy.getHP()}\n{enemy.name} shield: {enemy.getShield()}");
@@ -205,7 +205,7 @@ public class CombatManager : MonoBehaviour
 
     private void ClearHand()
     {
-        List<ActualCard> hand = _handController.GetHand();
+        List<ActualCard> hand = GetHandController().GetHand();
         Discard.DiscardHand(hand);
         _handController.ClearHand();
     }
@@ -252,7 +252,20 @@ public class CombatManager : MonoBehaviour
 
     public Entity GetPlayerEntity()
     {
+        if (_playerEntity == null)
+        {
+            if (player is null)
+                player = GameObject.FindGameObjectWithTag("Player");
+            _playerEntity = player.GetComponent<Player>();
+        }
         return _playerEntity;
+    }
+    
+    public HandController GetHandController()
+    {
+        if (_handController == null)
+            _handController = GetComponent<HandController>();
+        return _handController;
     }
 
     public List<Entity> GetEnemyEntities()
