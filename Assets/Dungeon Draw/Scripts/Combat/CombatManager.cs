@@ -12,8 +12,11 @@ public class CombatManager : MonoBehaviour
     public bool PlayerPlayFirst { get; set; } = true;
     public List<Level> levels = new ();
     public GameObject player;
+
+    public float tapeGain = 0.5f;
     
     private int _currentLevel = 0;
+    private bool isBoss = false;
     
     private List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> _enemyScripts = new List<Enemy>();
@@ -59,6 +62,11 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public bool IsBoss()
+    {
+        return isBoss;
+    }
+
     private void Start() //TODO: Remove (for testing purposes only)
     {
         _sceneRouter = GameManager.Instance.GetSceneRouter();
@@ -99,6 +107,10 @@ public class CombatManager : MonoBehaviour
             Enemy enemy = goEnemy.GetComponent<Enemy>();
             enemy.SetUp();
             _enemyScripts.Add(enemy);
+            if (enemy.isBoss)
+            {
+                isBoss = true;
+            }
             Debug.Log($"Enemy {enemy.name} added");
         }
         UpdateEnemiesPosition();
@@ -154,6 +166,7 @@ public class CombatManager : MonoBehaviour
         _cardManager.ResetMana();
 
 
+
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
@@ -162,6 +175,7 @@ public class CombatManager : MonoBehaviour
         else
         {
             PlayerTurn();
+            GameManager.Instance.GetPlayerStats().GainTape(tapeGain);
         }
     }
 

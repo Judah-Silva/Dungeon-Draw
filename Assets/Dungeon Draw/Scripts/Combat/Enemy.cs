@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Enemy : Entity
 {
     public int goldValue;
+    public bool isBoss = false;
     private List<Block> _blockList;
 
     private void Start()
@@ -52,7 +53,7 @@ public class Enemy : Entity
                 effect.dealEffect(this, enemyEntity);
             }
         }
-
+        
     }
 
     public override void Die()

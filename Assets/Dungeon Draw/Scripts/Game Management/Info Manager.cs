@@ -11,6 +11,8 @@ public class InfoManager : MonoBehaviour
 {
     public TextMeshProUGUI health;
     public TextMeshProUGUI gold;
+    public TextMeshProUGUI tapeText;
+    public Slider tapeBar;
     public GameObject relicHolder;
     public GameObject relicUIGameObject;
 
@@ -31,12 +33,42 @@ public class InfoManager : MonoBehaviour
             ent2.callback.AddListener((data) => { RelicUnHovered(objId); });
             t.triggers.Add(ent2);
         }
+
+        PlayerStats.OnTapeChange += PlayerStatsTapeChange;
     }
 
     private void Update()
     {
         health.text = $"{PlayerStats.CurrentHealth}/{PlayerStats.MaxHealth} .";
         gold.text = $"{PlayerStats.Coins}";
+
+        
+    }
+
+    private void  PlayerStatsTapeChange()
+    {
+        StartCoroutine(InterpolateTape(tapeBar.value, PlayerStats.Tape - Mathf.Floor(PlayerStats.Tape)));
+        tapeText.text = $"Tape: {Mathf.Floor(PlayerStats.Tape)} / {PlayerStats.MaxTape}";
+    }
+
+    IEnumerator InterpolateTape(float start, float end)
+    {
+        float tempEnd = end;
+        if (end < start)
+        {
+            tempEnd = 1f;
+        }
+
+        float elapsedTime = 0f;
+        while (elapsedTime < .5f)
+        {
+            float newTape = Mathf.Lerp(start, tempEnd, elapsedTime / .5f);
+            tapeBar.value = newTape;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        tapeBar.value = end;
     }
 
     public void updateRelics(Relic r) //used when a relic is first gotten
@@ -67,5 +99,10 @@ public class InfoManager : MonoBehaviour
     {
         // Debug.Log("Unhovered : " + obj);
         this.transform.GetChild(2).GetChild(obj).GetChild(0).gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        PlayerStats.OnTapeChange -= PlayerStatsTapeChange;
     }
 }

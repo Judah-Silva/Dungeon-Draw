@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb9c5ac32aa61546a848bb2d0bb4fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneRouter: {fileID: 0}
-  src: {fileID: 0}
+  src: {fileID: 7843969982875667074}
   buttonSelectSound: {fileID: 8300000, guid: f6ea57f8fd4f4014eaf5066342cc8bf9, type: 3}
   quitSound: {fileID: 8300000, guid: c0d5b55dfd2211643922bfcaa849f2a4, type: 3}
 --- !u!82 &7843969982875667074

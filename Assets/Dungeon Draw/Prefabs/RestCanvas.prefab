@@ -1028,13 +1028,27 @@ MonoBehaviour:
       actions: 09000000
       stringActs: []
       intActs: 01000000
-    - Text: Gain random relic
-      postButtonPressedText: You gained a random relic.
-      actions: 060000000b000000
+    image: {fileID: 0}
+  - eventTitle: What to do?
+    eventText: 
+    button:
+    - Text: Rest
+      postButtonPressedText: You rest up and heal 1/3rd of your max HP!
+      actions: 04000000
+      stringActs: []
+      intActs: 21000000
+    - Text: Tape gain
+      postButtonPressedText: You gain 1 Tape
+      actions: 09000000
+      stringActs: []
+      intActs: 01000000
+    - Text: Dig For Relic
+      postButtonPressedText: You use your Sand Shovel and Find A Random Relic.
+      actions: 0b000000
       stringActs: []
       intActs: 
     image: {fileID: 0}
-  eventId: -1
+  eventId: 0
 --- !u!82 &4244432182128942899
 AudioSource:
   m_ObjectHideFlags: 0

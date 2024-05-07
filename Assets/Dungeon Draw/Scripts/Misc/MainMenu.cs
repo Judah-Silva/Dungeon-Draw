@@ -77,7 +77,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlaySFX(AudioClip sfx)
     {
-        src = gameObject.GetComponent<AudioSource>();
+        // src = gameObject.GetComponent<AudioSource>();
         src.clip = sfx;
         src.Play();
     }
