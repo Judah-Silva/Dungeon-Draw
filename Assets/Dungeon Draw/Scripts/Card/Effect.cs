@@ -46,6 +46,9 @@ public class Effect
             case 3: 
                 effectName = "Weak";
                 break;
+            case 4:
+                effectName = "Frail";
+                break;
 
         }
     }
@@ -113,6 +116,9 @@ public class Effect
             case 3:
                 giveWeak(target);
                 break;
+            case 4:
+                giveFrail(target);
+                break;
         }
 
     }
@@ -145,6 +151,11 @@ public class Effect
     private void giveWeak(Entity target)
     {
         target.giveWeak(effectVal);
+    }
+
+    private void giveFrail (Entity target)
+    {
+        
     }
 
 }
