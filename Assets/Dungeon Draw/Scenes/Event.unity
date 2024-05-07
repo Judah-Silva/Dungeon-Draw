@@ -532,6 +532,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5788960454277383386, guid: d069a833875e0b342a48869e376cc762, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7766745668007208066, guid: d069a833875e0b342a48869e376cc762, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -837,6 +841,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 373422492}
+    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
+      propertyPath: backgroundMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 1e5beb93cbe7f0c48b190d447f9f4e23, type: 3}
+    - target: {fileID: 5113262882249379352, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
+      propertyPath: backgroundMusicSrc
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7486667114516369056, guid: 807f79846c37b47ab87ab847d7cf9229, type: 3}
       propertyPath: m_Name
       value: EventCanvas

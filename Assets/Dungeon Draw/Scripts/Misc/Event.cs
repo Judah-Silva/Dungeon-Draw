@@ -190,7 +190,7 @@ public class Event : MonoBehaviour
                    break;
                case Actions.ChangeScene:
                    Debug.Log("ChangeScene activated");
-                   SceneManager.LoadScene(but.stringActs[i]);
+                   GameManager.Instance.GetSceneRouter().ToBattle();
                    break;
                
             } 

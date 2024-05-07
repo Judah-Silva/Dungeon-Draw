@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,15 @@ public class PlayerStats : MonoBehaviour
     public static int HandSize = 5;
     public static int Coins = 1000;
     public static int Glue = 0;
-    public static int Tape = 0;
+    public static float Tape = 0;
+    public static float MaxTape = 3f;
     public static int CurrentHealth = 50;
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();
     public static List<Relic> Relics = new List<Relic>();
+
+    public delegate void TapeChange();
+    public static event TapeChange OnTapeChange;
     
     void Start()
     {
@@ -80,5 +85,10 @@ public class PlayerStats : MonoBehaviour
             GameObject.Find("Top Info").GetComponent<InfoManager>().updateRelics(r);
         }
     }
-    
+
+    public void GainTape(float tapeAmount)
+    {
+        Tape = Math.Min(Tape + tapeAmount, MaxTape);
+        OnTapeChange?.Invoke();
+    }
 }

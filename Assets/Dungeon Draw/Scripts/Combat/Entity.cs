@@ -11,6 +11,7 @@ public abstract class Entity : MonoBehaviour
     public int maxHP;
     //[HideInInspector]
     public int currentHP;
+    private int prevHealth = 0;
     
     public StatusUI statusUI;
 
@@ -71,11 +72,12 @@ public abstract class Entity : MonoBehaviour
 
         if (remainingDamage > 0)
         {
+            prevHealth = currentHP;
             currentHP -= remainingDamage;
             entityStatusEffectArray[0] = 0;
 
             Debug.Log($"{remainingDamage} damage has been dealt to {gameObject.name}");
-
+            UpdateHealthBar();
         }
         else
         {
@@ -87,6 +89,7 @@ public abstract class Entity : MonoBehaviour
             Die();
             return 0;
         }
+        
 
         return currentHP;
     }
@@ -118,7 +121,21 @@ public abstract class Entity : MonoBehaviour
     public void UpdateHealthBar()
     {
         if (healthBar is null) return;
-        healthBar.value = currentHP;
+        StartCoroutine(InterpolateHealth(prevHealth, currentHP));
+    }
+
+    IEnumerator InterpolateHealth(float start, float end)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < .5f)
+        {
+            float newHealth = Mathf.Lerp(start, end, elapsedTime / .5f);
+            healthBar.value = newHealth;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        healthBar.value = end;
     }
 
     public void OnMouseEnter()
