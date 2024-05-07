@@ -6,12 +6,13 @@ public class PlayerStats : MonoBehaviour
 {
     public static int TotalDeckSize = 12;
     public static int HandSize = 5;
-    public static int Coins = 100;
+    public static int Coins = 1000;
     public static int Glue = 0;
     public static int Tape = 0;
     public static int CurrentHealth = 50;
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();
+    public static List<Relic> Relics = new List<Relic>();
     
     void Start()
     {
@@ -45,6 +46,39 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateHealth(int modifier)
     {
+        if (modifier > MaxHealth)
+            modifier = MaxHealth;
+        else if (modifier < 0)
+        {
+            if (!checkForRelic(10)) // checks for revive relic 'cellphone'
+                modifier = 0;
+            else
+                modifier = (MaxHealth / 4);
+        }
+
         CurrentHealth = modifier;
     }
+
+    public bool checkForRelic(int id)
+    {
+        if (Relics.Count!=0)
+            foreach (Relic r in Relics)
+            {
+                if (r.id == id)
+                    return true;
+            }
+
+        return false;
+    }
+
+    public void addRelic(Relic r)
+    {
+        Relics.Add(r);
+        r.PerformFunction();
+        if (GameObject.Find("Top Info"))
+        {
+            GameObject.Find("Top Info").GetComponent<InfoManager>().updateRelics(r);
+        }
+    }
+    
 }

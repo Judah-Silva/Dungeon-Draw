@@ -79,10 +79,25 @@ public class Event : MonoBehaviour
     
     void Start()
     {
-        sceneRouter = GameManager.Instance.GetSceneRouter();
-        playerStats = GameManager.Instance.GetPlayerStats();
+        if (GameManager.Instance != null)
+        {
+            sceneRouter = GameManager.Instance.GetSceneRouter();
+            playerStats = GameManager.Instance.GetPlayerStats();
+        }
+        if (RelicDatabase.allRelics.Count == 0) //Populate RelicDatabase if its empty || Should probably be done in the gameManager
+            RelicDatabase.prePopulate();
 
         ButtonGO[0].SetActive(false);ButtonGO[1].SetActive(false);ButtonGO[2].SetActive(false); // Turns buttons off
+        
+        //Check for Rest scene
+        if (SceneManager.GetActiveScene().name == "Rest")
+        {
+            if (playerStats.checkForRelic(7)) //Checks for sand shovel relic
+            {
+               eventId = 1;
+            }
+        }
+        
         if (eventId == -1)
             eventId = Random.Range(0, events.Count); // selects random event
         Debug.Log(eventId);
@@ -115,6 +130,7 @@ public class Event : MonoBehaviour
         }
         int actionLength = events[eventId].button[buttonId].actions.Length;
         buttons but = events[eventId].button[buttonId];
+        int ran;
         for (int i = 0; i < actionLength; i++)
         {
             switch (but.actions[i])
@@ -147,7 +163,7 @@ public class Event : MonoBehaviour
                    break;
                case Actions.GainRelicById :
                   Debug.Log("GainRelicById  activated");
-                  //relicDB.heldRelics.add(relicDB.getRelic(but.intActs[i]));
+                  playerStats.addRelic(RelicDatabase.getRelic(but.intActs[i]));
                   break;
                case Actions.GainGlue :
                   Debug.Log("GainGlue activated");
@@ -158,12 +174,15 @@ public class Event : MonoBehaviour
                   PlayerStats.Tape += but.intActs[i];
                   break;
                case Actions.GainRandomRelic:
-                   
+                   ran = Random.Range(0, RelicDatabase.allRelics.Count);
+                    playerStats.addRelic(RelicDatabase.getRelic(ran)); 
+                   Debug.Log("Player got relic: " + RelicDatabase.getRelic(ran).name);
                    break;
                case Actions.GainRandomCard:
-                   int ran = Random.Range(0, CardDataBase.allCards.Count);
+                   ran = Random.Range(0, CardDataBase.allCards.Count);
                    PlayerStats.Deck.Add(ran);
                    PlayerStats.TotalDeckSize++;
+                   Debug.Log("Player got card: " + CardDataBase.getCard(ran));
                    break;
                case Actions.Leave:
                    Debug.Log("Leave button pressed");

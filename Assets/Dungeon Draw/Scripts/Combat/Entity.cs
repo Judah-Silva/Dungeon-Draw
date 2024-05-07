@@ -14,7 +14,7 @@ public abstract class Entity : MonoBehaviour
     
     public StatusUI statusUI;
 
-    private int[] _entityStatusEffectArray = new int[10];
+    private int[] entityStatusEffectArray = new int[10];
 
     public Slider healthBar;
 
@@ -26,9 +26,9 @@ public abstract class Entity : MonoBehaviour
     public void setUpEEA()
     {
 
-        for (int i = 0; i < _entityStatusEffectArray.Length; i++)
+        for (int i = 0; i < entityStatusEffectArray.Length; i++)
         {
-            _entityStatusEffectArray[i] = 0;
+            entityStatusEffectArray[i] = 0;
         }
     }
 
@@ -50,29 +50,36 @@ public abstract class Entity : MonoBehaviour
 
     public int getShield()
     {
-        return _entityStatusEffectArray[0];
+        return entityStatusEffectArray[0];
+    }
+
+    public int getVul()
+    {
+        return entityStatusEffectArray[1];
     }
 
     // Solely used by the effect class when get a modifier for dealing damage
-    public int getDamageMod() {
-        return _entityStatusEffectArray[3] - _entityStatusEffectArray[1];
+    public int getDamageMod()
+    {
+        return entityStatusEffectArray[2];
     }
 
     public int takeDamage(int damage)
     {
-        Debug.Log($"{damage} damage taken to {gameObject.name}");
-        
-        int remainingDamage = damage - getShield();
+        int remainingDamage = damage - getShield() + getVul();
         // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
             currentHP -= remainingDamage;
-            _entityStatusEffectArray[0] = 0;
+            entityStatusEffectArray[0] = 0;
+
+            Debug.Log($"{remainingDamage} damage has been dealt to {gameObject.name}");
+
         }
         else
         {
-            _entityStatusEffectArray[0] -= damage;
+            entityStatusEffectArray[0] -= damage;
         }
 
         if (currentHP <= 0)
@@ -80,16 +87,34 @@ public abstract class Entity : MonoBehaviour
             Die();
             return 0;
         }
-        UpdateHealthBar();
+
         return currentHP;
     }
 
     public int giveShield(int givenShield)
     {
-        _entityStatusEffectArray[0] += givenShield;
-        return _entityStatusEffectArray[0];
+        entityStatusEffectArray[0] += givenShield;
+        return entityStatusEffectArray[0];
     }
-    
+
+    public int giveVulnerable(int givenVulnerable)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenVulnerable} vulnerability");
+
+        entityStatusEffectArray[1] += givenVulnerable;
+        return entityStatusEffectArray[1];
+    }
+
+    public int giveWeak(int givenWeakness)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenWeakness} weakness");
+
+        entityStatusEffectArray[2] += givenWeakness;
+        return entityStatusEffectArray[2];
+    }
+
     public void UpdateHealthBar()
     {
         if (healthBar is null) return;
