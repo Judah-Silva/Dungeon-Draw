@@ -14,7 +14,7 @@ public class StatusUI : MonoBehaviour
         src.Play();
         
         Vector3 pos = spawnLocation.position;
-        transform.position = new Vector3(pos.x, pos.y + 2f, pos.z); 
+        transform.position = new Vector3(pos.x, pos.y + 4f, pos.z); 
         ui.SetActive(true);
     }
 
