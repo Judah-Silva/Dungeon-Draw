@@ -22,6 +22,8 @@ public abstract class Entity : MonoBehaviour
 
     [HideInInspector]
     public CardManager _cardManager;
+    
+    [HideInInspector] public int firstDamageTaken = -1;
 
     public abstract void SetUp();
 
@@ -83,6 +85,8 @@ public abstract class Entity : MonoBehaviour
 
         if (remainingDamage > 0)
         {
+            if (firstDamageTaken == -1)
+                firstDamageTaken = remainingDamage; //This is for the turtle relic and is checked in combatmanager
             prevHealth = currentHP;
             currentHP -= remainingDamage;
             entityStatusEffectArray[0] = 0;

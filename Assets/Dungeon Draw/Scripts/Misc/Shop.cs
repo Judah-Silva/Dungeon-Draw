@@ -130,7 +130,7 @@ public class Shop : MonoBehaviour
                  relics[i].Slot = relicSlots[i];
                  if (i < 3) // This will set the top 3 relics as non commons and make sure no duplicates
                  {
-                     while (RelicDatabase.getRelic(ran).rarity == rarityValues.common || repeat == true)
+                     while (RelicDatabase.getRelic(ran).rarity == rarityValues.common || RelicDatabase.getRelic(ran).rarity == rarityValues.unique || repeat == true)
                      {
                          ran = Random.Range(0, RelicDatabase.allRelics.Count);
                          Debug.Log(ran);
