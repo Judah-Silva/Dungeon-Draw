@@ -20,6 +20,8 @@ public class CombatManager : MonoBehaviour
     
     private List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> _enemyScripts = new List<Enemy>();
+
+    public int originOffset = 7;
     
     /*
     Use StartFight() to start the fight
@@ -255,6 +257,7 @@ public class CombatManager : MonoBehaviour
         else
         {
             Debug.Log("Battle lost...");
+            _sceneRouter.ToMainMenu(); //TODO: make game over screen
         }
         
     }
@@ -292,7 +295,7 @@ public class CombatManager : MonoBehaviour
         int distanceBetweenEnemies = 4;
         for (int i = 0; i < enemies.Count; i++)
         {
-            enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);
+            enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);
         }
     }
     

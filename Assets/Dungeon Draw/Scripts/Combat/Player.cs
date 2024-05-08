@@ -6,6 +6,10 @@ public class Player : Entity
     public PlayerStats playerStats;
     private void Update()
     {
+        if (currentHP < PlayerStats.CurrentHealth)
+        {
+            GetComponent<Animator>().SetTrigger("Hit");
+        }
         playerStats.UpdateHealth(currentHP);
     }
 
@@ -20,6 +24,7 @@ public class Player : Entity
 
     public override void Die()
     {
+        GetComponent<Animator>().SetTrigger("Die");
         //TODO: Implement player death
     }
 }
