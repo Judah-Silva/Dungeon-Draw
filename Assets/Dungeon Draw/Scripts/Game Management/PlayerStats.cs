@@ -57,10 +57,7 @@ public class PlayerStats : MonoBehaviour
             modifier = MaxHealth;
         else if (modifier < 0)
         {
-            if (!checkForRelic(10)) // checks for revive relic 'cellphone'
                 modifier = 0;
-            else
-                modifier = (MaxHealth / 4);
         }
 
         CurrentHealth = modifier;
@@ -86,6 +83,15 @@ public class PlayerStats : MonoBehaviour
         {
             GameObject.Find("Top Info").GetComponent<InfoManager>().updateRelics(r);
         }
+    }
+    
+    public void removeRelic(Relic r)
+    {
+        if (GameObject.Find("Top Info"))
+        {
+            GameObject.Find("Top Info").GetComponent<InfoManager>().removeRelicUI(Relics.IndexOf(r));
+        }
+        Relics.Remove(r);
     }
 
     public void GainTape(float tapeAmount)

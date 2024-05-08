@@ -79,10 +79,11 @@ public class Relic
                 switch (abilities[i])
                 {
                     case relicAbility.increaseMaxHp:
-                        PlayerStats.MaxHealth += intToUse[i]; 
+                        PlayerStats.MaxHealth += intToUse[i];
+                        PlayerStats.CurrentHealth += intToUse[i];
                         break;
                     case relicAbility.increaseMaxMana:
-                        //
+                        //Need to implement
                         break;
                     case relicAbility.coinIncrease:
                         PlayerStats.Coins += intToUse[i];
@@ -134,6 +135,7 @@ public enum rarityValues
 {
     common,
     uncommon,
-    rare
+    rare,
+    unique //used for event given relics
 }
 

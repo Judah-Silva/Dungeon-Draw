@@ -19,8 +19,9 @@ public class RelicDatabase : MonoBehaviour
         allRelics.Add(new Relic(7, "RelicArt/SandShovel", "Sand Shovel", "You can now dig for relics at rest sites", 125, rarityValues.rare));
         allRelics.Add(new Relic(8, "RelicArt/Penny", "Penny", "Cards in the shop now replenish", 80, rarityValues.uncommon));
         allRelics.Add(new Relic(9, "RelicArt/BallToy", "Ball and String Toy", "Heal 5 HP after winning a combat encounter", 100, rarityValues.rare));
-        allRelics.Add(new Relic(10, "RelicArt/CellPhone", "Cellphone", "When you would die, heal to 25% HP instead", 175, rarityValues.rare));
+        allRelics.Add(new Relic(10, "RelicArt/CellPhone", "Cellphone", "When you would die, heal to 33% HP instead", 175, rarityValues.rare));
         allRelics.Add(new Relic(11, "RelicArt/GreenGlasses", "Slimy Glasses", "Whenever you enter a shop, heal 8 HP", 85, rarityValues.uncommon));
+        allRelics.Add(new Relic(12, "RelicArt/Shell", "Shell", "Grants the user 1 shield every combat round", -1, rarityValues.unique));
     }
 
     public static Relic getRelic(int id)
