@@ -192,7 +192,11 @@ public class Effect
         {
             target.giveVulnerable(effectVal);
         }
-        
+        else
+        {
+            target.clearArtifact();
+        }
+
     }
 
     private void giveWeak(Entity target)
@@ -201,7 +205,11 @@ public class Effect
         {
             target.giveWeak(effectVal);
         }
-     
+        else
+        {
+            target.clearArtifact();
+        }
+
     }
 
     private void giveFrail (Entity target)
@@ -210,6 +218,11 @@ public class Effect
         {
             target.giveFrail(effectVal);
         }
+        else
+        {
+            target.clearArtifact();
+        }
+
         
     }
 

@@ -122,6 +122,11 @@ public abstract class Entity : MonoBehaviour
         }
     }
 
+    public void clearArtifact()
+    {
+        entityStatusEffectArray[4] = 0;
+    }
+
     public int giveVulnerable(int givenVulnerable)
     {
 
