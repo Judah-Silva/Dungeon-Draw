@@ -59,6 +59,16 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[1];
     }
 
+    public int getFrail()
+    {
+        return entityStatusEffectArray[3];
+    }
+
+    public int getArtifact()
+    {
+        return entityStatusEffectArray[4];
+    }
+
     // Solely used by the effect class when get a modifier for dealing damage
     public int getDamageMod()
     {
@@ -96,8 +106,25 @@ public abstract class Entity : MonoBehaviour
 
     public int giveShield(int givenShield)
     {
-        entityStatusEffectArray[0] += givenShield;
+        entityStatusEffectArray[0] += givenShield - getFrail();
         return entityStatusEffectArray[0];
+    }
+
+    public bool hasArtifact()
+    {
+        if (entityStatusEffectArray[4] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void clearArtifact()
+    {
+        entityStatusEffectArray[4] = 0;
     }
 
     public int giveVulnerable(int givenVulnerable)
@@ -116,6 +143,24 @@ public abstract class Entity : MonoBehaviour
 
         entityStatusEffectArray[2] += givenWeakness;
         return entityStatusEffectArray[2];
+    }
+
+    public int giveFrail(int givenFrail)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenFrail} frail");
+
+        entityStatusEffectArray[3] += givenFrail;
+        return entityStatusEffectArray[3];
+    }
+
+    public int giveArtifact()
+    {
+
+        Debug.Log($"{gameObject.name} has been given a level of artifact!");
+
+        entityStatusEffectArray[4] = 1;
+        return entityStatusEffectArray[4];
     }
 
     public void UpdateHealthBar()
