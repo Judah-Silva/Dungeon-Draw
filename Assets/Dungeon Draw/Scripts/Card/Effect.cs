@@ -49,6 +49,18 @@ public class Effect
             case 4:
                 effectName = "Frail";
                 break;
+            case 5:
+                effectName = "Artifact";
+                break;
+            case 6:
+                effectName = "Double Slash";
+                break;
+            case 7:
+                effectName = "Whirlwind Slash";
+                break;
+            default:
+                effectName = "Damage";
+                break;
 
         }
     }
@@ -119,6 +131,15 @@ public class Effect
             case 4:
                 giveFrail(target);
                 break;
+            case 5:
+                giveArtifact(target);
+                break;
+            case 6:
+                dealDoubleSlash(origin, target);
+                break;
+            case 7:
+                dealWhirlWindSlash(origin, target);
+                break;
         }
 
     }
@@ -137,24 +158,58 @@ public class Effect
         // Debug.Log($"{tempVal} damage dealt");
     }
 
+    private void dealDoubleSlash(Entity origin, Entity target)
+    {
+        dealDamage(origin, target);
+        dealDamage(origin, target);
+    }
+
+    private void dealWhirlWindSlash(Entity origin, Entity target)
+    {
+        int attackCount = Random.Range(2, 6);
+
+        for (int i = 0; i < attackCount; i++)
+        {
+            dealDamage(origin, target);
+        }
+
+    }
+
     // Similiar function for block instead of damage
     private void giveShield(Entity target)
     {
         target.giveShield(effectVal);
     }
 
+    private void giveArtifact(Entity target)
+    {
+        target.giveArtifact();
+    }
+
     private void giveVul(Entity target)
     {
-        target.giveVulnerable(effectVal);
+        if (!target.hasArtifact())
+        {
+            target.giveVulnerable(effectVal);
+        }
+        
     }
 
     private void giveWeak(Entity target)
     {
-        target.giveWeak(effectVal);
+        if (!target.hasArtifact())
+        {
+            target.giveWeak(effectVal);
+        }
+     
     }
 
     private void giveFrail (Entity target)
     {
+        if (!target.hasArtifact())
+        {
+            target.giveFrail(effectVal);
+        }
         
     }
 
