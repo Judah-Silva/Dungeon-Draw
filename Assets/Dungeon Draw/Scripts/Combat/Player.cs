@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : Entity
@@ -6,6 +7,10 @@ public class Player : Entity
     public PlayerStats playerStats;
     private void Update()
     {
+        if (currentHP < PlayerStats.CurrentHealth)
+        {
+            GetComponent<Animator>().SetTrigger("Hit");
+        }
         playerStats.UpdateHealth(currentHP);
     }
 
@@ -18,8 +23,10 @@ public class Player : Entity
         currentHP = PlayerStats.CurrentHealth;  
     }
 
-    public override void Die()
+    public override IEnumerator Die()
     {
+        GetComponent<Animator>().SetTrigger("Die");
         //TODO: Implement player death
+        yield return new WaitForSeconds(0);
     }
 }
