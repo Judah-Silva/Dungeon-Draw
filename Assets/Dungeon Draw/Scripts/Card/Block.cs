@@ -53,6 +53,10 @@ public class Block
 
     public string showBlock()
     {
+        if (effectList == null)
+        {
+            return " ";
+        }
 
         string temp = "";
 

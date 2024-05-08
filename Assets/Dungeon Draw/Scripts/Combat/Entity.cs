@@ -55,7 +55,7 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[0];
     }
 
-    public int getVul()
+    public int getVulnerable()
     {
         return entityStatusEffectArray[1];
     }
@@ -78,7 +78,7 @@ public abstract class Entity : MonoBehaviour
 
     public int TakeDamage(int damage)
     {
-        int remainingDamage = damage - getShield() + getVul();
+        int remainingDamage = damage - getShield() + getVulnerable();
         // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
@@ -203,6 +203,7 @@ public abstract class Entity : MonoBehaviour
     {
         Transform posToSpawn = gameObject.transform;
         statusUI.ActivateUI(posToSpawn);
+        statusUI.DisplayInfo(this);
     }
 
     public void OnMouseExit()
