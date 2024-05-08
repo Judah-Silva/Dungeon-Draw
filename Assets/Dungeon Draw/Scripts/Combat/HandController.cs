@@ -6,6 +6,7 @@ using UnityEngine.XR;
 
 public class HandController : MonoBehaviour
 {
+    public static HandController Instance { get; private set; }
     public GameObject handArea;
     public float spacing = 1f;
     
@@ -13,9 +14,19 @@ public class HandController : MonoBehaviour
 
     private Deck _deck;
     private BoxCollider handAreaCollider;
-    
-    
-    
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +35,7 @@ public class HandController : MonoBehaviour
         handAreaCollider = handArea.GetComponent<BoxCollider>();
     }
 
-    void AddCardToHand()
+    public void AddCardToHand()
     {
         GameObject newCard = _deck.DrawCard();
         

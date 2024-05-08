@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
     private GameObject selectedGameObject;
     private Entity selectedEntity;
     private HandController _handController;
-
+    
     private void Awake()
     {
         if (Instance == null)

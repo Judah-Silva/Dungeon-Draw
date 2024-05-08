@@ -62,8 +62,24 @@ public class ActualCard : MonoBehaviour
     public bool isShopItem = false;
     public bool isRipped = false;
 
+<<<<<<< Updated upstream
     public ActualCard(List<int> cardInfo)
     {
+=======
+    //Used for glueing and taping cards
+    public static bool isRipped = false;
+    public static int rippedCardID;
+    public HandController handController;
+
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
+        originalPosition = transform.position;
+        RandomColor();
+        cardManager = CardManager.Instance;
+        handController = HandController.Instance;
+>>>>>>> Stashed changes
     }
 
     private void Update()
@@ -76,11 +92,52 @@ public class ActualCard : MonoBehaviour
             // Debug.Log(hitInfo.collider.gameObject.name);
             if (hitInfo.collider.gameObject == gameObject)
             {
+<<<<<<< Updated upstream
                 // Move the object up smoothly
                 Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
                 transform.position = Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
             }
             else if (transform.position != originalPosition)
+=======
+                // Debug.Log(hitInfo.collider.gameObject.name);
+                if (hitInfo.collider.gameObject == gameObject)
+                {
+                    // Move the object up smoothly
+                    Vector3 targetPosition = originalPosition + Vector3.up * moveAmount;
+                    transform.position =
+                        Vector3.Lerp(transform.position, targetPosition, hoverSmoothness * Time.deltaTime);
+                }
+                else if (transform.position != originalPosition)
+                {
+                    // Move the object back to its original position if not hovering
+                    transform.position = Vector3.Lerp(transform.position, originalPosition,
+                        hoverSmoothness * Time.deltaTime);
+                }
+                // Used to check if we need to rip a card
+                // Then allows it to be merged into another card
+                if (hitInfo.collider.gameObject == gameObject && Input.GetMouseButtonDown(1))
+                {
+                    if (PlayerStats.Tape < 1)
+                    {
+                        Debug.Log("Not enough tape");
+                    }
+                    else if (isRipped)
+                    {
+                        Debug.Log("You have already ripped a card!");
+                    }
+                    else if (condition[1] != 0)
+                    {
+                        Debug.Log("This card is already full");
+                    }
+                    else
+                    {
+                        Debug.Log("Choose a card to attach to");
+                        ripCard(cardID);
+                    }
+                }
+                }
+                else
+>>>>>>> Stashed changes
             {
                 // Move the object back to its original position if not hovering
                 transform.position = Vector3.Lerp(transform.position, originalPosition, hoverSmoothness * Time.deltaTime);
@@ -112,6 +169,7 @@ public class ActualCard : MonoBehaviour
                     ripCard();
                 }
             }
+
         }
 
 
@@ -302,8 +360,47 @@ public class ActualCard : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
 
     //This method will remove any extra NON-Glued cards
+=======
+    public void createCombinedCard(int rippedCardID)
+    {
+        Debug.Log(rippedCardID);
+        Debug.Log(cardID);
+        blockArray[1] = addBlock(rippedCardID);
+        effectType[1][0] = blockArray[1].effectList[0].GetEffectType();
+        effectVal[1][0] = blockArray[1].effectList[0].GetEffectVal();
+        PlayerStats.Deck.Remove(cardID);
+        CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost, cardVal, rarity, 2, 1,
+            1, effectType[0][0], effectVal[0][0], 2, 1, effectType[1][0], effectVal[1][0]});  //TODO: Here is the problem, ive tested most other options
+        // Up to this point the information being pased through is correct, however once the card is created, it always has both blocks of the card that was placed on
+        isRipped = false;
+        rippedCardID = 0;
+        Debug.Log("New Card created");
+        // We destroy this card as we will be creating a new card to take its place
+        PlayerStats.Deck.Add(CardDataBase.allCards.Count - 1);
+        Deck.DeckPile.Insert(0,(CardDataBase.allCards.Count - 1));
+        handController.AddCardToHand();
+        handController.RemoveCard(this);
+        CardDataBase.checkDataBase();
+    }
+
+    public Block addBlock(int cardId)
+    {
+        Block newBlock = new Block();
+        List<int> rippedCard = CardDataBase.getBlockAtId(cardId);
+        for (int i = 0; i < rippedCard.Count; i = i+2)
+        {
+            newBlock.addEffect(rippedCard[i], rippedCard[i+1]);
+        }
+        return newBlock;
+
+    }
+
+
+    //This method will remove and extra NON-Glued cards
+>>>>>>> Stashed changes
     public void cleanUp()
     {
         if (blockArray[1].condition == 2)
@@ -311,6 +408,7 @@ public class ActualCard : MonoBehaviour
             blockArray[1].condition = 0;
         }
     }
+<<<<<<< Updated upstream
 
     //This function will create the new "ripped card" Visually
     public void ripCard()
@@ -342,6 +440,15 @@ public class ActualCard : MonoBehaviour
         Debug.Log("New Card created");
         Destroy(this);
         // We destroy this card as we will be creating a new card to take its place
+=======
+    public void ripCard(int cardID)
+    {
+        Debug.Log("Ripping Card");
+        isRipped = true;
+        //Play the animation here/create visuals for ripping
+        rippedCardID = cardID;
+        handController.RemoveCard(this);
+>>>>>>> Stashed changes
     }
 
     public void OnMouseDown()
@@ -353,6 +460,24 @@ public class ActualCard : MonoBehaviour
             //Debug.Log("Entered OnMouseDown");
 >>>>>>> Stashed changes
             cardManager.SetCard(this);
+<<<<<<< Updated upstream
+=======
+        if (isRipped)
+        {
+            if (condition[1] != 0)
+            {
+                Debug.Log("Cannot merge to this card");
+            }
+            else if(rippedCardID == 0)
+            {
+                Debug.Log("Fatal error, what the fuck");
+            }
+            else
+            {
+                Debug.Log("Creating new Card");
+                createCombinedCard(rippedCardID);
+            }
+>>>>>>> Stashed changes
         }
     }
 

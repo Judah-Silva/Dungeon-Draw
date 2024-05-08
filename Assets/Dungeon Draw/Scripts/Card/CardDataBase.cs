@@ -32,6 +32,21 @@ public class CardDataBase : MonoBehaviour
         heldCards.Add(allCards[2]);
         heldCards.Add(allCards[3]);
     }
+<<<<<<< Updated upstream
+=======
+
+    public static void checkDataBase()
+    {
+        foreach(List<int> heldCards in allCards)
+        {
+            foreach(int card in heldCards)
+            {
+                Debug.Log(card);
+            }
+        }
+    }
+
+>>>>>>> Stashed changes
     private void Start()
     {
         prePopulate();
@@ -58,6 +73,7 @@ public class CardDataBase : MonoBehaviour
     public static List<int> getBlockAtId(int cardId)
     {
         List<int> card = getCard(cardId);
+<<<<<<< Updated upstream
 
         List<int> temp = new List<int>();
         temp.Add(card[6]);
@@ -68,6 +84,18 @@ public class CardDataBase : MonoBehaviour
         }
         return temp;
     }
+=======
+        List<int> temp = new List<int>();
+        for (int i = 7; i < card.Count; i = i+2)
+        {
+            temp.Add(card[i]);
+            temp.Add(card[i+1]);
+        }
+        return temp;
+    }
+
+
+>>>>>>> Stashed changes
     public static List<string> getCardInfo(int cardId)
     {
         // Read some text file with all the text info of a card

@@ -20,10 +20,9 @@ public class PlayerStats : MonoBehaviour
     }
 
     // Populate deck with 12 cards from database for testing purposes
+    // NOTE: Do not use Deck.Add(0), as this will break a lot of things
     void PopulateDeck()
     {
-        Deck.Add(0);
-        Deck.Add(0);
         
         Deck.Add(1);
         Deck.Add(1);

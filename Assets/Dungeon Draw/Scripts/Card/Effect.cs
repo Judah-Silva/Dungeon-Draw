@@ -55,6 +55,11 @@ public class Effect
         return effectType;
     }
 
+    public int GetEffectVal()
+    {
+        return effectVal;
+    }
+
     // Formats the effect so that it can be displayed on the card
     public string showEffect()
     {
