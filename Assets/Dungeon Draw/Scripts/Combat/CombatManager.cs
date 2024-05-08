@@ -310,4 +310,16 @@ public class CombatManager : MonoBehaviour
             Debug.Log("All levels cleared!");
         }
     }
+    
+    public void SetLevels(int level)
+    {
+        _currentLevel = level;
+    }
+    
+    public void SetLevelAndFight(int level)
+    {
+        _currentLevel = level;
+        battleOver = false;
+        StartFight();
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : Entity
@@ -18,8 +19,9 @@ public class Player : Entity
         currentHP = PlayerStats.CurrentHealth;  
     }
 
-    public override void Die()
+    public override IEnumerator Die()
     {
         //TODO: Implement player death
+        yield return new WaitForSeconds(0);
     }
 }
