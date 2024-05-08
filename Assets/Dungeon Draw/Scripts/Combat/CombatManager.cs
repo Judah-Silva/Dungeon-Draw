@@ -69,7 +69,7 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
-        _sceneRouter = GameManager.Instance.GetSceneRouter();
+        //_sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
         _deck = GetComponent<Deck>();
@@ -95,6 +95,13 @@ public class CombatManager : MonoBehaviour
         else if (_playerEntity.getHP() <= 0)
         {
             BattleOver(0);
+        }
+        
+        //For testing purposes only
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            enemy.TakeDamage(1);
         }
     }
 
@@ -181,7 +188,7 @@ public class CombatManager : MonoBehaviour
 
     private void DisplayState()
     {
-        Debug.Log($"Player health: {_playerEntity.getHP()}\nPlayer shields: {_playerEntity.getShield()}");
+        Debug.Log($"Player health: {GetPlayerEntity().getHP()}\nPlayer shields: {GetPlayerEntity().getShield()}");
         foreach (var enemy in _enemyScripts)
         {
             Debug.Log($"{enemy.name} health: {enemy.getHP()}\n{enemy.name} shield: {enemy.getShield()}");
@@ -205,7 +212,7 @@ public class CombatManager : MonoBehaviour
 
     private void ClearHand()
     {
-        List<ActualCard> hand = _handController.GetHand();
+        List<ActualCard> hand = GetHandController().GetHand();
         Discard.DiscardHand(hand);
         _handController.ClearHand();
     }
@@ -242,6 +249,8 @@ public class CombatManager : MonoBehaviour
             resultsWindow.SetActive(true);
             // _sceneRouter.ToMap();
             enabled = false;
+            
+            NextLevel();
         }
         else
         {
@@ -252,7 +261,20 @@ public class CombatManager : MonoBehaviour
 
     public Entity GetPlayerEntity()
     {
+        if (_playerEntity == null)
+        {
+            if (player is null)
+                player = GameObject.FindGameObjectWithTag("Player");
+            _playerEntity = player.GetComponent<Player>();
+        }
         return _playerEntity;
+    }
+    
+    public HandController GetHandController()
+    {
+        if (_handController is null)
+            _handController = GetComponent<HandController>();
+        return _handController;
     }
 
     public List<Entity> GetEnemyEntities()
@@ -271,6 +293,21 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);
+        }
+    }
+    
+    public void NextLevel()
+    {
+        if (_currentLevel < levels.Count - 1)
+        {
+            _currentLevel++;
+            SpawnWave();
+            battleOver = false;
+            StartFight();
+        }
+        else
+        {
+            Debug.Log("All levels cleared!");
         }
     }
 }

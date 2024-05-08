@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();
     public static List<Relic> Relics = new List<Relic>();
+    public static int Gold = 0;
 
     public delegate void TapeChange();
     public static event TapeChange OnTapeChange;

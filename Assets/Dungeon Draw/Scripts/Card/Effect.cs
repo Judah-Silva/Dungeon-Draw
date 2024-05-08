@@ -153,7 +153,7 @@ public class Effect
 
         tempVal -= origin.getDamageMod();
 
-        target.takeDamage(tempVal);
+        target.TakeDamage(tempVal);
 
         // Debug.Log($"{tempVal} damage dealt");
     }
