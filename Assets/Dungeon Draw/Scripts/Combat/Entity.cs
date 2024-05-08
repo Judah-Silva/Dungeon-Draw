@@ -17,7 +17,8 @@ public abstract class Entity : MonoBehaviour
 
     private int[] entityStatusEffectArray = new int[10];
 
-    public Slider healthBar;
+    public Slider redHealthBar;
+    public Slider orangeHealthBar;
 
     [HideInInspector]
     public CardManager _cardManager;
@@ -96,7 +97,7 @@ public abstract class Entity : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            Die();
+            StartCoroutine(Die());
             return 0;
         }
         
@@ -165,8 +166,24 @@ public abstract class Entity : MonoBehaviour
 
     public void UpdateHealthBar()
     {
-        if (healthBar is null) return;
+        if (redHealthBar is null) return;
+        redHealthBar.value = currentHP;
+        if (orangeHealthBar is null) return;
         StartCoroutine(InterpolateHealth(prevHealth, currentHP));
+    }
+    
+    public void SetUpHealthBars()
+    {
+        if (redHealthBar is not null)
+        {
+            redHealthBar.maxValue = maxHP;
+            redHealthBar.value = currentHP;
+        }
+        if (orangeHealthBar is not null)
+        {
+            orangeHealthBar.maxValue = maxHP;
+            orangeHealthBar.value = currentHP;
+        }
     }
 
     IEnumerator InterpolateHealth(float start, float end)
@@ -175,12 +192,11 @@ public abstract class Entity : MonoBehaviour
         while (elapsedTime < .5f)
         {
             float newHealth = Mathf.Lerp(start, end, elapsedTime / .5f);
-            healthBar.value = newHealth;
+            orangeHealthBar.value = newHealth;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        healthBar.value = end;
+        orangeHealthBar.value = end;
     }
 
     public void OnMouseEnter()
@@ -194,5 +210,6 @@ public abstract class Entity : MonoBehaviour
         statusUI.HideUI();
     }
     
-    public abstract void Die();
+    public abstract IEnumerator Die();
+    
 }

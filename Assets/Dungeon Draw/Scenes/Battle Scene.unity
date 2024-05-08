@@ -615,6 +615,34 @@ PrefabInstance:
       propertyPath: resultsWindow
       value: 
       objectReference: {fileID: 1652727807}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: levels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: levels.Array.data[1].name
+      value: Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: levels.Array.data[0].enemies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: levels.Array.data[1].enemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: 'levels.Array.data[0].enemies.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5208674056292329233, guid: 6740e1573a3c54f4e9c9c3333ab32f7c, type: 3}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: 'levels.Array.data[1].enemies.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5208674056292329233, guid: 6740e1573a3c54f4e9c9c3333ab32f7c, type: 3}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: 'levels.Array.data[1].enemies.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5208674056292329233, guid: 6740e1573a3c54f4e9c9c3333ab32f7c, type: 3}
     - target: {fileID: 2540006627184094848, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.0573773
