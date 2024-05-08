@@ -31,8 +31,9 @@ public class PlayerStats : MonoBehaviour
     {
         List<int> defaultDeck = new List<int>();
         
-        defaultDeck.Add(0);
-        defaultDeck.Add(0);
+        // Don't add these because it breaks things
+        // defaultDeck.Add(0);
+        // defaultDeck.Add(0);
         
         defaultDeck.Add(1);
         defaultDeck.Add(1);
