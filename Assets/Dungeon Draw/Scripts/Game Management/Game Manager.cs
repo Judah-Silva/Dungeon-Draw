@@ -50,4 +50,9 @@ public class GameManager : MonoBehaviour
     {
         return GetComponent<PlayerStats>();
     }
+
+    public MusicManager GetMusicManager()
+    {
+        return GetComponent<MusicManager>();
+    }
 }

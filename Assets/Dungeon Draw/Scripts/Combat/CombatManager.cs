@@ -29,7 +29,7 @@ public class CombatManager : MonoBehaviour
     private List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> _enemyScripts = new List<Enemy>();
 
-    public int originOffset = 7;
+    public float originOffset = 4.5f;
     
     /*
     Use StartFight() to start the fight
@@ -355,7 +355,7 @@ public class CombatManager : MonoBehaviour
 
     public void ActivateResultsWindow()
     {
-        // Play music here
+        GameManager.Instance.GetMusicManager().PlayVictory();
         resultsWindow.SetActive(true);
         rewardText.text = "+" + earnedGold + " gold";
     }
@@ -395,7 +395,7 @@ public class CombatManager : MonoBehaviour
         //      x    
         //    x   x  
         //  x   x   x
-        int distanceBetweenEnemies = 6;
+        int distanceBetweenEnemies = 5;
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);

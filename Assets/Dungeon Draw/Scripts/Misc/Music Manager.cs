@@ -72,4 +72,10 @@ public class MusicManager : MonoBehaviour
         
         src.Play();
     }
+
+    public void PlayVictory()
+    {
+        src.clip = clips[5];
+        src.Play();
+    }
 }

@@ -91,6 +91,13 @@ public class ActualCard : MonoBehaviour
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             mousePosition.z = transform.position.z;
             transform.position = mousePosition;
+            if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                transform.position = originalPosition;
+                _isRipped = false;
+                isRipped = false;
+                GetComponent<BoxCollider>().enabled = true;
+            }
         }
         else if (!isShopItem)
         {
