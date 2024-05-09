@@ -20,6 +20,9 @@ public class MapMenu : MonoBehaviour
     
     public void ReturnToMainMenu()
     {
+        // save gold
+        PlayerPrefs.SetInt("Gold", PlayerStats.Coins);
+        
         // save deck 
         List<int> savedDeck = PlayerStats.Deck;
         

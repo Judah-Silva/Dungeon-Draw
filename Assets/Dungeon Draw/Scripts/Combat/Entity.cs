@@ -17,10 +17,14 @@ public abstract class Entity : MonoBehaviour
 
     private int[] entityStatusEffectArray = new int[10];
 
-    public Slider healthBar;
+    public Slider grayHealthBar;
+    public Slider redHealthBar;
+    public Slider orangeHealthBar;
 
     [HideInInspector]
     public CardManager _cardManager;
+    
+    [HideInInspector] public int firstDamageTaken = -1;
 
     public abstract void SetUp();
 
@@ -54,29 +58,45 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[0];
     }
 
-    public int getVul()
+    public int getVulnerable()
     {
         return entityStatusEffectArray[1];
     }
 
     // Solely used by the effect class when get a modifier for dealing damage
-    public int getDamageMod()
+    public int getWeak()
     {
         return entityStatusEffectArray[2];
     }
-
-    public int takeDamage(int damage)
+    
+    public int getFrail()
     {
-        int remainingDamage = damage - getShield() + getVul();
+        return entityStatusEffectArray[3];
+    }
+
+    public int getArtifact()
+    {
+        return entityStatusEffectArray[4];
+    }
+
+    public int TakeDamage(int damage)
+    {
+        int remainingDamage = damage - getShield() + getVulnerable();
         // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
+            if (firstDamageTaken == -1)
+                firstDamageTaken = remainingDamage; //This is for the turtle relic and is checked in combatmanager
             prevHealth = currentHP;
             currentHP -= remainingDamage;
             entityStatusEffectArray[0] = 0;
 
             Debug.Log($"{remainingDamage} damage has been dealt to {gameObject.name}");
+            if (gameObject.tag == "enemy")
+            {
+                gameObject.GetComponent<Enemy>().Animate();
+            }
             UpdateHealthBar();
         }
         else
@@ -86,7 +106,7 @@ public abstract class Entity : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            Die();
+            StartCoroutine(Die());
             return 0;
         }
         
@@ -96,8 +116,26 @@ public abstract class Entity : MonoBehaviour
 
     public int giveShield(int givenShield)
     {
-        entityStatusEffectArray[0] += givenShield;
+        entityStatusEffectArray[0] += givenShield - getFrail();
+        UpdateHealthBar();
         return entityStatusEffectArray[0];
+    }
+
+    public bool hasArtifact()
+    {
+        if (entityStatusEffectArray[4] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void clearArtifact()
+    {
+        entityStatusEffectArray[4] = 0;
     }
 
     public int giveVulnerable(int givenVulnerable)
@@ -118,36 +156,76 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[2];
     }
 
-    public void UpdateHealthBar()
+    public int giveFrail(int givenFrail)
     {
-        if (healthBar is null) return;
-        StartCoroutine(InterpolateHealth(prevHealth, currentHP));
+
+        Debug.Log($"{gameObject.name} has been given {givenFrail} frail");
+
+        entityStatusEffectArray[3] += givenFrail;
+        return entityStatusEffectArray[3];
     }
 
-    IEnumerator InterpolateHealth(float start, float end)
+    public int giveArtifact()
+    {
+
+        Debug.Log($"{gameObject.name} has been given a level of artifact!");
+
+        entityStatusEffectArray[4] = 1;
+        return entityStatusEffectArray[4];
+    }
+
+    public void UpdateHealthBar()
+    {
+        if (redHealthBar is null) return;
+        redHealthBar.value = currentHP;
+        if (orangeHealthBar is null) return;
+        StartCoroutine(InterpolateHealth(orangeHealthBar, prevHealth, currentHP));
+        if (grayHealthBar is null) return;
+        grayHealthBar.value = getShield();
+    }
+    
+    public void SetUpHealthBars()
+    {
+        if (redHealthBar is not null)
+        {
+            redHealthBar.maxValue = maxHP;
+            redHealthBar.value = currentHP;
+        }
+
+        if (orangeHealthBar is not null)
+        {
+            orangeHealthBar.maxValue = maxHP;
+            orangeHealthBar.value = currentHP;
+        }
+        
+        if (grayHealthBar is not null)
+        {
+            grayHealthBar.maxValue = maxHP;
+            grayHealthBar.value = 0;
+        }
+    }
+
+    IEnumerator InterpolateHealth(Slider slider, float start, float end)
     {
         float elapsedTime = 0f;
         while (elapsedTime < .5f)
         {
             float newHealth = Mathf.Lerp(start, end, elapsedTime / .5f);
-            healthBar.value = newHealth;
+            slider.value = newHealth;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        healthBar.value = end;
+        slider.value = end;
+        prevHealth = currentHP;
     }
 
-    public void OnMouseEnter()
-    {
-        Transform posToSpawn = gameObject.transform;
-        statusUI.ActivateUI(posToSpawn);
-    }
+    public abstract void OnMouseEnter();
 
     public void OnMouseExit()
     {
         statusUI.HideUI();
     }
     
-    public abstract void Die();
+    public abstract IEnumerator Die();
+    
 }

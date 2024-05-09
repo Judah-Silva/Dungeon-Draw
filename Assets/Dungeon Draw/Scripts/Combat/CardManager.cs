@@ -38,6 +38,7 @@ public class CardManager : MonoBehaviour
     public void ResetMana()
     {
         currentMana = maxMana;
+        Player.Instance.UpdateMana();
     }
 
     public int getMana()
@@ -77,6 +78,15 @@ public class CardManager : MonoBehaviour
             if (isValid())
             {
                 // Debug.Log("Enemy targeted");
+                if (selectedGameObject.tag != "Player")
+                {
+                    player.GetComponent<Animator>().SetTrigger("Attack");
+                }
+                else
+                {
+                    player.GetComponentInChildren<ParticleSystem>().Play();
+                    player.GetComponent<Player>().ShieldSFX();
+                }
             }
             else
             {
@@ -103,6 +113,7 @@ public class CardManager : MonoBehaviour
         }
 
         currentMana -= selectedCard.manaCost;
+        Player.Instance.UpdateMana();
 
         // Finally calls isplayable from card
         if (!selectedCard.isPlayable())

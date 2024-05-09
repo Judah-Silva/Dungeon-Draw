@@ -9,12 +9,13 @@ public class PlayerStats : MonoBehaviour
     public static int HandSize = 5;
     public static int Coins = 1000;
     public static int Glue = 0;
-    public static float Tape = 0;
+    public static float Tape = 2;
     public static float MaxTape = 3f;
     public static int CurrentHealth = 50;
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();
     public static List<Relic> Relics = new List<Relic>();
+    public static int Gold = 0;
 
     public delegate void TapeChange();
     public static event TapeChange OnTapeChange;
@@ -30,8 +31,9 @@ public class PlayerStats : MonoBehaviour
     {
         List<int> defaultDeck = new List<int>();
         
-        defaultDeck.Add(0);
-        defaultDeck.Add(0);
+        // Don't add these because it breaks things
+        // defaultDeck.Add(0);
+        // defaultDeck.Add(0);
         
         defaultDeck.Add(1);
         defaultDeck.Add(1);
@@ -55,10 +57,7 @@ public class PlayerStats : MonoBehaviour
             modifier = MaxHealth;
         else if (modifier < 0)
         {
-            if (!checkForRelic(10)) // checks for revive relic 'cellphone'
                 modifier = 0;
-            else
-                modifier = (MaxHealth / 4);
         }
 
         CurrentHealth = modifier;
@@ -84,6 +83,15 @@ public class PlayerStats : MonoBehaviour
         {
             GameObject.Find("Top Info").GetComponent<InfoManager>().updateRelics(r);
         }
+    }
+    
+    public void removeRelic(Relic r)
+    {
+        if (GameObject.Find("Top Info"))
+        {
+            GameObject.Find("Top Info").GetComponent<InfoManager>().removeRelicUI(Relics.IndexOf(r));
+        }
+        Relics.Remove(r);
     }
 
     public void GainTape(float tapeAmount)
