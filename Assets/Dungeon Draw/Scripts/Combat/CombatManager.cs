@@ -165,7 +165,12 @@ public class CombatManager : MonoBehaviour
         
         _playerEntity.SetUp();
         SpawnWave();
-        
+        //Checks for Big Toe relic and raises maxMana by 1
+        if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(1))
+        {
+            _cardManager.maxMana++;
+            _cardManager.currentMana = _cardManager.maxMana;
+        }
         PlayerTurn();
     }
     

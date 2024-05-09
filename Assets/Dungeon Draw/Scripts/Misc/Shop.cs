@@ -97,7 +97,7 @@ public class Shop : MonoBehaviour
         
         //Check for slimy glasses relic
         if (playerStats != null && playerStats.checkForRelic(11))
-            playerStats.UpdateHealth(PlayerStats.CurrentHealth+8);
+            playerStats.UpdateHealth(PlayerStats.CurrentHealth+6);
 
         // Debug.Log("Shop start called");
         //loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
@@ -106,7 +106,7 @@ public class Shop : MonoBehaviour
         // Debug.Log(s);
         
         //This line was really only needed in my testing.
-        CardDataBase.allCards.Clear();
+        // CardDataBase.allCards.Clear();
         if ((CardDataBase.allCards.Count == 0)){CardDataBase.prePopulate();}
         if ((RelicDatabase.allRelics.Count == 0)){RelicDatabase.prePopulate();}
         //RelicDatabase.prePopulate();
