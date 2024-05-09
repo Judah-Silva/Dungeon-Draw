@@ -1459,18 +1459,17 @@ MonoBehaviour:
       intActs: 0500000005000000
     - Text: Grab It
       postButtonPressedText: "You grab the coin and as you do, the walls collapse
-        but you are able to escape in the knick of time. \n\nYou gained, 1 coin."
+        but you are able to escape in the knick of time. \n\nYou gained, 10 coins."
       actions: 02000000
       stringActs: []
-      intActs: 01000000
+      intActs: 0a000000
     image: {fileID: 2800000, guid: e491a2d55a24a4943aaa96addb9c76a0, type: 3}
   - eventTitle: Fountain
     eventText: "You stumble across a fountain. You see something shimmering inside.
       \n\nGrab or Leave?"
     button:
     - Text: Reach in and grab it
-      postButtonPressedText: "You find a \"insert card name here\"! \n\nWhat a lucky
-        find!"
+      postButtonPressedText: "You find a Damage 1 card! \n\nWhat a lucky find!"
       actions: 06000000
       stringActs: []
       intActs: 01000000
@@ -1481,7 +1480,7 @@ MonoBehaviour:
       stringActs: []
       intActs: 0a000000
     image: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
-  - eventTitle: Fight Scene Template
+  - eventTitle: Fight
     eventText: 'You find yourself surrounded by packing tape.
 
 
@@ -1490,11 +1489,171 @@ MonoBehaviour:
       choice.'
     button:
     - Text: Fight
-      postButtonPressedText: Scene will be instantly changed, NO need for text here
+      postButtonPressedText: You prepare to fight!
       actions: 0a000000
       stringActs:
-      - FightScene
+      - Battle Scene
       intActs: 
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Home Depot
+    eventText: 'You look around and realize you are deep within a Home Depot. You
+      glance around and find a glue bottle.
+
+
+      Grab Tape?'
+    button:
+    - Text: Leave
+      postButtonPressedText: 'You decide it''s better to avoid any temptations within
+        this prison of a place.
+
+
+        You follow the exit signs out'
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Take glue
+      postButtonPressedText: 'You reach over and grab the glue. You look around for
+        something to happen, but nothing does.
+
+
+        You follow the exit signs
+        out.'
+      actions: 08000000
+      stringActs: []
+      intActs: 01000000
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Shrine
+    eventText: 'You find yourself staring at a simplistic shrine to what seems like
+      a dog shaped buddah statue.
+
+'
+    button:
+    - Text: Leave
+      postButtonPressedText: You ignore the shrine and leave
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Pray
+      postButtonPressedText: 'You pray to the statue. As you do gold seems to fall
+        from the sky.
+
+
+        You gain 30 gold.'
+      actions: 02000000
+      stringActs: []
+      intActs: 1e000000
+    - Text: Punch
+      postButtonPressedText: 'You punch the statue. Your hand is shattered but on
+        the plus side, so is the gold filled statue.
+
+
+        You gain 55 gold.
+        Lose 7 HP.'
+      actions: 0200000005000000
+      stringActs: []
+      intActs: 3700000007000000
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Cave
+    eventText: You find yourself in a dark cave. Glowing crystals seem to lead deeper
+      into the cave.
+    button:
+    - Text: Leave
+      postButtonPressedText: You listen to your instincts and head in the other direction.
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Go Deeper
+      postButtonPressedText: You decide to trek further into the cave. As you reach
+        the crystals become more and more sparse, you reach the end. Sitting in the
+        dirt appears to be a shell. You pick it up.
+      actions: 07000000
+      stringActs: []
+      intActs: 0c000000
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Old Man
+    eventText: You find an old man sitting on a log. He says that for a price, he
+      may bestow something of value.
+    button:
+    - Text: Leave
+      postButtonPressedText: Before saying a word back to the man, you turn your
+        back and leave.
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Give 60 gold
+      postButtonPressedText: You give the man gold, and in return he gives you a
+        relic!
+      actions: 0f0000000b000000
+      stringActs: []
+      intActs: 3c00000001000000
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Bandits
+    eventText: 'You find that you''re being followed. Enemies jump out at you demanding
+      50 gold.
+
+
+      Pay or Fight'
+    button:
+    - Text: Pay and Leave
+      postButtonPressedText: You decide your life is more important than your money.
+        You pay up and they let you pass.
+      actions: 01000000
+      stringActs: []
+      intActs: 32000000
+    - Text: Fight
+      postButtonPressedText: You prepare to fight!
+      actions: 0a000000
+      stringActs:
+      - Battle Scene
+      intActs: 
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Watering Hole
+    eventText: 'You find yourself at a watering hole. Animals surround it and drink
+      the water.
+
+
+      Drink the water? - Regain all health but lose 5 max HP'
+    button:
+    - Text: Leave
+      postButtonPressedText: You decide its better not to drink out of the animal
+        pond. You go on your way.
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Drink Water
+      postButtonPressedText: 'You drink the water
+
+
+        As you do, you feel life
+        your body change.'
+      actions: 0d00000003000000
+      stringActs: []
+      intActs: 05000000e7030000
+    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+  - eventTitle: Jar of Peanut Butter
+    eventText: 'You see something on the floor and pick it up. Its a jar of peanut
+      butter... I wonder what it''s doing way out here.
+
+
+      Eat it?'
+    button:
+    - Text: Put it down and move along
+      postButtonPressedText: 'You quickly put the jar down and leave as quick as
+        possible.
+
+'
+      actions: 00000000
+      stringActs: []
+      intActs: 
+    - Text: Eat it
+      postButtonPressedText: 'You put all caution aside and begin to eat the peanut
+        butter.
+
+
+        -1 Relic and +3 Random Cards'
+      actions: 0e0000000c000000
+      stringActs: []
+      intActs: ffffffff03000000
     image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
   eventId: -1
 --- !u!82 &3741236178889725831
