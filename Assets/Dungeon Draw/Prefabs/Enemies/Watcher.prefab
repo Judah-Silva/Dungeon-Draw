@@ -731,7 +731,7 @@ MonoBehaviour:
   maxHP: 30
   currentHP: 5
   statusUI: {fileID: 0}
-  grayHealthBar: {fileID: 0}
+  grayHealthBar: {fileID: 2366438456369611041}
   redHealthBar: {fileID: 6344600723015672597}
   orangeHealthBar: {fileID: 7736445161063291681}
   _cardManager: {fileID: 0}
