@@ -38,6 +38,7 @@ public class CardManager : MonoBehaviour
     public void ResetMana()
     {
         currentMana = maxMana;
+        Player.Instance.UpdateManaBar();
     }
 
     public int getMana()
