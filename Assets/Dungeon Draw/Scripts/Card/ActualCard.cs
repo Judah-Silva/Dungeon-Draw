@@ -82,6 +82,11 @@ public class ActualCard : MonoBehaviour
     {
         if (_isRipped) //Someone NEEDS to test if this works (i think it works - matthew)
         {
+            if (!isRipped)
+            {
+                Destroy(gameObject);
+                return;
+            }
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             mousePosition.z = transform.position.z;
@@ -357,10 +362,15 @@ public class ActualCard : MonoBehaviour
         {
             Debug.Log("Destroying card");
             handController.RemoveCard(rippedCard);
+            if (rippedCard != null)
+            {
+                Destroy(rippedCard.gameObject);
+            }
         }
         handController.AddCardToHand();
         // CardDataBase.checkDataBase();
         HandController.hand[HandController.hand.Count - 1].updateVisuals();
+        GameManager.Instance.GetPlayerStats().GainTape(-1);
         rippedCardID = 0;
     }
     
@@ -399,6 +409,7 @@ public class ActualCard : MonoBehaviour
         handController.AddCardToHand();
         // CardDataBase.checkDataBase();
         HandController.hand[HandController.hand.Count - 1].updateVisuals();
+        GameManager.Instance.GetPlayerStats().GainGlue(-1);
         rippedCardID = 0;
     }
 
