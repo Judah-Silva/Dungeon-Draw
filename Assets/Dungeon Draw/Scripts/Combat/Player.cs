@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class Player : Entity
 {
     public PlayerStats playerStats;
+    
+    public Slider manaBar;
+    
+    private static Player _instance;
+    public static Player Instance
+    
     public ParticleSystem hitParticles;
 
     public AudioClip swordAudio;
@@ -14,6 +20,18 @@ public class Player : Entity
     public AudioClip shieldAudio;
     public AudioClip deathAudio;
     private AudioSource src;
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<Player>();
+            }
+
+            return _instance;
+        }
+        set => _instance = value;
+    }
 
     public TextMeshProUGUI manaText;
     public Slider manaBar;
@@ -37,6 +55,7 @@ public class Player : Entity
 
     private void Start()
     {
+        Instance = this;
         src = GetComponent<AudioSource>();
         Instance = this;
     }
@@ -77,6 +96,7 @@ public class Player : Entity
         manaText.text = $"Mana: {CardManager.Instance.getMana()} / {CardManager.Instance.maxMana}";
         manaBar.value = CardManager.Instance.getMana();
     }
+    
 
     public override IEnumerator Die()
     {

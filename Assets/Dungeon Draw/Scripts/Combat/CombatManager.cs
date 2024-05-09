@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using System.Linq;
 using NUnit.Framework;
@@ -177,6 +178,14 @@ public class CombatManager : MonoBehaviour
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
 
+        for (int i = 0; i < levels.Count; i++)
+        {
+            for (int j = 0; j < levels[i].weight; j++)
+            {
+                _levelWeights.Add(i);
+            }
+        }
+        
         for (int i = 0; i < levels.Count; i++)
         {
             for (int j = 0; j < levels[i].weight; j++)

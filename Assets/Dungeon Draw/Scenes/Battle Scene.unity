@@ -565,7 +565,7 @@ PrefabInstance:
     - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
       propertyPath: 'levels.Array.data[0].enemies.Array.data[2]'
       value: 
-      objectReference: {fileID: 490405482943781023, guid: f9f73d952b40cd348aa81a56ce80947f, type: 3}
+      objectReference: {fileID: 6325008497181996181, guid: 46a6d6aefc293a4428197a6a9359f453, type: 3}
     - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
       propertyPath: 'levels.Array.data[1].enemies.Array.data[0]'
       value: 
@@ -1254,6 +1254,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1771574195403476067, guid: 6eeff2a26df92124fa25ee6705384255, type: 3}
   m_PrefabInstance: {fileID: 4180810247371041754}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457425481}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1247756}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1001 &1652727806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1713,3 +1727,4 @@ SceneRoots:
   - {fileID: 1302655073}
   - {fileID: 510548661}
   - {fileID: 288669013}
+  - {fileID: 1457425485}
