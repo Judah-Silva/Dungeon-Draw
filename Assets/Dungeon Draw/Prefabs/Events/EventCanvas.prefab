@@ -1463,7 +1463,7 @@ MonoBehaviour:
       actions: 02000000
       stringActs: []
       intActs: 0a000000
-    image: {fileID: 2800000, guid: e491a2d55a24a4943aaa96addb9c76a0, type: 3}
+    image: {fileID: 2800000, guid: 696de3b30ccb344eba44356328a62fdf, type: 3}
   - eventTitle: Fountain
     eventText: "You stumble across a fountain. You see something shimmering inside.
       \n\nGrab or Leave?"
@@ -1479,7 +1479,7 @@ MonoBehaviour:
       actions: 03000000
       stringActs: []
       intActs: 0a000000
-    image: {fileID: 2800000, guid: dffef66376be4fa480fb02b19edbe903, type: 3}
+    image: {fileID: 2800000, guid: 65367fe3ec2104a4c963f16d2080a231, type: 3}
   - eventTitle: Fight
     eventText: 'You find yourself surrounded by packing tape.
 
@@ -1494,7 +1494,7 @@ MonoBehaviour:
       stringActs:
       - Battle Scene
       intActs: 
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: c27529fd200b04dfba3110ca483cb443, type: 3}
   - eventTitle: Home Depot
     eventText: 'You look around and realize you are deep within a Home Depot. You
       glance around and find a glue bottle.
@@ -1521,7 +1521,7 @@ MonoBehaviour:
       actions: 08000000
       stringActs: []
       intActs: 01000000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: db455e08ccb254372a33fd9b51fa2f06, type: 3}
   - eventTitle: Shrine
     eventText: 'You find yourself staring at a simplistic shrine to what seems like
       a dog shaped buddah statue.
@@ -1552,7 +1552,7 @@ MonoBehaviour:
       actions: 0200000005000000
       stringActs: []
       intActs: 3700000007000000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: 65d9e473504e54a2ea914e42eeafa215, type: 3}
   - eventTitle: Cave
     eventText: You find yourself in a dark cave. Glowing crystals seem to lead deeper
       into the cave.
@@ -1569,7 +1569,7 @@ MonoBehaviour:
       actions: 07000000
       stringActs: []
       intActs: 0c000000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: 0293fff5469dc4fec8f9e1fe1cf65630, type: 3}
   - eventTitle: Old Man
     eventText: You find an old man sitting on a log. He says that for a price, he
       may bestow something of value.
@@ -1586,7 +1586,7 @@ MonoBehaviour:
       actions: 0f0000000b000000
       stringActs: []
       intActs: 3c00000001000000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: daf8fe1ca21844a68bbe0331a9b8f75a, type: 3}
   - eventTitle: Bandits
     eventText: 'You find that you''re being followed. Enemies jump out at you demanding
       50 gold.
@@ -1606,7 +1606,7 @@ MonoBehaviour:
       stringActs:
       - Battle Scene
       intActs: 
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: c27529fd200b04dfba3110ca483cb443, type: 3}
   - eventTitle: Watering Hole
     eventText: 'You find yourself at a watering hole. Animals surround it and drink
       the water.
@@ -1629,7 +1629,7 @@ MonoBehaviour:
       actions: 0d00000003000000
       stringActs: []
       intActs: 05000000e7030000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: 4641513f64b2740eeb537c8f0cfae2cc, type: 3}
   - eventTitle: Jar of Peanut Butter
     eventText: 'You see something on the floor and pick it up. Its a jar of peanut
       butter... I wonder what it''s doing way out here.
@@ -1654,7 +1654,7 @@ MonoBehaviour:
       actions: 0e0000000c000000
       stringActs: []
       intActs: ffffffff03000000
-    image: {fileID: 2800000, guid: ead0ec4e442444dd9be17487b0ff8706, type: 3}
+    image: {fileID: 2800000, guid: 9ce7a81bc942a442f9eb333cce87fc4f, type: 3}
   eventId: -1
 --- !u!82 &3741236178889725831
 AudioSource:
