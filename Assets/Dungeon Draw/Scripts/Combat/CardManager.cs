@@ -38,6 +38,7 @@ public class CardManager : MonoBehaviour
     public void ResetMana()
     {
         currentMana = maxMana;
+        Player.Instance.UpdateMana();
     }
 
     public int getMana()
@@ -112,6 +113,7 @@ public class CardManager : MonoBehaviour
         }
 
         currentMana -= selectedCard.manaCost;
+        Player.Instance.UpdateMana();
 
         // Finally calls isplayable from card
         if (!selectedCard.isPlayable())

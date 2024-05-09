@@ -31,15 +31,15 @@ public class MusicManager : MonoBehaviour
                 case 1:
                     PlayShop();
                     break;
-                case 5:
+                case 6:
                     PlayBattle();
                     break;
-                case 6:
-                    PlayCredits();
+                case 7:
+                    PlayBattle();
                     break;
             }
 
-            if (currentIndex is >= 2 and <= 4 && currentScene is < 2 or > 4)
+            if (currentIndex is >= 2 and <= 5 && currentScene is < 2 or > 5)
             {
                 PlayFiller();
             }
@@ -69,12 +69,6 @@ public class MusicManager : MonoBehaviour
     {
         src.clip = CombatManager.Instance.IsBoss() ? clips[4] : clips[3];
         
-        src.Play();
-    }
-
-    void PlayCredits()
-    {
-        src.clip = clips[5];
         src.Play();
     }
 }
