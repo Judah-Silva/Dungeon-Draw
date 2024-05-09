@@ -80,10 +80,16 @@ public class CardDataBase : MonoBehaviour
     {
         foreach (var heldCards in allCards)
         {
+            // Sanity check
+            Debug.Log("Start of card:");
+
             foreach (var card in heldCards)
             {
                 Debug.Log(card);
             }
+
+            Debug.Log("End of card");
+
         }
     }
 

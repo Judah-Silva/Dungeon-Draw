@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
     public static int HandSize = 5;
     public static int Coins = 1000;
     public static int Glue = 0;
-    public static float Tape = 0;
+    public static float Tape = 2;
     public static float MaxTape = 3f;
     public static int CurrentHealth = 50;
     public static int MaxHealth = 50;
