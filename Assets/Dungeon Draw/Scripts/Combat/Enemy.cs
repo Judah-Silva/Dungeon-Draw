@@ -29,27 +29,43 @@ public class Enemy : Entity
         switch (gameObject.name)
         {
             case "Goblin":
-                _blockList.Add(new Block().addEffect(0, 3));
-                _blockList.Add(new Block().addEffect(0, 3));
-                _blockList.Add(new Block().addEffect(1, 3));
-                break;
-            case "Watcher":
                 _blockList.Add(new Block().addEffect(0, 4));
                 _blockList.Add(new Block().addEffect(0, 4));
                 _blockList.Add(new Block().addEffect(1, 4));
-                _blockList.Add(new Block().addEffect(2, 4));
-                _blockList.Add(new Block().addEffect(3, 4));
+                break;
+            case "Watcher":
+                _blockList.Add(new Block().addEffect(0, 8));
+                _blockList.Add(new Block().addEffect(0, 8));
+                _blockList.Add(new Block().addEffect(1, 6));
+                _blockList.Add(new Block().addEffect(2, 3));
+                _blockList.Add(new Block().addEffect(3, 3));
                 break;
             case "DarkKnight":
-                //_blockList.Add(new Block().addEffect(0, 5));
-                //_blockList.Add(new Block().addEffect(0, 5));
-                _blockList.Add(new Block().addEffect(1, 5));
-                _blockList.Add(new Block().addEffect(1, 5));
-                _blockList.Add(new Block().addEffect(1, 5));
+                _blockList.Add(new Block().addEffect(0, 12));
+                _blockList.Add(new Block().addEffect(0, 10));
+                _blockList.Add(new Block().addEffect(0, 10));
+                _blockList.Add(new Block().addEffect(1, 8));
+                _blockList.Add(new Block().addEffect(1, 8));
+                _blockList.Add(new Block().addEffect(6, 10));
                 break;
             case "Boss":
+                // probably change this
                 _blockList.Add(new Block().addEffect(0, 10));
                 _blockList.Add(new Block().addEffect(0, 15));
+                _blockList.Add(new Block().addEffect(0, 15));
+                _blockList.Add(new Block().addEffect(0, 25));
+                _blockList.Add(new Block().addEffect(6, 15));
+                _blockList.Add(new Block().addEffect(1, 15));
+                _blockList.Add(new Block().addEffect(1, 15));
+                _blockList.Add(new Block().addEffect(1, 10));
+                _blockList.Add(new Block().addEffect(2, 6));
+                _blockList.Add(new Block().addEffect(2, 6));
+                _blockList.Add(new Block().addEffect(3, 6));
+                _blockList.Add(new Block().addEffect(3, 6));
+                _blockList.Add(new Block().addEffect(4, 6));
+                Block bigMove = new Block().addEffect(6, 10);
+                bigMove.addEffect(2, 6);
+                _blockList.Add(bigMove);
                 break;
             default:
                 _blockList.Add(new Block().addEffect(0, 6));
@@ -75,18 +91,25 @@ public class Enemy : Entity
         List<Effect> effectList = _blockList[UnityEngine.Random.Range(0, _blockList.Count)].effectList;
         foreach (Effect effect in effectList)
         {
-            if (effect.GetEffectType() == 0)
-            {
-                PlaySFX(attackAudio);
-                enemyAnimator.AttackAnimation();
-                effect.dealEffect(this, combatManager.GetPlayerEntity());
-            }
-            else if (effect.GetEffectType() == 1)
+            if (effect.GetEffectType() == 1)
             {
                 PlaySFX(shieldAudio);
                 enemyAnimator._particleSystem.Play();
                 Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
                 effect.dealEffect(this, enemyEntity);
+            }
+            else if (effect.GetEffectType() == 5)
+            {
+                PlaySFX(shieldAudio);
+                enemyAnimator._particleSystem.Play();
+                Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
+                effect.dealEffect(this, enemyEntity);
+            }
+            else
+            {
+                PlaySFX(attackAudio);
+                enemyAnimator.AttackAnimation();
+                effect.dealEffect(this, combatManager.GetPlayerEntity());
             }
         }
         

@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992ef6eaeed7ddf4499103f90fc1632e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
+  maxHP: 75
   currentHP: 5
   statusUI: {fileID: 0}
   grayHealthBar: {fileID: 2282421054402219467}
@@ -136,7 +136,7 @@ MonoBehaviour:
   orangeHealthBar: {fileID: 3655928553001072903}
   _cardManager: {fileID: 0}
   firstDamageTaken: -1
-  goldValue: 5
+  goldValue: 15
   isBoss: 0
   deathEffect: {fileID: 0}
   enemyAnimator: {fileID: 2393533344801484198}

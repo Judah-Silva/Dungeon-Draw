@@ -727,8 +727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992ef6eaeed7ddf4499103f90fc1632e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  currentHP: 100
+  maxHP: 300
+  currentHP: 300
   statusUI: {fileID: 0}
   grayHealthBar: {fileID: 7538048774142509018}
   redHealthBar: {fileID: 641246923053252231}

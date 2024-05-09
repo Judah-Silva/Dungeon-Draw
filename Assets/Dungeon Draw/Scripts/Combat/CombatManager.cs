@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class CombatManager : MonoBehaviour
     public GameObject resultsWindow;
     public TextMeshProUGUI rewardText;
     public int earnedGold;
+
+    public TextMeshProUGUI manaText;
+    public Slider manaSlider;
+    public Slider tapeSlider;
     
     public bool PlayerPlayFirst { get; set; } = true;
     public List<Level> levels = new ();
@@ -82,6 +87,10 @@ public class CombatManager : MonoBehaviour
         _sceneRouter = GameManager.Instance.GetSceneRouter();
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
+        
+        manaText.gameObject.SetActive(true);
+        manaSlider.gameObject.SetActive(true);
+        tapeSlider.gameObject.SetActive(true);
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");

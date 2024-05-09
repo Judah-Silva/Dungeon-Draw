@@ -612,6 +612,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7807409115295706776, guid: d069a833875e0b342a48869e376cc762, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807409115295706776, guid: d069a833875e0b342a48869e376cc762, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -653,6 +657,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8187567960734338484, guid: d069a833875e0b342a48869e376cc762, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187567960734338484, guid: d069a833875e0b342a48869e376cc762, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8187567960734338484, guid: d069a833875e0b342a48869e376cc762, type: 3}
@@ -771,9 +779,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1499002047}
     - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: manaText
+      value: 
+      objectReference: {fileID: 247489508}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: manaSlider
+      value: 
+      objectReference: {fileID: 1831283700}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
       propertyPath: rewardText
       value: 
       objectReference: {fileID: 1652727810}
+    - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
+      propertyPath: tapeSlider
+      value: 
+      objectReference: {fileID: 247489507}
     - target: {fileID: 1794020236318864302, guid: fa5ff66a89cd7be4cb64c3c82116effd, type: 3}
       propertyPath: resultsWindow
       value: 
