@@ -107,6 +107,8 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnWave()
     {
+        //Choose a random level
+        _currentLevel = UnityEngine.Random.Range(0, levels.Count);
         foreach (GameObject prefab in levels[_currentLevel].enemies)
         {
             GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -289,7 +291,7 @@ public class CombatManager : MonoBehaviour
         //      x    
         //    x   x  
         //  x   x   x
-        int distanceBetweenEnemies = 4;
+        int distanceBetweenEnemies = 5;
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0), 2, 0);

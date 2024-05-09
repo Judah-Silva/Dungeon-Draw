@@ -555,7 +555,7 @@ GameObject:
   - component: {fileID: 3741212910305463876}
   - component: {fileID: 526974868645478490}
   m_Layer: 0
-  m_Name: Goblin
+  m_Name: Watcher
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,7 +607,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c0c10a51d1837da49910c3a42541b7e1, type: 2}
+  - {fileID: 2100000, guid: 95e2cb1d1e3c64c49968d2b5ca46ca8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -641,13 +641,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992ef6eaeed7ddf4499103f90fc1632e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 20
+  maxHP: 30
   currentHP: 5
   statusUI: {fileID: 0}
   redHealthBar: {fileID: 6344600723015672597}
   orangeHealthBar: {fileID: 7736445161063291681}
   _cardManager: {fileID: 0}
-  goldValue: 5
+  goldValue: 10
   isBoss: 0
   deathEffect: {fileID: 2055591459650634814, guid: dba9e497906e06f4482a54ae43fe9ccf, type: 3}
 --- !u!65 &526974868645478490
