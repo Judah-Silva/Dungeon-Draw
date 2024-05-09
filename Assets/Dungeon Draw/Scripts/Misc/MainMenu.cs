@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
         LevelTracker.floorsVisited = 1;
         GameManager.Instance.GetLevelTracker().CheckLevels();
         GameManager.Instance.GetLevelTracker().ResetFloors();
-        PlayerStats.Coins = 1000;
+        PlayerStats.Coins = 50;
         
         GameManager.Instance.GetPlayerStats().PopulateDeck();
         

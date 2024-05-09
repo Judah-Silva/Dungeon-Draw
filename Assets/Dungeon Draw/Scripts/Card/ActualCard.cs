@@ -63,8 +63,16 @@ public class ActualCard : MonoBehaviour
     private bool _isRipped = false;
     public HandController handController;
 
+    [Header("SFX")] 
+    public AudioClip ripAudio;
+    public AudioClip combineAudio;
+    public AudioClip errorAudio;
+    private AudioSource src;
+    
+
     void Start()
     {
+        src = GetComponent<AudioSource>();
         originalPosition = transform.position;
         cardManager = CardManager.Instance;
         handController = HandController.Instance;
@@ -72,7 +80,7 @@ public class ActualCard : MonoBehaviour
 
     private void Update()
     {
-        if (_isRipped) //Someone NEEDS to test if this works
+        if (_isRipped) //Someone NEEDS to test if this works (i think it works - matthew)
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
@@ -100,18 +108,26 @@ public class ActualCard : MonoBehaviour
                     {
                         if (PlayerStats.Tape < 1 && PlayerStats.Glue < 1)
                         {
+                            src.clip = errorAudio;
+                            src.Play();
                             Debug.Log("Not enough tape or glue");
                         }
                         else if (isRipped)
                         {
+                            src.clip = errorAudio;
+                            src.Play();
                             Debug.Log("You have already ripped a card!");
                         }
                         else if (condition[1] != 0)
                         {
+                            src.clip = errorAudio;
+                            src.Play();
                             Debug.Log("This card is already full");
                         }
                         else
                         {
+                            src.clip = ripAudio;
+                            src.Play();
                             Debug.Log("Choose a card to attach to");
                             ripCard(cardID);
                         }

@@ -17,6 +17,9 @@ public class HandController : MonoBehaviour
     private Deck _deck;
     private BoxCollider handAreaCollider;
 
+    public AudioClip drawAudio;
+    private AudioSource src;
+
     private void Awake()
     {
         if (Instance == null)
@@ -32,6 +35,7 @@ public class HandController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        src = GetComponent<AudioSource>();
         _deck = GetComponent<Deck>();
         // Debug.Log(_deck == null);
         handAreaCollider = handArea.GetComponent<BoxCollider>();
@@ -80,6 +84,8 @@ public class HandController : MonoBehaviour
         // Debug.Log(_deck.deckSize);
         while (hand.Count < PlayerStats.HandSize && _deck.deckSize > 0)
         {
+            src.clip = drawAudio;
+            src.Play();
             AddCardToHand();
             yield return new WaitForSeconds(0.25f);
         }
