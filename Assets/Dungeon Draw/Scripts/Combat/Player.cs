@@ -11,6 +11,14 @@ public class Player : Entity
     
     private static Player _instance;
     public static Player Instance
+    
+    public ParticleSystem hitParticles;
+
+    public AudioClip swordAudio;
+    public AudioClip dashAudio;
+    public AudioClip shieldAudio;
+    public AudioClip deathAudio;
+    private AudioSource src;
     {
         get
         {
@@ -27,11 +35,21 @@ public class Player : Entity
     private void Start()
     {
         Instance = this;
+        src = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        if (currentHP < PlayerStats.CurrentHealth && !(currentHP <= 0))
+        {
+            GetComponent<Animator>().SetTrigger("Hit");
+        }
         playerStats.UpdateHealth(currentHP);
+    }
+
+    public void PlayParticles()
+    {
+        hitParticles.Play();
     }
 
     public override void SetUp()
@@ -58,7 +76,33 @@ public class Player : Entity
 
     public override IEnumerator Die()
     {
-        //TODO: Implement player death
-        yield return new WaitForSeconds(0);
+        src.clip = deathAudio;
+        src.Play();
+        GetComponent<Animator>().SetTrigger("Die");
+    }
+
+    public void OnDead()
+    {
+        CombatManager.Instance.ToGameOver();
+    }
+    
+    /*---------for SFX----------*/
+
+    public void DashSFX()
+    {
+        src.clip = dashAudio;
+        src.Play();
+    }
+    
+    public void AttackSFX()
+    {
+        src.clip = swordAudio;
+        src.Play();
+    }
+
+    public void ShieldSFX()
+    {
+        src.clip = shieldAudio;
+        src.Play();
     }
 }

@@ -78,6 +78,15 @@ public class CardManager : MonoBehaviour
             if (isValid())
             {
                 // Debug.Log("Enemy targeted");
+                if (selectedGameObject.tag != "Player")
+                {
+                    player.GetComponent<Animator>().SetTrigger("Attack");
+                }
+                else
+                {
+                    player.GetComponentInChildren<ParticleSystem>().Play();
+                    player.GetComponent<Player>().ShieldSFX();
+                }
             }
             else
             {

@@ -14,6 +14,8 @@ public class SceneRouter : MonoBehaviour
     public string shopScene = "Shop";
     public string restScene = "Rest";
     public string eventScene = "Event";
+    public string bossScene = "Boss Scene";
+    public string gameOverScene = "GameOver";
     
     public void ToMap()
     { 
@@ -49,6 +51,16 @@ public class SceneRouter : MonoBehaviour
     public void ToEvent()
     {
         sceneFader.FadeTo(eventScene);
+    }
+
+    public void ToBoss()
+    {
+        sceneFader.FadeTo(bossScene);
+    }
+
+    public void ToGameOver()
+    {
+        sceneFader.FadeTo(gameOverScene);
     }
 
     public void ToDeck()

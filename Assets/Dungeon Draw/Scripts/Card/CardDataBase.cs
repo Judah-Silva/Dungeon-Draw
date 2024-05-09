@@ -57,19 +57,40 @@ public class CardDataBase : MonoBehaviour
     // Returns the block of a card at a given id
     public static List<int> getBlockAtId(int cardId)
     {
+        List<int> card = getCard(cardId);
 
         List<int> temp = new List<int>();
 
-        // temp.Add(1);
+        for (int i = 7; i < card.Count; i += 2)
+        {
+            temp.Add(card[i]);
+            temp.Add(card[i + 1]);
+        }
 
         return temp;
-
     }
 
     public static List<string> getCardInfo(int cardId)
     {
         // Read some text file with all the text info of a card
         return null;
+    }
+
+    public static void checkDataBase()
+    {
+        foreach (var heldCards in allCards)
+        {
+            // Sanity check
+            Debug.Log("Start of card:");
+
+            foreach (var card in heldCards)
+            {
+                Debug.Log(card);
+            }
+
+            Debug.Log("End of card");
+
+        }
     }
 
     public static int GetDeckSize()

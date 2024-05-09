@@ -32,6 +32,7 @@ public class InfoManager : MonoBehaviour
             ent2.eventID = EventTriggerType.PointerExit;
             ent2.callback.AddListener((data) => { RelicUnHovered(objId); });
             t.triggers.Add(ent2);
+            this.transform.GetChild(2).GetChild(objId).GetChild(0).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +PlayerStats.Relics[objId].name + "</b>\n" + PlayerStats.Relics[objId].description);
         }
 
         PlayerStats.OnTapeChange += PlayerStatsTapeChange;
@@ -86,13 +87,21 @@ public class InfoManager : MonoBehaviour
         ent2.eventID = EventTriggerType.PointerExit;
         ent2.callback.AddListener((data) => { RelicUnHovered(objId); });
         t.triggers.Add(ent2);
+        
+        this.transform.GetChild(2).GetChild(objId).GetChild(0).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +PlayerStats.Relics[objId].name + "</b>\n" + PlayerStats.Relics[objId].description);
+    }
+
+    public void removeRelicUI(int objId)
+    {
+       // this.transform.GetChild(2).GetChild(objId).GetChild(0).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +PlayerStats.Relics[objId].name + "</b>\n" + "\nThis Relic has been Used up");
+       this.transform.GetChild(2).GetChild(objId).gameObject.SetActive(false);
+            
     }
     
     public void RelicHovered(int obj)
     {
         // Debug.Log("Relic : " + obj + " Hovered");
         this.transform.GetChild(2).GetChild(obj).GetChild(0).gameObject.SetActive(true);
-        this.transform.GetChild(2).GetChild(obj).GetChild(0).gameObject.GetComponentInChildren<TMP_Text>().text = ("<b>" +PlayerStats.Relics[obj].name + "</b>\n" + PlayerStats.Relics[obj].description);
     }
 
     public void RelicUnHovered(int obj)
