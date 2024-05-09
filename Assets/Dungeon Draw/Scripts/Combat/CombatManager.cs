@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class CombatManager : MonoBehaviour
     public GameObject resultsWindow;
     public TextMeshProUGUI rewardText;
     public int earnedGold;
+
+    public TextMeshProUGUI manaText;
+    public Slider manaSlider;
+    public Slider tapeSlider;
     
     public bool PlayerPlayFirst { get; set; } = true;
     public List<Level> levels = new ();
@@ -82,6 +87,10 @@ public class CombatManager : MonoBehaviour
         _sceneRouter = GameManager.Instance.GetSceneRouter();
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
+        
+        manaText.gameObject.SetActive(true);
+        manaSlider.gameObject.SetActive(true);
+        tapeSlider.gameObject.SetActive(true);
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
@@ -151,6 +160,14 @@ public class CombatManager : MonoBehaviour
             UpdateEnemiesPosition();
             DisplayState();
         }
+        else
+        {
+            GameObject boss = GameObject.Find("Boss");
+            Enemy bossScript = boss.GetComponent<Enemy>();
+            enemies.Add(boss);
+            _enemyScripts.Add(bossScript);
+            bossScript.SetUp();
+        }
     }
 
 
@@ -173,14 +190,6 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
-
-        for (int i = 0; i < levels.Count; i++)
-        {
-            for (int j = 0; j < levels[i].weight; j++)
-            {
-                _levelWeights.Add(i);
-            }
-        }
         
         for (int i = 0; i < levels.Count; i++)
         {

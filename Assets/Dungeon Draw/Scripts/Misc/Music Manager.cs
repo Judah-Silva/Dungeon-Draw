@@ -14,8 +14,8 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
         currentScene = SceneManager.GetActiveScene().buildIndex;
-        src.loop = true;
         PlayMainMenu();
+        src.loop = true;
     }
 
     private void Update()
@@ -25,9 +25,6 @@ public class MusicManager : MonoBehaviour
         {
             switch (currentIndex)
             {
-                case 0:
-                    PlayMainMenu();
-                    break;
                 case 1:
                     PlayShop();
                     break;
@@ -39,7 +36,11 @@ public class MusicManager : MonoBehaviour
                     break;
             }
 
-            if (currentIndex is >= 2 and <= 5 && currentScene is < 2 or > 5)
+            if (currentIndex is 0 or 5 && currentScene is not 0 and not 5)
+            {
+                PlayMainMenu();
+            }
+            if (currentIndex is >= 2 and <= 4 && currentScene is < 2 or > 4)
             {
                 PlayFiller();
             }

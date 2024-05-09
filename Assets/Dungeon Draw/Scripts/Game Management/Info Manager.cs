@@ -11,6 +11,7 @@ public class InfoManager : MonoBehaviour
 {
     public TextMeshProUGUI health;
     public TextMeshProUGUI gold;
+    public TextMeshProUGUI glueText;
     public TextMeshProUGUI tapeText;
     public Slider tapeBar;
     public GameObject relicHolder;
@@ -36,16 +37,23 @@ public class InfoManager : MonoBehaviour
         }
 
         PlayerStats.OnTapeChange += PlayerStatsTapeChange;
+        PlayerStats.OnGlueChange += PlayerStatsOnGlueChange;
+        
+        PlayerStatsOnGlueChange();
+        PlayerStatsTapeChange();
     }
-
+    
     private void Update()
     {
         health.text = $"{PlayerStats.CurrentHealth}/{PlayerStats.MaxHealth} .";
         gold.text = $"{PlayerStats.Coins}";
-
-        
     }
 
+    private void PlayerStatsOnGlueChange()
+    {
+        glueText.text = $"Glue: {PlayerStats.Glue}";
+    }
+    
     private void  PlayerStatsTapeChange()
     {
         StartCoroutine(InterpolateTape(tapeBar.value, PlayerStats.Tape - Mathf.Floor(PlayerStats.Tape)));
@@ -113,5 +121,6 @@ public class InfoManager : MonoBehaviour
     private void OnDestroy()
     {
         PlayerStats.OnTapeChange -= PlayerStatsTapeChange;
+        PlayerStats.OnGlueChange -= PlayerStatsOnGlueChange;
     }
 }

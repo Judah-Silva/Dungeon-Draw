@@ -686,10 +686,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 5158693411423876010, guid: 18b6430654c5328448653f4e576bd7c4, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7202376072444443608, guid: 18b6430654c5328448653f4e576bd7c4, type: 3}
       propertyPath: sceneFader
       value: 

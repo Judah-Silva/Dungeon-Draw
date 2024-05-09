@@ -72,6 +72,10 @@ public class HandController : MonoBehaviour
 
         foreach (ActualCard c in hand)
         {
+            if (c == null)
+            {
+                continue;
+            }
             c.transform.position = new Vector3(leftStart, center.y, center.z);
             c.originalPosition = c.transform.position;
             leftStart += cardWidth + spacing;

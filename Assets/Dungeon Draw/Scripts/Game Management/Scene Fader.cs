@@ -10,8 +10,32 @@ public class SceneFader : MonoBehaviour
     public AnimationCurve fadeCurve;
     public Image img;
 
-    private void Start()
+    private static SceneFader _instance;
+
+    [HideInInspector]
+    public static SceneFader Instance
     {
+        get
+        {
+            if (_instance is null)
+            {
+                _instance = FindFirstObjectByType<SceneFader>();
+            }
+            return _instance;
+        }
+        private set => _instance = value;
+    }
+    
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
         DontDestroyOnLoad(gameObject);
     }
 
