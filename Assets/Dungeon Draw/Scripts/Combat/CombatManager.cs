@@ -1,12 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using TMPro;
-using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
