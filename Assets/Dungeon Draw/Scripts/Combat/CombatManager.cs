@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +9,8 @@ public class CombatManager : MonoBehaviour
 {
 
     public GameObject resultsWindow;
+    public TextMeshProUGUI rewardText;
+    public int earnedGold;
     
     public bool PlayerPlayFirst { get; set; } = true;
     public List<Level> levels = new ();
@@ -16,7 +19,7 @@ public class CombatManager : MonoBehaviour
     public float tapeGain = 0.5f;
     
     private int _currentLevel = 0;
-    private bool isBoss = false;
+    public bool isBoss = false; // made public to start boss level easier -- matthew
     
     private List<GameObject> enemies = new List<GameObject>();
     private List<Enemy> _enemyScripts = new List<Enemy>();
@@ -71,6 +74,8 @@ public class CombatManager : MonoBehaviour
 
     private void Start() //TODO: Remove (for testing purposes only)
     {
+        earnedGold = 0;
+        
         _sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
@@ -102,21 +107,26 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnWave()
     {
-        foreach (GameObject prefab in levels[_currentLevel].enemies)
+        if (!isBoss)
         {
-            GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
-            enemies.Add(goEnemy);
-            Enemy enemy = goEnemy.GetComponent<Enemy>();
-            enemy.SetUp();
-            _enemyScripts.Add(enemy);
-            if (enemy.isBoss)
+            foreach (GameObject prefab in levels[_currentLevel].enemies)
             {
-                isBoss = true;
+                GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), prefab.transform.rotation); // bc prefab now has initial rotation
+                enemies.Add(goEnemy);
+                Enemy enemy = goEnemy.GetComponent<Enemy>();
+                enemy.SetUp();
+                _enemyScripts.Add(enemy);
+                /*
+                if (enemy.isBoss)
+                {
+                    isBoss = true;
+                }
+                */ // removed to make boss fight easier to implement -- matthew
+                Debug.Log($"Enemy {enemy.name} added");
             }
-            Debug.Log($"Enemy {enemy.name} added");
+            UpdateEnemiesPosition();
+            DisplayState();
         }
-        UpdateEnemiesPosition();
-        DisplayState();
     }
 
 
@@ -241,16 +251,26 @@ public class CombatManager : MonoBehaviour
             // Do whatever needs to be done
             ClearHand();
             // Show rewards, but temporarily just go back to map
-            resultsWindow.SetActive(true);
+            Invoke("ActivateResultsWindow", 1.0f);
             // _sceneRouter.ToMap();
             enabled = false;
         }
         else
         {
             Debug.Log("Battle lost...");
-            _sceneRouter.ToMainMenu(); //TODO: make game over screen
         }
         
+    }
+
+    public void ActivateResultsWindow()
+    {
+        resultsWindow.SetActive(true);
+        rewardText.text = "+" + earnedGold + " gold";
+    }
+
+    public void ToGameOver()
+    {
+        _sceneRouter.ToGameOver();
     }
 
     public Entity GetPlayerEntity()
@@ -270,7 +290,7 @@ public class CombatManager : MonoBehaviour
         //      x    
         //    x   x  
         //  x   x   x
-        int distanceBetweenEnemies = 4;
+        int distanceBetweenEnemies = 6;
         for (int i = 0; i < enemies.Count; i++)
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);

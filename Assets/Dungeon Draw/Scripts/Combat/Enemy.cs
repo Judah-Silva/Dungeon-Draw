@@ -10,8 +10,17 @@ public class Enemy : Entity
     public bool isBoss = false;
     private List<Block> _blockList;
 
+    public EnemyAnimator enemyAnimator;
+
+    public AudioClip attackAudio;
+    public AudioClip shieldAudio;
+    public AudioClip deathAudio;
+    private AudioSource src;
+    
     private void Start()
     {
+        src = GetComponent<AudioSource>();
+        
         _blockList = new List<Block>();
         
         // Testing purposes
@@ -45,10 +54,14 @@ public class Enemy : Entity
         {
             if (effect.GetEffectType() == 0)
             {
+                PlaySFX(attackAudio);
+                enemyAnimator.AttackAnimation();
                 effect.dealEffect(this, combatManager.GetPlayerEntity());
             }
             else if (effect.GetEffectType() == 1)
             {
+                PlaySFX(shieldAudio);
+                enemyAnimator._particleSystem.Play();
                 Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
                 effect.dealEffect(this, enemyEntity);
             }
@@ -58,7 +71,21 @@ public class Enemy : Entity
 
     public override void Die()
     {
-        CombatManager.Instance.RemoveEnemy(gameObject);
-        //TODO : add gold to player
+        PlaySFX(deathAudio);
+        PlayerStats.Coins += goldValue;
+        CombatManager.Instance.earnedGold += goldValue;
+        enemyAnimator.DeathAnimation();
+        // CombatManager.Instance.RemoveEnemy(gameObject);
+    }
+
+    public void Animate()
+    {
+        enemyAnimator.HitAnimation();
+    }
+
+    public void PlaySFX(AudioClip sfx)
+    {
+        src.clip = sfx;
+        src.Play();
     }
 }
