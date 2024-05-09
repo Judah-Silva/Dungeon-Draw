@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
     void CreateCardButton(int cardID)
     {
         GameObject newButton = Instantiate(buttonPrefab, deckList.transform);
-        newButton.GetComponent<TextMeshProUGUI>().text = cardID.ToString();
+        newButton.GetComponentInChildren<TextMeshProUGUI>(true).text = cardID.ToString();
     }
 
     public void ExitMenu()

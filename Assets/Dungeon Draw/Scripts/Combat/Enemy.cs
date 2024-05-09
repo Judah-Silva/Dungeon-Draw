@@ -14,6 +14,7 @@ public class Enemy : Entity
 
     public EnemyAnimator enemyAnimator;
 
+    private Animator bossAnimator;
     public AudioClip attackAudio;
     public AudioClip shieldAudio;
     public AudioClip deathAudio;
@@ -21,6 +22,7 @@ public class Enemy : Entity
     
     private void Start()
     {
+        bossAnimator = GetComponent<Animator>();
         src = GetComponent<AudioSource>();
         
         _blockList = new List<Block>();
@@ -94,21 +96,34 @@ public class Enemy : Entity
             if (effect.GetEffectType() == 1)
             {
                 PlaySFX(shieldAudio);
-                enemyAnimator._particleSystem.Play();
+                if (enemyAnimator != null)
+                {
+                    enemyAnimator._particleSystem.Play();
+                }
                 Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
                 effect.dealEffect(this, enemyEntity);
             }
             else if (effect.GetEffectType() == 5)
             {
                 PlaySFX(shieldAudio);
-                enemyAnimator._particleSystem.Play();
+                if (enemyAnimator != null)
+                {
+                    enemyAnimator._particleSystem.Play();
+                }
                 Entity enemyEntity = combatManager.GetEnemyEntities()[UnityEngine.Random.Range(0, combatManager.GetEnemyEntities().Count)];
                 effect.dealEffect(this, enemyEntity);
             }
             else
             {
                 PlaySFX(attackAudio);
-                enemyAnimator.AttackAnimation();
+                if (enemyAnimator != null)
+                {
+                    enemyAnimator.AttackAnimation();
+                }
+                else
+                {
+                    bossAnimator.SetTrigger("Attack");
+                }
                 effect.dealEffect(this, combatManager.GetPlayerEntity());
             }
         }
@@ -120,7 +135,15 @@ public class Enemy : Entity
         PlaySFX(deathAudio);
         PlayerStats.Coins += goldValue;
         CombatManager.Instance.earnedGold += goldValue;
-        enemyAnimator.DeathAnimation();
+        if (enemyAnimator != null)
+        {
+            enemyAnimator.DeathAnimation();
+        }
+        else
+        {
+            bossAnimator.SetTrigger("Die");
+        }
+        
         // CombatManager.Instance.RemoveEnemy(gameObject);
 
         statusUI.HideUI();
@@ -129,7 +152,14 @@ public class Enemy : Entity
 
     public void Animate()
     {
-        enemyAnimator.HitAnimation();
+        if (enemyAnimator != null)
+        {
+            enemyAnimator.HitAnimation();
+        }
+        else
+        {
+            bossAnimator.SetTrigger("Hit");
+        }
     }
 
     public void PlaySFX(AudioClip sfx)

@@ -70,6 +70,8 @@ MonoBehaviour:
   shopScene: Shop
   restScene: Rest
   eventScene: Event
+  bossScene: Boss Scene
+  gameOverScene: GameOver
 --- !u!114 &8799497133154948526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +127,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e5beb93cbe7f0c48b190d447f9f4e23, type: 3}
   - {fileID: 8300000, guid: b6c02a4d47e6919489195a0fca86f31d, type: 3}
   - {fileID: 8300000, guid: d8fa03c7976644945a19baaaacb9e0f7, type: 3}
-  - {fileID: 8300000, guid: bff1001aa8ffa7947a38080527620367, type: 3}
 --- !u!82 &1001359983175239931
 AudioSource:
   m_ObjectHideFlags: 0
