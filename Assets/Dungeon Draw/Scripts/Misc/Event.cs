@@ -24,6 +24,9 @@ public enum Actions //FILL THIS WITH MORE ACTIONS
     ChangeScene,
     GainRandomRelic,
     GainRandomCard,
+    LoseMaxHP,
+    LoseRandomRelic,
+    PayGold, // Has a check whether player has enough money
 }
 
 // [System.Serializable]
@@ -139,10 +142,19 @@ public class Event : MonoBehaviour
                case Actions.LoseGold:
                    Debug.Log("LoseGold activated");
                    PlayerStats.Coins -= but.intActs[i];
+                   if (PlayerStats.Coins < 0)
+                       PlayerStats.Coins = 0;
                    break;
                case Actions.GainGold:
                    Debug.Log("GainGold activated");
                    PlayerStats.Coins += but.intActs[i];
+                   break;
+               case Actions.PayGold:
+                   Debug.Log("Pay Gold Activated");
+                   if (PlayerStats.Coins >= but.intActs[i])
+                       PlayerStats.Coins -= but.intActs[i];
+                   else
+                       i += 99;
                    break;
                case Actions.LoseHealth:
                    Debug.Log("LoseHealth activated");
@@ -174,15 +186,23 @@ public class Event : MonoBehaviour
                   PlayerStats.Tape += but.intActs[i];
                   break;
                case Actions.GainRandomRelic:
-                   ran = Random.Range(0, RelicDatabase.allRelics.Count);
-                    playerStats.addRelic(RelicDatabase.getRelic(ran)); 
-                   Debug.Log("Player got relic: " + RelicDatabase.getRelic(ran).name);
+                   for (int l = 0; l < but.intActs[i]; l++)
+                   {
+                       ran = Random.Range(0, RelicDatabase.allRelics.Count);
+                       playerStats.addRelic(RelicDatabase.getRelic(ran));
+                       Debug.Log("Player got relic: " + RelicDatabase.getRelic(ran).name);
+                   }
+
                    break;
                case Actions.GainRandomCard:
-                   ran = Random.Range(0, CardDataBase.allCards.Count);
-                   PlayerStats.Deck.Add(ran);
-                   PlayerStats.TotalDeckSize++;
-                   Debug.Log("Player got card: " + CardDataBase.getCard(ran));
+                   for (int l = 0; l < but.intActs[i]; l++)
+                   {
+                       ran = Random.Range(0, CardDataBase.allCards.Count);
+                       PlayerStats.Deck.Add(ran);
+                       PlayerStats.TotalDeckSize++;
+                       Debug.Log("Player got card: " + CardDataBase.getCard(ran));
+                   }
+
                    break;
                case Actions.Leave:
                    Debug.Log("Leave button pressed");
@@ -191,6 +211,17 @@ public class Event : MonoBehaviour
                case Actions.ChangeScene:
                    Debug.Log("ChangeScene activated");
                    GameManager.Instance.GetSceneRouter().ToBattle();
+                   break;
+               case Actions.LoseRandomRelic:
+                   if (PlayerStats.Relics.Count > 0)
+                   {
+                       ran = Random.Range(0, PlayerStats.Relics.Count);
+                       playerStats.removeRelic(PlayerStats.Relics[ran]);
+                   }
+
+                   break;
+               case Actions.LoseMaxHP:
+                   PlayerStats.MaxHealth -= but.intActs[i];
                    break;
                
             } 

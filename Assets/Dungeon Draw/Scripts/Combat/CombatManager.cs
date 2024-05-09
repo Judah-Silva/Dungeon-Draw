@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -97,11 +98,33 @@ public class CombatManager : MonoBehaviour
         }
         if (enemies.Count == 0)
         {
+            //Check for relic id:9 - Heals 5 HP after winning a combat encounter
+            if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(9)) {
+                // _playerEntity.gameObject.GetComponent<Player>().playerStats.UpdateHealth(PlayerStats.CurrentHealth+5);
+                _playerEntity.currentHP += 5;
+                Debug.Log("Relic: Ball and String Toy: Grants the user 5 HP");
+            }
             BattleOver(1);
         }
-        else if (_playerEntity.getHP() <= 0)
+        else if (_playerEntity.getHP() <= 0 && !_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(10)) //Checks for revive relic id:10
         {
             BattleOver(0);
+        }
+        else if (_playerEntity.getHP() <= 0 &&
+                 _playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(10))
+        {
+            _playerEntity.currentHP = PlayerStats.MaxHealth / 3;
+            _playerEntity.gameObject.GetComponent<Player>().playerStats.removeRelic(RelicDatabase.getRelic(10));
+            Debug.Log("Player revived with " + PlayerStats.MaxHealth/3);
+        } 
+            
+
+        
+        //For testing purposes only
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Enemy enemy = enemies[0].GetComponent<Enemy>();
+            enemy.TakeDamage(1);
         }
     }
 
@@ -152,7 +175,12 @@ public class CombatManager : MonoBehaviour
         
         _playerEntity.SetUp();
         SpawnWave();
-        
+        //Checks for Big Toe relic and raises maxMana by 1
+        if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(1))
+        {
+            _cardManager.maxMana++;
+            _cardManager.currentMana = _cardManager.maxMana;
+        }
         PlayerTurn();
     }
     
@@ -182,6 +210,21 @@ public class CombatManager : MonoBehaviour
         IsPlayerTurn = !IsPlayerTurn;
         if (!IsPlayerTurn)
         {
+            //Check for end turn relics:
+            //Cookie id:6 - If you end your turn without block, gain 3 block
+            if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(6) &&
+                _playerEntity.getShield() == 0) {
+                _playerEntity.giveShield(3);
+                Debug.Log("Relic: Cookie : Grants the user 3 shield");
+            }
+
+            //Shell id:12 - Grants the user 1 shield after every combat round
+            if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(12)) {
+                _playerEntity.giveShield(1);
+                Debug.Log("Relic: Shell : Grants the user +1 shield");
+            }
+            
+            
             StartCoroutine(EnemyTurn());
         }
         else
@@ -193,7 +236,7 @@ public class CombatManager : MonoBehaviour
 
     private void DisplayState()
     {
-        Debug.Log($"Player health: {_playerEntity.getHP()}\nPlayer shields: {_playerEntity.getShield()}");
+        Debug.Log($"Player health: {GetPlayerEntity().getHP()}\nPlayer shields: {GetPlayerEntity().getShield()}");
         foreach (var enemy in _enemyScripts)
         {
             Debug.Log($"{enemy.name} health: {enemy.getHP()}\n{enemy.name} shield: {enemy.getShield()}");
@@ -217,7 +260,7 @@ public class CombatManager : MonoBehaviour
 
     private void ClearHand()
     {
-        List<ActualCard> hand = _handController.GetHand();
+        List<ActualCard> hand = GetHandController().GetHand();
         Discard.DiscardHand(hand);
         _handController.ClearHand();
     }
@@ -228,6 +271,20 @@ public class CombatManager : MonoBehaviour
         _enemyScripts.Remove(enemy.GetComponent<Enemy>());
         Destroy(enemy);
         UpdateEnemiesPosition();
+        
+        //Check for green liquid relic(id:5) - gives player 1 mana on enemy death and adds 1 card to hand
+        if (_playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(5))
+        {
+            string str = "Relic: Green Liquid : Grants the user 1 extra mana";
+            _cardManager.currentMana += 1;
+            if (Deck.DeckPile.Count > 0)
+            {
+                _handController.AddCardToHand();
+                str += (" and draws 1 card");
+            }
+
+            Debug.Log(str);
+        }
     }
 
     private IEnumerator EnemyTurn()
@@ -235,6 +292,14 @@ public class CombatManager : MonoBehaviour
         foreach (var enemy in _enemyScripts)
         {
             enemy.Attack();
+            //Check if player has purple turtle relic then removes damage done if damage is taken for the first time
+            if (_playerEntity.firstDamageTaken > 0 &&
+                _playerEntity.gameObject.GetComponent<Player>().playerStats.checkForRelic(4))
+            {
+                _playerEntity.currentHP += _playerEntity.firstDamageTaken;
+                _playerEntity.firstDamageTaken = -2;
+                Debug.Log("Purple Turtle blocked incoming damage");
+            }
             yield return new WaitForSeconds(.5f); //TODO: Replace with enemy turn logic
         }
         EndTurn();
@@ -254,6 +319,8 @@ public class CombatManager : MonoBehaviour
             Invoke("ActivateResultsWindow", 1.0f);
             // _sceneRouter.ToMap();
             enabled = false;
+            
+            NextLevel();
         }
         else
         {
@@ -275,7 +342,20 @@ public class CombatManager : MonoBehaviour
 
     public Entity GetPlayerEntity()
     {
+        if (_playerEntity == null)
+        {
+            if (player is null)
+                player = GameObject.FindGameObjectWithTag("Player");
+            _playerEntity = player.GetComponent<Player>();
+        }
         return _playerEntity;
+    }
+    
+    public HandController GetHandController()
+    {
+        if (_handController is null)
+            _handController = GetComponent<HandController>();
+        return _handController;
     }
 
     public List<Entity> GetEnemyEntities()
@@ -295,5 +375,32 @@ public class CombatManager : MonoBehaviour
         {
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);
         }
+    }
+    
+    public void NextLevel()
+    {
+        if (_currentLevel < levels.Count - 1)
+        {
+            _currentLevel++;
+            SpawnWave();
+            battleOver = false;
+            StartFight();
+        }
+        else
+        {
+            Debug.Log("All levels cleared!");
+        }
+    }
+    
+    public void SetLevels(int level)
+    {
+        _currentLevel = level;
+    }
+    
+    public void SetLevelAndFight(int level)
+    {
+        _currentLevel = level;
+        battleOver = false;
+        StartFight();
     }
 }

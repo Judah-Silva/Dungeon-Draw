@@ -17,10 +17,13 @@ public abstract class Entity : MonoBehaviour
 
     private int[] entityStatusEffectArray = new int[10];
 
-    public Slider healthBar;
+    public Slider redHealthBar;
+    public Slider orangeHealthBar;
 
     [HideInInspector]
     public CardManager _cardManager;
+    
+    [HideInInspector] public int firstDamageTaken = -1;
 
     public abstract void SetUp();
 
@@ -54,9 +57,19 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[0];
     }
 
-    public int getVul()
+    public int getVulnerable()
     {
         return entityStatusEffectArray[1];
+    }
+
+    public int getFrail()
+    {
+        return entityStatusEffectArray[3];
+    }
+
+    public int getArtifact()
+    {
+        return entityStatusEffectArray[4];
     }
 
     // Solely used by the effect class when get a modifier for dealing damage
@@ -65,13 +78,15 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[2];
     }
 
-    public int takeDamage(int damage)
+    public int TakeDamage(int damage)
     {
-        int remainingDamage = damage - getShield() + getVul();
+        int remainingDamage = damage - getShield() + getVulnerable();
         // Debug.Log($"Taking {remainingDamage} damage");
 
         if (remainingDamage > 0)
         {
+            if (firstDamageTaken == -1)
+                firstDamageTaken = remainingDamage; //This is for the turtle relic and is checked in combatmanager
             prevHealth = currentHP;
             currentHP -= remainingDamage;
             entityStatusEffectArray[0] = 0;
@@ -90,7 +105,7 @@ public abstract class Entity : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            Die();
+            StartCoroutine(Die());
             return 0;
         }
         
@@ -100,8 +115,25 @@ public abstract class Entity : MonoBehaviour
 
     public int giveShield(int givenShield)
     {
-        entityStatusEffectArray[0] += givenShield;
+        entityStatusEffectArray[0] += givenShield - getFrail();
         return entityStatusEffectArray[0];
+    }
+
+    public bool hasArtifact()
+    {
+        if (entityStatusEffectArray[4] == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void clearArtifact()
+    {
+        entityStatusEffectArray[4] = 0;
     }
 
     public int giveVulnerable(int givenVulnerable)
@@ -122,10 +154,44 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[2];
     }
 
+    public int giveFrail(int givenFrail)
+    {
+
+        Debug.Log($"{gameObject.name} has been given {givenFrail} frail");
+
+        entityStatusEffectArray[3] += givenFrail;
+        return entityStatusEffectArray[3];
+    }
+
+    public int giveArtifact()
+    {
+
+        Debug.Log($"{gameObject.name} has been given a level of artifact!");
+
+        entityStatusEffectArray[4] = 1;
+        return entityStatusEffectArray[4];
+    }
+
     public void UpdateHealthBar()
     {
-        if (healthBar is null) return;
+        if (redHealthBar is null) return;
+        redHealthBar.value = currentHP;
+        if (orangeHealthBar is null) return;
         StartCoroutine(InterpolateHealth(prevHealth, currentHP));
+    }
+    
+    public void SetUpHealthBars()
+    {
+        if (redHealthBar is not null)
+        {
+            redHealthBar.maxValue = maxHP;
+            redHealthBar.value = currentHP;
+        }
+        if (orangeHealthBar is not null)
+        {
+            orangeHealthBar.maxValue = maxHP;
+            orangeHealthBar.value = currentHP;
+        }
     }
 
     IEnumerator InterpolateHealth(float start, float end)
@@ -134,18 +200,18 @@ public abstract class Entity : MonoBehaviour
         while (elapsedTime < .5f)
         {
             float newHealth = Mathf.Lerp(start, end, elapsedTime / .5f);
-            healthBar.value = newHealth;
+            orangeHealthBar.value = newHealth;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
-        healthBar.value = end;
+        orangeHealthBar.value = end;
     }
 
     public void OnMouseEnter()
     {
         Transform posToSpawn = gameObject.transform;
         statusUI.ActivateUI(posToSpawn);
+        statusUI.DisplayInfo(this);
     }
 
     public void OnMouseExit()
@@ -153,5 +219,6 @@ public abstract class Entity : MonoBehaviour
         statusUI.HideUI();
     }
     
-    public abstract void Die();
+    public abstract IEnumerator Die();
+    
 }

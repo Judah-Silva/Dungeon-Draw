@@ -9,6 +9,8 @@ public class Enemy : Entity
     public int goldValue;
     public bool isBoss = false;
     private List<Block> _blockList;
+    
+    public GameObject deathEffect;
 
     public EnemyAnimator enemyAnimator;
 
@@ -38,12 +40,8 @@ public class Enemy : Entity
         statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
         currentHP = maxHP;
         Debug.Log("Setting up entity, currentHP: " + currentHP);
-        healthBar = GetComponentInChildren<Slider>();
-        if (healthBar is not null)
-        {
-            healthBar.maxValue = maxHP;
-            healthBar.value = currentHP;
-        }
+        SetUpHealthBars();
+
     }
 
     public void Attack()
@@ -69,7 +67,7 @@ public class Enemy : Entity
         
     }
 
-    public override void Die()
+    public override IEnumerator Die()
     {
         PlaySFX(deathAudio);
         PlayerStats.Coins += goldValue;

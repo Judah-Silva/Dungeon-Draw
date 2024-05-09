@@ -97,7 +97,7 @@ public class Shop : MonoBehaviour
         
         //Check for slimy glasses relic
         if (playerStats != null && playerStats.checkForRelic(11))
-            playerStats.UpdateHealth(PlayerStats.CurrentHealth+8);
+            playerStats.UpdateHealth(PlayerStats.CurrentHealth+6);
 
         // Debug.Log("Shop start called");
         //loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
@@ -130,7 +130,7 @@ public class Shop : MonoBehaviour
                  relics[i].Slot = relicSlots[i];
                  if (i < 3) // This will set the top 3 relics as non commons and make sure no duplicates
                  {
-                     while (RelicDatabase.getRelic(ran).rarity == rarityValues.common || repeat == true)
+                     while (RelicDatabase.getRelic(ran).rarity == rarityValues.common || RelicDatabase.getRelic(ran).rarity == rarityValues.unique || repeat == true)
                      {
                          ran = Random.Range(0, RelicDatabase.allRelics.Count);
                          Debug.Log(ran);

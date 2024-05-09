@@ -79,10 +79,8 @@ public class Relic
                 switch (abilities[i])
                 {
                     case relicAbility.increaseMaxHp:
-                        PlayerStats.MaxHealth += intToUse[i]; 
-                        break;
-                    case relicAbility.increaseMaxMana:
-                        //
+                        PlayerStats.MaxHealth += intToUse[i];
+                        PlayerStats.CurrentHealth += intToUse[i];
                         break;
                     case relicAbility.coinIncrease:
                         PlayerStats.Coins += intToUse[i];
@@ -90,8 +88,10 @@ public class Relic
                     case relicAbility.Custom:
                         switch (id)
                         {
-                            case 1: //Big Toe Relic - adds random card to player deck
-                                PlayerStats.Deck.Add(Random.Range(0, CardDataBase.allCards.Count));
+                            case 3: //TNT - adds 2 random cards to player deck
+                                PlayerStats.Deck.Add(Random.Range(1, CardDataBase.allCards.Count));
+                                PlayerStats.TotalDeckSize++;
+                                PlayerStats.Deck.Add(Random.Range(1, CardDataBase.allCards.Count));
                                 PlayerStats.TotalDeckSize++;
                                 break;
                         }
@@ -116,7 +116,6 @@ public enum relicAbility
     Custom, //Use for more specific function
     //Stat abilities
     increaseMaxHp,
-    increaseMaxMana,
     coinIncrease,
     
     //Combat abilities
@@ -134,6 +133,7 @@ public enum rarityValues
 {
     common,
     uncommon,
-    rare
+    rare,
+    unique //used for event given relics
 }
 

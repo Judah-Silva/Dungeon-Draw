@@ -5,13 +5,27 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    
+    private static GameManager _instance;
+
     [HideInInspector]
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null)
+            {
+                _instance = FindFirstObjectByType<GameManager>();
+            }
+            return _instance;
+        }
+        private set => _instance = value;
+    }
 
 
     private void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
             Instance = this;
         }

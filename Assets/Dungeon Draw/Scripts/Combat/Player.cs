@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : Entity
@@ -40,7 +41,7 @@ public class Player : Entity
         currentHP = PlayerStats.CurrentHealth;  
     }
 
-    public override void Die()
+    public override IEnumerator Die()
     {
         src.clip = deathAudio;
         src.Play();
