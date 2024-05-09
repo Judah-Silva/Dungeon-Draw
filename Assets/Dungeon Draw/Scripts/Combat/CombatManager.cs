@@ -160,6 +160,14 @@ public class CombatManager : MonoBehaviour
             UpdateEnemiesPosition();
             DisplayState();
         }
+        else
+        {
+            GameObject boss = GameObject.Find("Boss");
+            Enemy bossScript = boss.GetComponent<Enemy>();
+            enemies.Add(boss);
+            _enemyScripts.Add(bossScript);
+            bossScript.SetUp();
+        }
     }
 
 
@@ -182,14 +190,6 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
-
-        for (int i = 0; i < levels.Count; i++)
-        {
-            for (int j = 0; j < levels[i].weight; j++)
-            {
-                _levelWeights.Add(i);
-            }
-        }
         
         for (int i = 0; i < levels.Count; i++)
         {

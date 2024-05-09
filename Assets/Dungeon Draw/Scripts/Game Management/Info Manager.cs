@@ -38,6 +38,9 @@ public class InfoManager : MonoBehaviour
 
         PlayerStats.OnTapeChange += PlayerStatsTapeChange;
         PlayerStats.OnGlueChange += PlayerStatsOnGlueChange;
+        
+        PlayerStatsOnGlueChange();
+        PlayerStatsTapeChange();
     }
     
     private void Update()
