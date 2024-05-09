@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,8 +13,10 @@ public class Player : Entity
     public AudioClip dashAudio;
     public AudioClip shieldAudio;
     public AudioClip deathAudio;
-    public Slider manaBar;
     private AudioSource src;
+
+    public TextMeshProUGUI manaText;
+    public Slider manaBar;
 
     private static Player _instance;
 
@@ -59,16 +62,19 @@ public class Player : Entity
         statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
         maxHP = PlayerStats.MaxHealth;
         currentHP = PlayerStats.CurrentHealth;
+        SetUpManaBar();
     }
 
     public void SetUpManaBar()
     {
+        manaText.text = $"Mana: {CardManager.Instance.getMana()} / {CardManager.Instance.maxMana}";
         manaBar.maxValue = CardManager.Instance.maxMana;
         manaBar.value = CardManager.Instance.getMana();
     }
 
-    public void UpdateManaBar()
+    public void UpdateMana()
     {
+        manaText.text = $"Mana: {CardManager.Instance.getMana()} / {CardManager.Instance.maxMana}";
         manaBar.value = CardManager.Instance.getMana();
     }
 
