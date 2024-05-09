@@ -339,10 +339,11 @@ public class ActualCard : MonoBehaviour
         handController.RemoveCard(this);
         if (rippedCard != null)
         {
+            Debug.Log("Destroying card");
             handController.RemoveCard(rippedCard);
         }
         handController.AddCardToHand();
-        CardDataBase.checkDataBase();
+        // CardDataBase.checkDataBase();
         HandController.hand[HandController.hand.Count - 1].updateVisuals();
         rippedCardID = 0;
     }
@@ -374,9 +375,13 @@ public class ActualCard : MonoBehaviour
         {
             Debug.Log("Destroying card");
             handController.RemoveCard(rippedCard);
+            if (rippedCard != null)
+            {
+                Destroy(rippedCard.gameObject);
+            }
         }
         handController.AddCardToHand();
-        CardDataBase.checkDataBase();
+        // CardDataBase.checkDataBase();
         HandController.hand[HandController.hand.Count - 1].updateVisuals();
         rippedCardID = 0;
     }

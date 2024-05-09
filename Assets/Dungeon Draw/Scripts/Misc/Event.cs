@@ -179,11 +179,11 @@ public class Event : MonoBehaviour
                   break;
                case Actions.GainGlue :
                   Debug.Log("GainGlue activated");
-                  PlayerStats.Glue += but.intActs[i];
+                  playerStats.GainGlue(but.intActs[i]);
                   break;
                case Actions.GainTape :
                   Debug.Log("GainTape  activated");
-                  PlayerStats.Tape += but.intActs[i];
+                  playerStats.GainTape(but.intActs[i]);
                   break;
                case Actions.GainRandomRelic:
                    for (int l = 0; l < but.intActs[i]; l++)

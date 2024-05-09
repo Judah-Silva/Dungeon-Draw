@@ -15,10 +15,12 @@ public class PlayerStats : MonoBehaviour
     public static int MaxHealth = 50;
     public static List<int> Deck = new List<int>();
     public static List<Relic> Relics = new List<Relic>();
-    public static int Gold = 0;
 
     public delegate void TapeChange();
     public static event TapeChange OnTapeChange;
+    
+    public delegate void GlueChange();
+    public static event GlueChange OnGlueChange;
     
     void Start()
     {
@@ -98,5 +100,11 @@ public class PlayerStats : MonoBehaviour
     {
         Tape = Math.Min(Tape + tapeAmount, MaxTape);
         OnTapeChange?.Invoke();
+    }
+    
+    public void GainGlue(int glueAmount)
+    {
+        Glue += glueAmount;
+        OnGlueChange?.Invoke();
     }
 }
