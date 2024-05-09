@@ -114,7 +114,8 @@ public class Effect
                 giveWeak(target);
                 break;
         }
-
+        origin.UpdateHealthBar();
+        target.UpdateHealthBar();
     }
 
 

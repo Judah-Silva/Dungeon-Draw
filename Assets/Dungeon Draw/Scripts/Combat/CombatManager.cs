@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,6 +17,7 @@ public class CombatManager : MonoBehaviour
     public float tapeGain = 0.5f;
     
     private int _currentLevel = 0;
+    private List<int> _levelWeights = new List<int>();
     private bool isBoss = false;
     
     private List<GameObject> enemies = new List<GameObject>();
@@ -108,7 +110,7 @@ public class CombatManager : MonoBehaviour
     public void SpawnWave()
     {
         //Choose a random level
-        _currentLevel = UnityEngine.Random.Range(0, levels.Count);
+        _currentLevel = _levelWeights[UnityEngine.Random.Range(0, _levelWeights.Count)];
         foreach (GameObject prefab in levels[_currentLevel].enemies)
         {
             GameObject goEnemy = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
@@ -146,6 +148,14 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
+        
+        for (int i = 0; i < levels.Count; i++)
+        {
+            for (int j = 0; j < levels[i].weight; j++)
+            {
+                _levelWeights.Add(i);
+            }
+        }
         
         _playerEntity.SetUp();
         SpawnWave();

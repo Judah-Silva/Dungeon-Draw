@@ -103,6 +103,7 @@ public class CardManager : MonoBehaviour
         }
 
         currentMana -= selectedCard.manaCost;
+        Player.Instance.UpdateManaBar();
 
         // Finally calls isplayable from card
         if (!selectedCard.isPlayable())
