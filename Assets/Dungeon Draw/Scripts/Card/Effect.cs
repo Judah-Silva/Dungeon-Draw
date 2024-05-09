@@ -157,7 +157,7 @@ public class Effect
         // Modify damage value here
         int tempVal = effectVal;
 
-        tempVal -= origin.getDamageMod();
+        tempVal -= origin.getWeak();
 
         target.TakeDamage(tempVal);
 

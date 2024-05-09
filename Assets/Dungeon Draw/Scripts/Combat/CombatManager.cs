@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using TMPro;
 using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -82,6 +83,7 @@ public class CombatManager : MonoBehaviour
         _sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
 
@@ -132,7 +134,6 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnWave()
     {
-        //Choose a random level
         _currentLevel = _levelWeights[UnityEngine.Random.Range(0, _levelWeights.Count)];
         if (!isBoss)
         {
@@ -176,6 +177,14 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
+
+        for (int i = 0; i < levels.Count; i++)
+        {
+            for (int j = 0; j < levels[i].weight; j++)
+            {
+                _levelWeights.Add(i);
+            }
+        }
         
         for (int i = 0; i < levels.Count; i++)
         {
@@ -258,7 +267,7 @@ public class CombatManager : MonoBehaviour
     private void CheckCards()
     {
         ClearHand();
-        if (_deck.deckSize == 0)
+        if (_deck.deckSize <= 0)
         {
             RefreshDeck();
         }
@@ -331,8 +340,6 @@ public class CombatManager : MonoBehaviour
             Invoke("ActivateResultsWindow", 1.0f);
             // _sceneRouter.ToMap();
             enabled = false;
-            
-            NextLevel();
         }
         else
         {
@@ -343,6 +350,7 @@ public class CombatManager : MonoBehaviour
 
     public void ActivateResultsWindow()
     {
+        // Play music here
         resultsWindow.SetActive(true);
         rewardText.text = "+" + earnedGold + " gold";
     }
@@ -388,21 +396,7 @@ public class CombatManager : MonoBehaviour
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);
         }
     }
-    
-    public void NextLevel()
-    {
-        if (_currentLevel < levels.Count - 1)
-        {
-            _currentLevel++;
-            SpawnWave();
-            battleOver = false;
-            StartFight();
-        }
-        else
-        {
-            Debug.Log("All levels cleared!");
-        }
-    }
+   
     
     public void SetLevels(int level)
     {

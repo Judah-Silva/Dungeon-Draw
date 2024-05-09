@@ -47,7 +47,7 @@ public class Enemy : Entity
                 _blockList.Add(new Block().addEffect(1, 5));
                 _blockList.Add(new Block().addEffect(1, 5));
                 break;
-            case "Dragon":
+            case "Boss":
                 _blockList.Add(new Block().addEffect(0, 10));
                 _blockList.Add(new Block().addEffect(0, 15));
                 break;
@@ -99,6 +99,9 @@ public class Enemy : Entity
         CombatManager.Instance.earnedGold += goldValue;
         enemyAnimator.DeathAnimation();
         // CombatManager.Instance.RemoveEnemy(gameObject);
+
+        statusUI.HideUI();
+        yield return null;
     }
 
     public void Animate()
@@ -110,5 +113,9 @@ public class Enemy : Entity
     {
         src.clip = sfx;
         src.Play();
+    }
+
+    public override void OnMouseEnter() {
+        statusUI.ActivateUI(this, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z));
     }
 }

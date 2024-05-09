@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,10 +33,31 @@ public class Player : Entity
         set => _instance = value;
     }
 
+    public TextMeshProUGUI manaText;
+    public Slider manaBar;
+
+    private static Player _instance;
+
+    public static Player Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<Player>();
+            }
+
+            return _instance;
+        }
+
+        set => _instance = value;
+    }
+
     private void Start()
     {
         Instance = this;
         src = GetComponent<AudioSource>();
+        Instance = this;
     }
 
     private void Update()
@@ -58,19 +80,21 @@ public class Player : Entity
         setUpEEA();
         statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
         maxHP = PlayerStats.MaxHealth;
-        currentHP = PlayerStats.CurrentHealth;  
+        currentHP = PlayerStats.CurrentHealth;
         SetUpManaBar();
     }
-    
+
     public void SetUpManaBar()
     {
+        manaText.text = $"Mana: {CardManager.Instance.getMana()} / {CardManager.Instance.maxMana}";
         manaBar.maxValue = CardManager.Instance.maxMana;
-        manaBar.value = CardManager.Instance.currentMana;
+        manaBar.value = CardManager.Instance.getMana();
     }
-    
-    public void UpdateManaBar()
+
+    public void UpdateMana()
     {
-        manaBar.value = CardManager.Instance.currentMana;
+        manaText.text = $"Mana: {CardManager.Instance.getMana()} / {CardManager.Instance.maxMana}";
+        manaBar.value = CardManager.Instance.getMana();
     }
     
 
@@ -79,6 +103,15 @@ public class Player : Entity
         src.clip = deathAudio;
         src.Play();
         GetComponent<Animator>().SetTrigger("Die");
+        //TODO: Implement player death
+        statusUI.HideUI();
+        
+        yield return null;
+    }
+
+    public override void OnMouseEnter()
+    {
+        statusUI.ActivateUI(this, new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z));
     }
 
     public void OnDead()
