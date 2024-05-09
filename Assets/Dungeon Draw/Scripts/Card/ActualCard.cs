@@ -232,6 +232,8 @@ public class ActualCard : MonoBehaviour
         // Then updates the mana value
         manaCostText.text = manaCost.ToString();
 
+        updateCardSprite();
+
         // For both of the blocks, it wil first check if it exists, and if it does, then --- 
         // --- it will call the afformentioned block w/ the show block function
         if (condition[0] != 0)
@@ -254,6 +256,18 @@ public class ActualCard : MonoBehaviour
 
         updateTheBlockImages();
 
+    }
+
+    private void updateCardSprite()
+    {
+        // Updates the card sprite dependent on the card id
+
+        switch (cardID)
+        {
+            default:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite0");
+                break;
+        }
     }
 
     // Uses a separate function to update each condition individually
