@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour
     public AudioClip buttonSelectSound;
     public AudioClip quitSound;
 
+    public GameObject tutorialUI;
+
     private void Start()
     {
         _sceneRouter = GameManager.Instance.GetSceneRouter();
@@ -26,6 +28,7 @@ public class MainMenu : MonoBehaviour
         LevelTracker.floorsVisited = 1;
         GameManager.Instance.GetLevelTracker().CheckLevels();
         GameManager.Instance.GetLevelTracker().ResetFloors();
+        PlayerStats.Coins = 1000;
         
         GameManager.Instance.GetPlayerStats().PopulateDeck();
         
@@ -41,6 +44,9 @@ public class MainMenu : MonoBehaviour
         
         int totalFloors = PlayerPrefs.GetInt("TotalFloors", 0);
         LevelTracker.floorsVisited = totalFloors;
+
+        int totalGold = PlayerPrefs.GetInt("Gold", 0);
+        PlayerStats.Coins = totalGold;
 
         List<int> loadedDeck = new List<int>();
         int deckSize = PlayerPrefs.GetInt("SavedDeckCount", 0);
@@ -64,6 +70,18 @@ public class MainMenu : MonoBehaviour
     {
         PlaySFX(quitSound);
         _sceneRouter.ToMainMenu();
+    }
+
+    public void OpenTutorialMenu()
+    {
+        PlaySFX(buttonSelectSound);
+        tutorialUI.SetActive(true);
+    }
+
+    public void CloseTutorialMenu()
+    {
+        PlaySFX(quitSound);
+        tutorialUI.SetActive(false);
     }
 
     public void QuitGame()
