@@ -60,7 +60,7 @@ MonoBehaviour:
     enemies:
     - {fileID: 490405482943781023, guid: f9f73d952b40cd348aa81a56ce80947f, type: 3}
     - {fileID: 490405482943781023, guid: f9f73d952b40cd348aa81a56ce80947f, type: 3}
-    - {fileID: 490405482943781023, guid: f9f73d952b40cd348aa81a56ce80947f, type: 3}
+    - {fileID: 6325008497181996181, guid: 46a6d6aefc293a4428197a6a9359f453, type: 3}
   - name: Watchers
     weight: 3
     enemies:
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handArea: {fileID: 0}
   spacing: 1
+  drawAudio: {fileID: 8300000, guid: c2304874bbff4cf45b324b15f5aa5479, type: 3}
 --- !u!114 &5021159665050852740
 MonoBehaviour:
   m_ObjectHideFlags: 0
