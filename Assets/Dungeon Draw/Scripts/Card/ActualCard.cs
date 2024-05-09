@@ -52,9 +52,6 @@ public class ActualCard : MonoBehaviour
     public GameObject block2Box;
 
     [Header("Other pt. 2")]
-    public Color c;
-    private Renderer rend;
-    private Animator anim;
     public float moveAmount = 1;
     public float hoverSmoothness = 5f;
     public Vector3 originalPosition;
@@ -63,21 +60,26 @@ public class ActualCard : MonoBehaviour
 
     public static bool isRipped = false;
     public static int rippedCardID;
+    private bool _isRipped = false;
     public HandController handController;
 
     void Start()
     {
-        rend = GetComponent<Renderer>();
-        anim = GetComponent<Animator>();
         originalPosition = transform.position;
-        RandomColor();
         cardManager = CardManager.Instance;
         handController = HandController.Instance;
     }
 
     private void Update()
     {
-        if (!isShopItem)
+        if (_isRipped) //Someone NEEDS to test if this works
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            mousePosition.z = transform.position.z;
+            transform.position = mousePosition;
+        }
+        else if (!isShopItem)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
@@ -96,9 +98,9 @@ public class ActualCard : MonoBehaviour
                     // Then allows it to be merged into another card
                     if (Input.GetMouseButtonDown(1))
                     {
-                        if (PlayerStats.Tape < 1)
+                        if (PlayerStats.Tape < 1 && PlayerStats.Glue < 1)
                         {
-                            Debug.Log("Not enough tape");
+                            Debug.Log("Not enough tape or glue");
                         }
                         else if (isRipped)
                         {
@@ -232,8 +234,6 @@ public class ActualCard : MonoBehaviour
         // Then updates the mana value
         manaCostText.text = manaCost.ToString();
 
-        updateCardSprite();
-
         // For both of the blocks, it wil first check if it exists, and if it does, then --- 
         // --- it will call the afformentioned block w/ the show block function
         if (condition[0] != 0)
@@ -256,18 +256,6 @@ public class ActualCard : MonoBehaviour
 
         updateTheBlockImages();
 
-    }
-
-    private void updateCardSprite()
-    {
-        // Updates the card sprite dependent on the card id
-
-        switch (cardID)
-        {
-            default:
-                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite0");
-                break;
-        }
     }
 
     // Uses a separate function to update each condition individually
@@ -334,23 +322,63 @@ public class ActualCard : MonoBehaviour
         blockArray[1] = addBlock(rippedCardID);
         effectType[1][0] = blockArray[1].effectList[0].GetEffectType();
         effectVal[1][0] = blockArray[1].effectList[0].GetEffectVal();
+        PlayerStats.Deck.Remove(rippedCardID);
         PlayerStats.Deck.Remove(cardID);
         PlayerStats.Deck.Remove(rippedCardID);
-        CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost, cardVal, rarity, 2, 1,
+        CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost, cardVal + getCardVal(rippedCardID), rarity, 2, 1,
             1, effectType[0][0], effectVal[0][0], 2, 1, effectType[1][0], effectVal[1][0]});  //TODO: Here is the problem, ive tested most other options
         
         // Up to this point the information being passed through is correct, however once the card is created, it always has both blocks of the card that was placed on
         isRipped = false;
-        rippedCardID = 0;
+        ActualCard rippedCard = handController.GetCardFromHand(rippedCardID);
         Debug.Log("New Card created");
         
         // We destroy this card as we will be creating a new card to take its place
         PlayerStats.Deck.Add(CardDataBase.allCards.Count - 1);
         Deck.DeckPile.Insert(0,(CardDataBase.allCards.Count - 1));
-        handController.AddCardToHand();
         handController.RemoveCard(this);
+        if (rippedCard != null)
+        {
+            handController.RemoveCard(rippedCard);
+        }
+        handController.AddCardToHand();
         CardDataBase.checkDataBase();
         HandController.hand[HandController.hand.Count - 1].updateVisuals();
+        rippedCardID = 0;
+    }
+    
+    //This next method is the exact same as the previous but its adjusted for 
+    public void createGluedCard(int rippedCardID)
+    {
+        Debug.Log("ripped card ID: " + rippedCardID);
+        Debug.Log("base card id: " + cardID);
+        blockArray[1] = addBlock(rippedCardID);
+        effectType[1][0] = blockArray[1].effectList[0].GetEffectType();
+        effectVal[1][0] = blockArray[1].effectList[0].GetEffectVal();
+        PlayerStats.Deck.Remove(rippedCardID);
+        PlayerStats.Deck.Remove(cardID);
+        PlayerStats.Deck.Remove(rippedCardID);
+        CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost-1, (cardVal + getCardVal(rippedCardID))*2, rarity, 2, 1,
+            1, effectType[0][0], effectVal[0][0], 3, 1, effectType[1][0], effectVal[1][0]});  //TODO: Here is the problem, ive tested most other options
+
+        // Up to this point the information being passed through is correct, however once the card is created, it always has both blocks of the card that was placed on
+        isRipped = false;
+        ActualCard rippedCard = handController.GetCardFromHand(rippedCardID);
+        Debug.Log("New Card created");
+
+        // We destroy this card as we will be creating a new card to take its place
+        PlayerStats.Deck.Add(CardDataBase.allCards.Count - 1);
+        Deck.DeckPile.Insert(0, (CardDataBase.allCards.Count - 1));
+        handController.RemoveCard(this);
+        if (rippedCard != null)
+        {
+            Debug.Log("Destroying card");
+            handController.RemoveCard(rippedCard);
+        }
+        handController.AddCardToHand();
+        CardDataBase.checkDataBase();
+        HandController.hand[HandController.hand.Count - 1].updateVisuals();
+        rippedCardID = 0;
     }
 
     //This method will remove and extra NON-Glued cards
@@ -360,6 +388,13 @@ public class ActualCard : MonoBehaviour
         {
             blockArray[1].condition = 0;
         }
+    }
+    
+    //This method will return the money value of the given card
+    public int getCardVal(int cardID)
+    {
+        List<int> list = CardDataBase.getCard(cardID);
+        return list[2];
     }
 
     //Used for merging cards with glue or tape
@@ -375,13 +410,48 @@ public class ActualCard : MonoBehaviour
         return newBlock;
     }
 
-    public void ripCard(int _cardID)
+    private void ripCard(int _cardID)
     {
         Debug.Log("Ripping card");
         isRipped = true;
+        
         // Play animation here
         rippedCardID = _cardID;
-        handController.RemoveCard(this);
+        _isRipped = true;
+        GetComponent<BoxCollider>().enabled = false;
+        // handController.RemoveCard(this);
+    }
+    
+    public void OnMouseEnter()
+    {
+        if (!isShopItem)
+        {
+            if (isRipped)
+            {
+                Debug.Log($"cardID: {cardID}");
+                Debug.Log($"Ripped cardID: {rippedCardID}");
+                if(Input.GetMouseButtonDown(1))
+                {
+                    if (PlayerStats.Glue < 1)
+                    {
+                        Debug.Log("You dont have any glue!");
+                    }
+                    else if (condition[1] != 0)
+                    {
+                        Debug.Log("Cannot merge to this card");
+                    }
+                    else if (rippedCardID == 0)
+                    {
+                        Debug.Log("Fatal error, what the heck");
+                    }
+                    else
+                    {
+                        Debug.Log("Creating new glued card");
+                        createGluedCard(rippedCardID);
+                    }
+                }
+            }
+        }
     }
 
     public void OnMouseDown()
@@ -392,7 +462,11 @@ public class ActualCard : MonoBehaviour
 
             if (isRipped)
             {
-                if (condition[1] != 0)
+                if(PlayerStats.Tape < 1)
+                {
+                    Debug.Log("You dont have any tape!");
+                }
+                else if (condition[1] != 0)
                 {
                     Debug.Log("Cannot merge to this card");
                 }
@@ -402,22 +476,12 @@ public class ActualCard : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Creating new card");
+                    Debug.Log("Creating new taped card");
                     createCombinedCard(rippedCardID);
                 }
             }
         }
         
-    }
-
-
-    void RandomColor()
-    {
-        c.r = Random.Range(0f, 1f);
-        c.g = Random.Range(0f, 1f);
-        c.b = Random.Range(0f, 1f);
-        //Debug.Log(c.r + " " + c.g +  " "+ c.b);
-        rend.material.color = c;
     }
 
 }

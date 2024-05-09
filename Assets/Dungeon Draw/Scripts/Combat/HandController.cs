@@ -90,11 +90,27 @@ public class HandController : MonoBehaviour
         StartCoroutine(DrawHand());
     }
 
+    public ActualCard GetCardFromHand(int cardID)
+    {
+        foreach (var card in hand)
+        {
+            if (card.cardID == cardID)
+            {
+                return card;
+            }
+        }
+
+        return null;
+    }
+
     public void ClearHand()
     {
         foreach (ActualCard card in hand)
         {
-            Destroy(card.gameObject);
+            if (card != null)
+            {
+                Destroy(card.gameObject);
+            }
         }
         hand.Clear();
     }

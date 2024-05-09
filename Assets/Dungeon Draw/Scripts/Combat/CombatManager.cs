@@ -331,8 +331,6 @@ public class CombatManager : MonoBehaviour
             Invoke("ActivateResultsWindow", 1.0f);
             // _sceneRouter.ToMap();
             enabled = false;
-            
-            NextLevel();
         }
         else
         {
@@ -343,6 +341,7 @@ public class CombatManager : MonoBehaviour
 
     public void ActivateResultsWindow()
     {
+        // Play music here
         resultsWindow.SetActive(true);
         rewardText.text = "+" + earnedGold + " gold";
     }
@@ -388,21 +387,7 @@ public class CombatManager : MonoBehaviour
             enemies[i].transform.position = new Vector3(i * distanceBetweenEnemies - (float)(distanceBetweenEnemies * (enemies.Count - 1) / 2.0 - originOffset), 2, 0);
         }
     }
-    
-    public void NextLevel()
-    {
-        if (_currentLevel < levels.Count - 1)
-        {
-            _currentLevel++;
-            SpawnWave();
-            battleOver = false;
-            StartFight();
-        }
-        else
-        {
-            Debug.Log("All levels cleared!");
-        }
-    }
+   
     
     public void SetLevels(int level)
     {
