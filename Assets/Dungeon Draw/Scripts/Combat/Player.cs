@@ -20,7 +20,7 @@ public class Player : Entity
         setUpEEA();
         statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
         maxHP = PlayerStats.MaxHealth;
-        currentHP = PlayerStats.CurrentHealth;  
+        currentHP = PlayerStats.CurrentHealth;
     }
 
     public override IEnumerator Die()
@@ -28,5 +28,12 @@ public class Player : Entity
         GetComponent<Animator>().SetTrigger("Die");
         //TODO: Implement player death
         yield return new WaitForSeconds(0);
+        
+        statusUI.HideUI();
+    }
+
+    public override void OnMouseEnter()
+    {
+        statusUI.ActivateUI(this, new Vector3(transform.position.x, transform.position.y + 5f, transform.position.z));
     }
 }

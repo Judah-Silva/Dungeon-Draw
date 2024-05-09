@@ -75,6 +75,7 @@ public class CombatManager : MonoBehaviour
         //_sceneRouter = GameManager.Instance.GetSceneRouter();
         _cardManager = CardManager.Instance;
         _handController = GetComponent<HandController>();
+        _sceneRouter = GameManager.Instance.GetSceneRouter();
         _deck = GetComponent<Deck>();
         _discard = GetComponent<Discard>();
 

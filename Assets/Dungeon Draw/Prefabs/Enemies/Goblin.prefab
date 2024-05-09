@@ -258,6 +258,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1600349000896476513, guid: 174c476cc4d5f0948920dfe89722510f, type: 3}
+      propertyPath: isBoss
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600349000896476513, guid: 174c476cc4d5f0948920dfe89722510f, type: 3}
       propertyPath: deathEffect
       value: 
       objectReference: {fileID: 2055591459650634814, guid: dba9e497906e06f4482a54ae43fe9ccf, type: 3}

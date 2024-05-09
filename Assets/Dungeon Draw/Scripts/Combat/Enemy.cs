@@ -61,5 +61,12 @@ public class Enemy : Entity
         Destroy(effect, 1.5f);
         CombatManager.Instance.RemoveEnemy(gameObject);
         PlayerStats.Gold += goldValue;
+        
+        statusUI.HideUI();
+    }
+
+    public override void OnMouseEnter()
+    {
+        statusUI.ActivateUI(this, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z));
     }
 }

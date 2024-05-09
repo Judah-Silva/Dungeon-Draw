@@ -62,6 +62,12 @@ public abstract class Entity : MonoBehaviour
         return entityStatusEffectArray[1];
     }
 
+    // Solely used by the effect class when get a modifier for dealing damage
+    public int getWeak()
+    {
+        return entityStatusEffectArray[2];
+    }
+    
     public int getFrail()
     {
         return entityStatusEffectArray[3];
@@ -70,12 +76,6 @@ public abstract class Entity : MonoBehaviour
     public int getArtifact()
     {
         return entityStatusEffectArray[4];
-    }
-
-    // Solely used by the effect class when get a modifier for dealing damage
-    public int getDamageMod()
-    {
-        return entityStatusEffectArray[2];
     }
 
     public int TakeDamage(int damage)
@@ -203,12 +203,7 @@ public abstract class Entity : MonoBehaviour
         orangeHealthBar.value = end;
     }
 
-    public void OnMouseEnter()
-    {
-        Transform posToSpawn = gameObject.transform;
-        statusUI.ActivateUI(posToSpawn);
-        statusUI.DisplayInfo(this);
-    }
+    public abstract void OnMouseEnter();
 
     public void OnMouseExit()
     {
