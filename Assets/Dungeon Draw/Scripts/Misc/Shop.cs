@@ -106,7 +106,7 @@ public class Shop : MonoBehaviour
         // Debug.Log(s);
         
         //This line was really only needed in my testing.
-        // CardDataBase.allCards.Clear();
+        CardDataBase.allCards.Clear();
         if ((CardDataBase.allCards.Count == 0)){CardDataBase.prePopulate();}
         if ((RelicDatabase.allRelics.Count == 0)){RelicDatabase.prePopulate();}
         //RelicDatabase.prePopulate();
