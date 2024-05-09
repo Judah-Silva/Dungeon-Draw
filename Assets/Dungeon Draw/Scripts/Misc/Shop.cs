@@ -87,6 +87,8 @@ public class Shop : MonoBehaviour
     public string shopFileName = "shop";
     private List<string> shopRows = new List<string>();
     private int cMax, rMax,  bMax; //Values to know where in the stack cards/relics/boosterpacks end || Set in the loadShopItems function
+
+    public TextMeshProUGUI goldText;
     void Start()
     {
         if (GameManager.Instance != null)
@@ -163,6 +165,11 @@ public class Shop : MonoBehaviour
          }
 
          //sceneRouter = GameManager.Instance.GetSceneRouter();
+    }
+
+    private void Update()
+    {
+        goldText.text = "Gold: " + PlayerStats.Coins;
     }
 
     public void CardPressed(int buttin)
