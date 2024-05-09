@@ -81,6 +81,11 @@ public class CardManager : MonoBehaviour
                 {
                     player.GetComponent<Animator>().SetTrigger("Attack");
                 }
+                else
+                {
+                    player.GetComponentInChildren<ParticleSystem>().Play();
+                    player.GetComponent<Player>().ShieldSFX();
+                }
             }
             else
             {

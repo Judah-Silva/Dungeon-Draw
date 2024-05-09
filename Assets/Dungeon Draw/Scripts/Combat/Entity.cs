@@ -92,6 +92,10 @@ public abstract class Entity : MonoBehaviour
             entityStatusEffectArray[0] = 0;
 
             Debug.Log($"{remainingDamage} damage has been dealt to {gameObject.name}");
+            if (gameObject.tag == "enemy")
+            {
+                gameObject.GetComponent<Enemy>().Animate();
+            }
             UpdateHealthBar();
         }
         else

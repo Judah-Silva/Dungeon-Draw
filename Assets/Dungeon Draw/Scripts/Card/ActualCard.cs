@@ -232,6 +232,8 @@ public class ActualCard : MonoBehaviour
         // Then updates the mana value
         manaCostText.text = manaCost.ToString();
 
+        updateCardSprite();
+
         // For both of the blocks, it wil first check if it exists, and if it does, then --- 
         // --- it will call the afformentioned block w/ the show block function
         if (condition[0] != 0)
@@ -245,7 +247,7 @@ public class ActualCard : MonoBehaviour
 
         if (condition[1] != 0)
         {
-            block2.text = blockArray[0].showBlock();
+            block2.text = blockArray[1].showBlock();
         }
         else
         {
@@ -254,6 +256,18 @@ public class ActualCard : MonoBehaviour
 
         updateTheBlockImages();
 
+    }
+
+    private void updateCardSprite()
+    {
+        // Updates the card sprite dependent on the card id
+
+        switch (cardID)
+        {
+            default:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite0");
+                break;
+        }
     }
 
     // Uses a separate function to update each condition individually
@@ -315,12 +329,13 @@ public class ActualCard : MonoBehaviour
     
     public void createCombinedCard(int rippedCardID)
     {
-        Debug.Log(rippedCardID);
-        Debug.Log(cardID);
+        Debug.Log("ripped card ID: " + rippedCardID);
+        Debug.Log("base card id: " + cardID);
         blockArray[1] = addBlock(rippedCardID);
         effectType[1][0] = blockArray[1].effectList[0].GetEffectType();
         effectVal[1][0] = blockArray[1].effectList[0].GetEffectVal();
         PlayerStats.Deck.Remove(cardID);
+        PlayerStats.Deck.Remove(rippedCardID);
         CardDataBase.allCards.Add(new List<int> {CardDataBase.allCards.Count, manaCost, cardVal, rarity, 2, 1,
             1, effectType[0][0], effectVal[0][0], 2, 1, effectType[1][0], effectVal[1][0]});  //TODO: Here is the problem, ive tested most other options
         
@@ -335,6 +350,7 @@ public class ActualCard : MonoBehaviour
         handController.AddCardToHand();
         handController.RemoveCard(this);
         CardDataBase.checkDataBase();
+        HandController.hand[HandController.hand.Count - 1].updateVisuals();
     }
 
     //This method will remove and extra NON-Glued cards

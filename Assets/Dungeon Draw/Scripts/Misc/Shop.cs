@@ -97,7 +97,7 @@ public class Shop : MonoBehaviour
         
         //Check for slimy glasses relic
         if (playerStats != null && playerStats.checkForRelic(11))
-            playerStats.UpdateHealth(PlayerStats.CurrentHealth+8);
+            playerStats.UpdateHealth(PlayerStats.CurrentHealth+6);
 
         // Debug.Log("Shop start called");
         //loadShopItemsFromText(); // Loads shopRows stack from shop.txt inside the resource folder and then populate shop
