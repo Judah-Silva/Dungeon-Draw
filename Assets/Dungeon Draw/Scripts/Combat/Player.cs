@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Entity
 {
@@ -11,11 +12,30 @@ public class Player : Entity
     public AudioClip dashAudio;
     public AudioClip shieldAudio;
     public AudioClip deathAudio;
+    public Slider manaBar;
     private AudioSource src;
+
+    private static Player _instance;
+
+    public static Player Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<Player>();
+            }
+
+            return _instance;
+        }
+
+        set => _instance = value;
+    }
 
     private void Start()
     {
         src = GetComponent<AudioSource>();
+        Instance = this;
     }
 
     private void Update()
@@ -39,6 +59,17 @@ public class Player : Entity
         statusUI = GameObject.Find("Status UI").GetComponent<StatusUI>();
         maxHP = PlayerStats.MaxHealth;
         currentHP = PlayerStats.CurrentHealth;
+    }
+
+    public void SetUpManaBar()
+    {
+        manaBar.maxValue = CardManager.Instance.maxMana;
+        manaBar.value = CardManager.Instance.getMana();
+    }
+
+    public void UpdateManaBar()
+    {
+        manaBar.value = CardManager.Instance.getMana();
     }
 
     public override IEnumerator Die()

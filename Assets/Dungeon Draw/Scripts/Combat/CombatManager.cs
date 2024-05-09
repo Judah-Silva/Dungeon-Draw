@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,6 +21,7 @@ public class CombatManager : MonoBehaviour
     public float tapeGain = 0.5f;
     
     private int _currentLevel = 0;
+    private List<int> _levelWeights = new List<int>();
     public bool isBoss = false; // made public to start boss level easier -- matthew
     
     private List<GameObject> enemies = new List<GameObject>();
@@ -131,6 +133,7 @@ public class CombatManager : MonoBehaviour
 
     public void SpawnWave()
     {
+        _currentLevel = _levelWeights[UnityEngine.Random.Range(0, _levelWeights.Count)];
         if (!isBoss)
         {
             foreach (GameObject prefab in levels[_currentLevel].enemies)
@@ -173,6 +176,14 @@ public class CombatManager : MonoBehaviour
             _enemyEntities.Add(obj.GetComponent<Entity>());
             _enemyScripts.Add(obj.GetComponent<Enemy>());
         }*/
+
+        for (int i = 0; i < levels.Count; i++)
+        {
+            for (int j = 0; j < levels[i].weight; j++)
+            {
+                _levelWeights.Add(i);
+            }
+        }
         
         _playerEntity.SetUp();
         SpawnWave();
@@ -247,7 +258,7 @@ public class CombatManager : MonoBehaviour
     private void CheckCards()
     {
         ClearHand();
-        if (_deck.deckSize == 0)
+        if (_deck.deckSize <= 0)
         {
             RefreshDeck();
         }

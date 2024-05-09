@@ -37,6 +37,9 @@ public class MusicManager : MonoBehaviour
                 case 6:
                     PlayCredits();
                     break;
+                case 7:
+                    PlayBattle();
+                    break;
             }
 
             if (currentIndex is >= 2 and <= 4 && currentScene is < 2 or > 4)

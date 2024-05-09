@@ -18,7 +18,7 @@ public class SceneRouter : MonoBehaviour
     public string gameOverScene = "GameOver";
     
     public void ToMap()
-    { 
+    {
         sceneFader.FadeTo(mapScene);
     }
 

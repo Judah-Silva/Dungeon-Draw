@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dungeon Draw/Scenes/Credits.unity
     guid: 4e974e7933663ec4e8574f932ba0fbf5
+  - enabled: 1
+    path: Assets/Dungeon Draw/Scenes/Boss Scene.unity
+    guid: a9975e087525c1549b7fcb4fa38f7aa3
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

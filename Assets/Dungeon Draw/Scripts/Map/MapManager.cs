@@ -66,19 +66,19 @@ public class MapManager : MonoBehaviour
             Vector3 spawnPos = new Vector3(startPos.x + iconSpacing, startPos.y, columnSpacing);
             int r = Random.Range(1, 100);
 
-            if (r >= 1 && r <= 65)
+            if (r >= 1 && r <= 45)
             {
                 _iconManager.CreateIcon(0, spawnPos);
             }
-            else if (r >= 66 && r <= 79)
+            else if (r >= 46 && r <= 70)
             {
                 _iconManager.CreateIcon(1, spawnPos);
             }
-            else if (r >= 80 && r <= 90)
+            else if (r >= 71 && r <= 81)
             {
                 _iconManager.CreateIcon(2, spawnPos);
             }
-            else if (r >= 91 && r <= 100)
+            else if (r >= 82 && r <= 100)
             {
                 _iconManager.CreateIcon(3, spawnPos);
             }
