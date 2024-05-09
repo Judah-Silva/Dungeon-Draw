@@ -17,6 +17,7 @@ public abstract class Entity : MonoBehaviour
 
     private int[] entityStatusEffectArray = new int[10];
 
+    public Slider grayHealthBar;
     public Slider redHealthBar;
     public Slider orangeHealthBar;
 
@@ -116,6 +117,7 @@ public abstract class Entity : MonoBehaviour
     public int giveShield(int givenShield)
     {
         entityStatusEffectArray[0] += givenShield - getFrail();
+        UpdateHealthBar();
         return entityStatusEffectArray[0];
     }
 
@@ -177,7 +179,9 @@ public abstract class Entity : MonoBehaviour
         if (redHealthBar is null) return;
         redHealthBar.value = currentHP;
         if (orangeHealthBar is null) return;
-        StartCoroutine(InterpolateHealth(prevHealth, currentHP));
+        StartCoroutine(InterpolateHealth(orangeHealthBar, prevHealth, currentHP));
+        if (grayHealthBar is null) return;
+        grayHealthBar.value = getShield();
     }
     
     public void SetUpHealthBars()
@@ -192,19 +196,25 @@ public abstract class Entity : MonoBehaviour
             orangeHealthBar.maxValue = maxHP;
             orangeHealthBar.value = currentHP;
         }
+        if (grayHealthBar is not null)
+        {
+            grayHealthBar.maxValue = maxHP;
+            grayHealthBar.value = 0;
+        }
     }
 
-    IEnumerator InterpolateHealth(float start, float end)
+    IEnumerator InterpolateHealth(Slider slider, float start, float end)
     {
         float elapsedTime = 0f;
         while (elapsedTime < .5f)
         {
             float newHealth = Mathf.Lerp(start, end, elapsedTime / .5f);
-            orangeHealthBar.value = newHealth;
+            slider.value = newHealth;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        orangeHealthBar.value = end;
+        slider.value = end;
+        prevHealth = currentHP;
     }
 
     public void OnMouseEnter()

@@ -146,7 +146,8 @@ public class Effect
                 dealWhirlWindSlash(origin, target);
                 break;
         }
-
+        origin.UpdateHealthBar();
+        target.UpdateHealthBar();
     }
 
 

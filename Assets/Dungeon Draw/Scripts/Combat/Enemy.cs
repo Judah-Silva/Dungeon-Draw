@@ -26,11 +26,36 @@ public class Enemy : Entity
         _blockList = new List<Block>();
         
         // Testing purposes
-        _blockList.Add(new Block().addEffect(0, 6));
-        _blockList.Add(new Block().addEffect(0, 6));
-        _blockList.Add(new Block().addEffect(1, 6));
-        _blockList.Add(new Block().addEffect(1, 6));
-        _blockList.Add(new Block().addEffect(0, 12));
+        switch (gameObject.name)
+        {
+            case "Goblin":
+                _blockList.Add(new Block().addEffect(0, 3));
+                _blockList.Add(new Block().addEffect(0, 3));
+                _blockList.Add(new Block().addEffect(1, 3));
+                break;
+            case "Watcher":
+                _blockList.Add(new Block().addEffect(0, 4));
+                _blockList.Add(new Block().addEffect(0, 4));
+                _blockList.Add(new Block().addEffect(1, 4));
+                _blockList.Add(new Block().addEffect(2, 4));
+                _blockList.Add(new Block().addEffect(3, 4));
+                break;
+            case "DarkKnight":
+                //_blockList.Add(new Block().addEffect(0, 5));
+                //_blockList.Add(new Block().addEffect(0, 5));
+                _blockList.Add(new Block().addEffect(1, 5));
+                _blockList.Add(new Block().addEffect(1, 5));
+                _blockList.Add(new Block().addEffect(1, 5));
+                break;
+            case "Dragon":
+                _blockList.Add(new Block().addEffect(0, 10));
+                _blockList.Add(new Block().addEffect(0, 15));
+                break;
+            default:
+                _blockList.Add(new Block().addEffect(0, 6));
+                _blockList.Add(new Block().addEffect(1, 6));
+                break;
+        }
     }
     
     public override void SetUp()
