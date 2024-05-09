@@ -93,7 +93,7 @@ public class MapManager : MonoBehaviour
 
     public void SpawnDisabled(Vector3 startPos)
     {
-        float columnSpacing = 5f;
+        float columnSpacing = 4f;
 
         for (int j = 0; j < ColIndex; j++)
         {

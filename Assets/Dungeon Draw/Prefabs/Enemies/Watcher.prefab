@@ -31,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.8, y: 1.8, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1463346255051975372}
   - {fileID: 8832980638746303947}
@@ -490,10 +490,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _particleSystem: {fileID: 2540276292793061010}
-  idleSprite: {fileID: 21300000, guid: f8e8fcc13548d43418100e649506ec15, type: 3}
-  attackSprite: {fileID: 21300000, guid: 0d9788860dd32a14686b35ab92d41222, type: 3}
-  hitSprite: {fileID: 21300000, guid: 4c4603023072e7042a78f502a31b1299, type: 3}
-  deathSprite: {fileID: 21300000, guid: 3c24749c31839234e811f2f095b3f854, type: 3}
+  idleSprite: {fileID: 21300000, guid: 9bc60f6c6c3b1624ab8f1b7f2a38d6ac, type: 3}
+  attackSprite: {fileID: 21300000, guid: d8b409e3947eb1d4ea2141f2cf9d5c11, type: 3}
+  hitSprite: {fileID: 21300000, guid: e5e455ee985678e4c9506f7e9febf58f, type: 3}
+  deathSprite: {fileID: 21300000, guid: 2023998af3590f74cae546a5e3f13a89, type: 3}
   moveDist: 1
   moveSpeed: 1
   isIdle: 1
