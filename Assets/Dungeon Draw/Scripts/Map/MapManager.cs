@@ -15,7 +15,7 @@ public class MapManager : MonoBehaviour
     public static int MaxColumns;
     public static int ColIndex;
     
-    public static float iconSpacing = 5f;
+    public static float iconSpacing = 4.5f;
 
     private IconManager _iconManager;
 
