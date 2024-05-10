@@ -19,6 +19,7 @@ public class Enemy : Entity
     public AudioClip shieldAudio;
     public AudioClip deathAudio;
     private AudioSource src;
+    public ParticleSystem hitParticles;
     
     private void Start()
     {
@@ -137,10 +138,14 @@ public class Enemy : Entity
         CombatManager.Instance.earnedGold += goldValue;
         if (enemyAnimator != null)
         {
+            hitParticles.transform.position = transform.position;
+            hitParticles.Play();
             enemyAnimator.DeathAnimation();
         }
         else
         {
+            hitParticles.transform.position = transform.position;
+            hitParticles.Play();
             bossAnimator.SetTrigger("Die");
         }
         
@@ -170,5 +175,10 @@ public class Enemy : Entity
 
     public override void OnMouseEnter() {
         statusUI.ActivateUI(this, new Vector3(transform.position.x, transform.position.y + 3f, transform.position.z));
+    }
+
+    public void PlayHitParticles()
+    {
+        hitParticles.Play();
     }
 }

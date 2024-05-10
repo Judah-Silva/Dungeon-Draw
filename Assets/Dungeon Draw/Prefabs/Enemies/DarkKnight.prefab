@@ -143,6 +143,7 @@ MonoBehaviour:
   attackAudio: {fileID: 8300000, guid: c2304874bbff4cf45b324b15f5aa5479, type: 3}
   shieldAudio: {fileID: 8300000, guid: e4e985c0d406daf4d9f832b0c8327c3d, type: 3}
   deathAudio: {fileID: 8300000, guid: 062d6f52247ed4747a59e8dca2ff808d, type: 3}
+  hitParticles: {fileID: 4046433854595510375, guid: 757a41887f988cf41bd961e3ecf32265, type: 3}
 --- !u!82 &6751920447342413672
 AudioSource:
   m_ObjectHideFlags: 0

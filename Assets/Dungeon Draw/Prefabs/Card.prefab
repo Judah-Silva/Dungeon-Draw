@@ -951,6 +951,7 @@ MonoBehaviour:
   originalPosition: {x: 0, y: 0, z: 0}
   isShopItem: 0
   handController: {fileID: 0}
+  selectAudio: {fileID: 8300000, guid: 8b64cb2130df5644eb298df351fd0170, type: 3}
   ripAudio: {fileID: 8300000, guid: 245cb1073b545c741b88f8ae9384b21e, type: 3}
   combineAudio: {fileID: 8300000, guid: c2304874bbff4cf45b324b15f5aa5479, type: 3}
   errorAudio: {fileID: 8300000, guid: c0d5b55dfd2211643922bfcaa849f2a4, type: 3}

@@ -95,10 +95,4 @@ public class EnemyAnimator : MonoBehaviour
         _particleSystem.Play();
         // StartCoroutine(ShieldParticles());
     }
-
-    IEnumerator ShieldParticles()
-    {
-        _particleSystem.Play();
-        yield return null;
-    }
 }

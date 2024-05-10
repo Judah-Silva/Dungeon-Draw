@@ -593,7 +593,7 @@ GameObject:
   - component: {fileID: 2741777495993578953}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -743,6 +743,7 @@ MonoBehaviour:
   attackAudio: {fileID: 8300000, guid: c2304874bbff4cf45b324b15f5aa5479, type: 3}
   shieldAudio: {fileID: 8300000, guid: e4e985c0d406daf4d9f832b0c8327c3d, type: 3}
   deathAudio: {fileID: 8300000, guid: 062d6f52247ed4747a59e8dca2ff808d, type: 3}
+  hitParticles: {fileID: 3340077414001293891}
 --- !u!82 &2741777495993578953
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1412,6 +1413,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 757a41887f988cf41bd961e3ecf32265, type: 3}
+--- !u!198 &3340077414001293891 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4046433854595510375, guid: 757a41887f988cf41bd961e3ecf32265, type: 3}
+  m_PrefabInstance: {fileID: 1620597199121254948}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4164099565429136649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3437476796035929901, guid: 757a41887f988cf41bd961e3ecf32265, type: 3}
