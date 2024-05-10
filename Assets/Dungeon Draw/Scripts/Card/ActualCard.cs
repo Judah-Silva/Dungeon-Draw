@@ -64,6 +64,7 @@ public class ActualCard : MonoBehaviour
     public HandController handController;
 
     [Header("SFX")] 
+    public AudioClip selectAudio;
     public AudioClip ripAudio;
     public AudioClip combineAudio;
     public AudioClip errorAudio;
@@ -360,6 +361,8 @@ public class ActualCard : MonoBehaviour
         isRipped = false;
         ActualCard rippedCard = handController.GetCardFromHand(rippedCardID);
         Debug.Log("New Card created");
+        src.clip = combineAudio;
+        src.Play();
         
         // We destroy this card as we will be creating a new card to take its place
         PlayerStats.Deck.Add(CardDataBase.allCards.Count - 1);
@@ -399,6 +402,8 @@ public class ActualCard : MonoBehaviour
         isRipped = false;
         ActualCard rippedCard = handController.GetCardFromHand(rippedCardID);
         Debug.Log("New Card created");
+        src.clip = combineAudio;
+        src.Play();
 
         // We destroy this card as we will be creating a new card to take its place
         PlayerStats.Deck.Add(CardDataBase.allCards.Count - 1);
@@ -495,6 +500,8 @@ public class ActualCard : MonoBehaviour
 
     public void OnMouseDown()
     {
+        src.clip = selectAudio;
+        src.Play();
         if (!isShopItem)
         {
             cardManager.SetCard(this);

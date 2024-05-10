@@ -210,7 +210,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 12.5}
   m_SizeDelta: {x: 700, y: 260}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285950556
@@ -235,7 +235,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "- Click a card to select it.\n- Select an enemy to attack.\n- Select yourself
     to buff. \n- Right-click a card to rip off its effect\n- Left-click a new card
-    to tape it on or right-click again to glue it"
+    to tape it on or right-click again to glue it\n- Backspace to deselect the card"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
