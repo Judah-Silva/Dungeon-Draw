@@ -263,6 +263,9 @@ public class ActualCard : MonoBehaviour
         // Then updates the mana value
         manaCostText.text = manaCost.ToString();
 
+        // Updates the image on the card
+        updateCardSprite();
+
         // For both of the blocks, it wil first check if it exists, and if it does, then --- 
         // --- it will call the afformentioned block w/ the show block function
         if (condition[0] != 0)
@@ -287,6 +290,108 @@ public class ActualCard : MonoBehaviour
 
     }
 
+    private void updateCardSprite()
+    {
+        // Updates the card sprite dependent on the card id
+
+        switch (cardID)
+        {
+            case 1:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 2:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 3:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 4:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 5:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite4");
+                break;
+            case 6:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite4");
+                break;
+            case 7:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite2");
+                break;
+            case 8:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite2");
+                break;
+            case 9:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite3");
+                break;
+            case 10:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite4");
+                break;
+            case 11:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 12:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 13:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 14:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 15:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 16:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 17:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 18:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite3");
+                break;
+            case 19:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite3");
+                break;
+            case 20:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 21:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 22:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 23:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite4");
+                break;
+            case 24:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite1");
+                break;
+            case 25:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite2");
+                break;
+            case 26:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite2");
+                break;
+            case 27:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 28:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite2");
+                break;
+            case 29:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite5");
+                break;
+            case 30:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite3");
+                break;
+
+            default:
+                cardImageBox.GetComponent<RawImage>().texture = Resources.Load<Texture2D>("CardSprites/cardSprite0");
+                break;
+        }
+    }
     // Uses a separate function to update each condition individually
     private void updateTheBlockImages()
     {
